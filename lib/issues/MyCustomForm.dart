@@ -204,9 +204,9 @@ class MyCustomFormState extends State<MyCustomForm> {
     _controller.complete(controller);
     setState(() {
       _markers.add(Marker(
-        markerId: MarkerId(LatLng(l3,l4).toString()),
+        markerId: MarkerId(LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong).toString()),
 
-        position: LatLng(l3,l4),
+        position: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
         icon: BitmapDescriptor.defaultMarker,
       ));
     });
@@ -455,7 +455,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     onMapCreated: _onMapCreated,
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                      target: LatLng(l3,l4),
+                      target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
 
                       zoom: 11.0,
                     ),
