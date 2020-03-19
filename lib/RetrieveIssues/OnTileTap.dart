@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 final databaseReference = Firestore.instance;
@@ -34,6 +37,10 @@ class _OnTileTapState extends State<OnTileTap> {
   bool isResolved;
   bool showSpinner = false;
   List<String> images = [];
+  double lat,long;
+  Completer<GoogleMapController> _controller = Completer();
+  Set<Marker> _markers = {};
+  MapType _currentMapType = MapType.normal;
 
   void initState() {
     super.initState();
@@ -49,6 +56,8 @@ class _OnTileTapState extends State<OnTileTap> {
     img1 == "" || img1 == null ? print("") : images.add(img1);
     img2 == "" || img2 == null ? print("") : images.add(img2);
     dat = widget.grievance.data["Created"].toDate().toString().substring(0, 16);
+    lat=widget.grievance.data["Location"].latitude;
+    long=widget.grievance.data["Location"].longitude;
     isResolved = widget.grievance.data["Resolved"];
   }
 
@@ -85,7 +94,17 @@ class _OnTileTapState extends State<OnTileTap> {
     print(e);
   }
   }
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+    setState(() {
+      _markers.add(Marker(
+        markerId: MarkerId(LatLng(lat,long).toString()),
 
+        position: LatLng(lat,long),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +138,7 @@ class _OnTileTapState extends State<OnTileTap> {
                     )
                   : CarouselSlider(
                       height: 250,
-                      viewportFraction: 0.96,
+                      viewportFraction: 0.90,
                       autoPlay: false,
                       onPageChanged: (index) {
                         setState(() {
@@ -213,6 +232,28 @@ class _OnTileTapState extends State<OnTileTap> {
                         dat,
                         style: TextStyle(height: 1.2),
                       ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 15,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.black38,
+                        width: 1,
+                      ),
+                    ),
+                    child: GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      myLocationEnabled: true,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(lat,long),
+
+                        zoom: 11.0,
+                      ),
+                      mapType: _currentMapType,
+                      markers: _markers,
                     ),
                   ),
                   Card(

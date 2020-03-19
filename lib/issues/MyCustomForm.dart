@@ -49,11 +49,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   double l3= DragMarkerMap().whichlat;
   double l4= DragMarkerMap().whichlong;
   Completer<GoogleMapController> _controller = Completer();
-
-  //static const LatLng _center = const LatLng(l3,l4);
   Set<Marker> _markers = {};
-
-  //LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
 
 
