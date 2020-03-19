@@ -99,6 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context){
+                          return LoginScreen();
+                        }
+                    ));
                   }
                 },
               ),

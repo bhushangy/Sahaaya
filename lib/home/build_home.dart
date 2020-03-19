@@ -87,14 +87,18 @@ class _buildhomeState extends State<buildhome> {
               ),
               Expanded(
                 flex: 3,
-                child: Column(children: <Widget>[
-                  Text1('Member Of Legislative Assembly(MLA)'),
-                  Text2(mlaname),
-                  Text1('Member Of Parliament(MP)'),
-                  Text2(mpname),
-                  Text1('MP Constituency'),
-                  Text2(mparea),
-                ]),
+                child: SingleChildScrollView(
+                  child: SafeArea(
+                    child: Column(children: <Widget>[
+                      Text1('Member Of Legislative Assembly(MLA)'),
+                      Text2(mlaname),
+                      Text1('Member Of Parliament(MP)'),
+                      Text2(mpname),
+                      Text1('MP Constituency'),
+                      Text2(mparea),
+                    ]),
+                  ),
+                ),
               )
             ],
           ),

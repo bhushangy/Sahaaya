@@ -143,6 +143,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       showSpinner = false;
                     });
                     print(e);
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context){
+                          return RegistrationScreen();
+                        }
+                    ));
                   }
                 },
               ),

@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +15,8 @@ import 'package:path/path.dart' as Path;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
 import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -40,6 +44,19 @@ class MyCustomFormState extends State<MyCustomForm> {
   String _uploadedFileURL1 = '';
   String _uploadedFileURL2 = '';
   bool showSpinner = false;
+  String l1=DragMarkerMap().whichlat.toString();
+  String l2=DragMarkerMap().whichlong.toString();
+  double l3= DragMarkerMap().whichlat;
+  double l4= DragMarkerMap().whichlong;
+  Completer<GoogleMapController> _controller = Completer();
+
+  //static const LatLng _center = const LatLng(l3,l4);
+  Set<Marker> _markers = {};
+
+  //LatLng _lastMapPosition = _center;
+  MapType _currentMapType = MapType.normal;
+
+
 
   void initState() {
     super.initState();
@@ -182,6 +199,17 @@ class MyCustomFormState extends State<MyCustomForm> {
         );
       },
     );
+  }
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+    setState(() {
+      _markers.add(Marker(
+        markerId: MarkerId(LatLng(l3,l4).toString()),
+
+        position: LatLng(l3,l4),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+    });
   }
 
   @override
@@ -401,8 +429,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                         width: 1,
                       ),
                     ),
-                    child: (DragMarkerMap().whichlat == null ||
-                            DragMarkerMap().whichlong == null)
+                    child: (DragMarkerMap().whichlat == null &&
+                        DragMarkerMap().whichlong == null)
+
                         ? FlatButton(
                             child: Icon(
                               Icons.location_on,
@@ -413,15 +442,26 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   MaterialPageRoute(builder: (context) {
                                 return DragMarkerMap();
                               }));
-                            })
-                        : Center(
-                            child: Text(
-                              "Latitude : \n\nLongitude :",
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                    //child: DragMarkerMap(),
+                            }):
+//                        Center(
+//
+//                            child: Text(
+//                              "Latitude : $l1\n\nLongitude : $l2",
+//                              style: TextStyle(
+//                                  fontSize: 25, fontWeight: FontWeight.bold),
+//                            ),
+//                          ),
+                  GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    myLocationEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(l3,l4),
+
+                      zoom: 11.0,
+                    ),
+                    mapType: _currentMapType,
+                    markers: _markers,
+                  )
                   ),
                   SizedBox(
                     height: 50,
@@ -449,15 +489,20 @@ class MyCustomFormState extends State<MyCustomForm> {
                             DragMarkerMap().whichlong == null)
                           _showDialog("Location Not Selected",
                               "Please mark the location");
+                        else if (myController.text=="")
+                          _showDialog("Description Empty",
+                              "Please type the Description");
                         else {
                           createRecord();
-                          setState(() {
-                            DragMarkerMap().whichlat = null;
-                            DragMarkerMap().whichlong = null;
-                          });
+
                           Navigator.pop(context);
                           _showDialog("Grievance Status",
                               "Grievance Submitted Successfully");
+
+                            DragMarkerMap().whichlat=null;
+                            DragMarkerMap().whichlong=null;
+
+
                         }
                       }),
                 ]),
