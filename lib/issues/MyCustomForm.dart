@@ -33,7 +33,7 @@ class MyCustomForm extends StatefulWidget {
 
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  File _image, _image2, _image3, _image4;
+  File _image, _image2, _image3, _image4,imageu1,imageu2;
   final _auth = FirebaseAuth.instance;
   String description;
   final myController = TextEditingController();
@@ -129,10 +129,11 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   Future uploadFile(File image) async {
+    imageu1=image;
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
-        .child('images/${Path.basename(image.path)}}');
-    StorageUploadTask uploadTask = storageReference.putFile(image);
+        .child('images/${Path.basename(imageu1.path)}}');
+    StorageUploadTask uploadTask = storageReference.putFile(imageu1);
     await uploadTask.onComplete;
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
@@ -143,10 +144,11 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   Future uploadFile2(File image2) async {
+    imageu2=image2;
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
-        .child('images/${Path.basename(image2.path)}}');
-    StorageUploadTask uploadTask = storageReference.putFile(image2);
+        .child('images/${Path.basename(imageu2.path)}}');
+    StorageUploadTask uploadTask = storageReference.putFile(imageu2);
     await uploadTask.onComplete;
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
@@ -439,16 +441,18 @@ class MyCustomFormState extends State<MyCustomForm> {
                         height: 50,
                       ),
                       onTap: () {
-                        if (_image == null &&
-                            _image2 == null &&
-                            _image3 == null &&
-                            _image4 == null)
+                        if (imageu1 == null &&
+                            imageu2 == null
+                            )
                           _showDialog(
                               "No Image Uploaded", "Upload atleast 1 Image ");
                         else if (DragMarkerMap().whichlat == null ||
                             DragMarkerMap().whichlong == null)
                           _showDialog("Location Not Selected",
                               "Please mark the location");
+                        else if (myController.text=="")
+                          _showDialog("Description Empty",
+                              "Please type the description");
                         else {
                           createRecord();
                           setState(() {

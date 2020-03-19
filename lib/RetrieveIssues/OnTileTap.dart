@@ -119,7 +119,7 @@ class _OnTileTapState extends State<OnTileTap> {
                     )
                   : CarouselSlider(
                       height: 250,
-                      viewportFraction: 0.96,
+                      viewportFraction: 0.90,
                       autoPlay: false,
                       onPageChanged: (index) {
                         setState(() {

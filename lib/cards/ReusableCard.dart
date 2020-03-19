@@ -25,51 +25,55 @@ class ReusableCard extends StatelessWidget {
       ),
       height: 200.0,
       width: 170.0,
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            '\n$value\n',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              RoundIconButton(
-                icon: FontAwesomeIcons.plus,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MyCustomForm(value);
-                  }));
-                },
+              Text(
+                '\n$value\n',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(
-                width: 20.0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RoundIconButton(
+                    icon: FontAwesomeIcons.plus,
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return MyCustomForm(value);
+                      }));
+                    },
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  RoundIconButton(
+                    icon: FontAwesomeIcons.history,
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return RetrieveIssues(value);
+                      }));
+                    },
+                  ),
+                ],
               ),
-              RoundIconButton(
-                icon: FontAwesomeIcons.history,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return RetrieveIssues(value);
-                  }));
-                },
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('\nRAISE'),
+                  SizedBox(
+                    width: 40.0,
+                  ),
+                  Text('\nSTATS'),
+                ],
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('\nRAISE'),
-              SizedBox(
-                width: 40.0,
-              ),
-              Text('\nSTATS'),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
