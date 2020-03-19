@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:voter_grievance_redressal/cards/ReusableCard.dart';
+
+class raise extends StatefulWidget {
+  @override
+  _raiseState createState() => _raiseState();
+}
+
+class _raiseState extends State<raise> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Raise A New Issue"),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ReusableCard('BWSSB'),
+                  ),
+                  Expanded(
+                    child: ReusableCard('BESCOM'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ReusableCard('HEALTH'),
+                  ),
+                  Expanded(
+                    child: ReusableCard('ROADS'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ReusableCard('SANITATION'),
+                  ),
+                  Expanded(
+                    child: ReusableCard('CORRUPTION'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ));
+  }
+}
+

@@ -1,0 +1,141 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+
+
+class DragMarkerMap extends StatefulWidget {
+  double whichlat = _DragMarkerMapState.lat;
+  double whichlong=_DragMarkerMapState.long;
+
+  @override
+  _DragMarkerMapState createState() => _DragMarkerMapState();
+}
+
+class _DragMarkerMapState extends State<DragMarkerMap> {
+  Completer<GoogleMapController> _controller = Completer();
+
+  static const LatLng _center = const LatLng(12.9716, 77.5946);
+
+  Set<Marker> _markers = {};
+
+  LatLng _lastMapPosition = _center;
+
+
+  MapType _currentMapType = MapType.normal;
+  static double lat,long;
+  Position pos;
+  Widget _child;
+
+//void initState(){
+//  getCurrentLocation();
+//
+//  super.initState();
+//}
+//void getCurrentLocation() async{
+//  Position res =await Geolocator().getCurrentPosition();
+//  setState(() {
+//    pos=res;
+//  });
+//
+//}
+
+  void _onAddMarkerButtonPressed() {
+    setState(() {
+      _markers.add(Marker(
+        onDragEnd: ((value){
+          lat =value.latitude;
+          long=value.longitude;
+
+
+        }),
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId(_lastMapPosition.toString()),
+        draggable: true,
+        position: _lastMapPosition,
+        infoWindow: InfoWindow(
+          title: 'Marker',
+          //snippet: 'Custom Place',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+
+    });
+  }
+
+  void _onCameraMove(CameraPosition position) {
+    _lastMapPosition = position.target;
+    CameraPosition newPos = CameraPosition(
+        target: position.target
+    );
+    Marker marker = _markers.first;
+
+    setState((){
+      _markers.first.copyWith(
+          positionParam: newPos.target
+      );
+    });
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+
+        body: Stack(
+          children: <Widget>[
+            GoogleMap(
+
+              onMapCreated: _onMapCreated,
+              myLocationEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: _center,
+//               target: LatLng(
+//                 pos.latitude,pos.longitude
+//               ),
+                zoom: 11.0,
+              ),
+              mapType: _currentMapType,
+              markers: _markers,
+              onCameraMove: _onCameraMove,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Column(
+                  children: <Widget> [
+                    SizedBox(
+                      height: 550,
+                    )
+                    ,
+                    FloatingActionButton(
+                      heroTag: "btn2",
+                      onPressed: _onAddMarkerButtonPressed,
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.deepOrange,
+                      child: const Icon(Icons.add_location, size: 36.0),
+                    ),
+                    SizedBox(height: 16.0),
+                    FloatingActionButton(
+                      heroTag: "btn1",
+                      onPressed: (){Navigator.pop(context);},
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.green,
+                      child: const Icon(Icons.check, size: 36.0),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

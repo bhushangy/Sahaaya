@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "3894403305",
+    "firebase_url": "https://votergrievances-7d9b2.firebaseio.com",
+    "project_id": "votergrievances-7d9b2",
+    "storage_bucket": "votergrievances-7d9b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3894403305:android:36d8555532c1d767741078",
+        "android_client_info": {
+          "package_name": "com.miniproject.voter_grievance_redressal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3894403305-a6kdb25v589evs38b79lepovii28rush.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD-kwTFgl5z_GVMIc4lOTitcYmwGl8mVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3894403305-a6kdb25v589evs38b79lepovii28rush.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

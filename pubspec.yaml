@@ -1,0 +1,50 @@
+name: voter_grievance_redressal
+description: A new flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^0.1.2
+  connectivity: ^0.4.6+2
+  rflutter_alert: ^1.0.3
+  flutter_svg: ^0.17.1
+  flutter_swiper: ^1.1.6
+  font_awesome_flutter: ^8.4.0
+  google_maps_flutter: ^0.5.19
+  image_picker:
+  firebase_core: ^0.4.4+2
+  firebase_auth: ^0.15.5+2
+  cloud_firestore: ^0.13.4
+  modal_progress_hud: ^0.1.3
+  firebase_storage:
+  geolocation:
+  flutter_map:
+  geolocator:
+  flutter_spinkit:
+  carousel_slider: ^1.4.1
+  provider: ^4.0.4
+
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
