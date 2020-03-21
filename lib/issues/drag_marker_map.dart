@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 class DragMarkerMap extends StatefulWidget {
@@ -14,6 +16,7 @@ class DragMarkerMap extends StatefulWidget {
 
 class _DragMarkerMapState extends State<DragMarkerMap> {
   Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController _controller1;
 
   static const LatLng _center = const LatLng(12.9716, 77.5946);
 
@@ -26,22 +29,19 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   static double lat,long;
   Position pos;
   Widget _child;
+  Position _currentPosition;
 
 //void initState(){
-//  getCurrentLocation();
+//  _getCurrentLocation();
 //
 //  super.initState();
 //}
-//void getCurrentLocation() async{
-//  Position res =await Geolocator().getCurrentPosition();
-//  setState(() {
-//    pos=res;
-//  });
-//
-//}
+  //this above method will position a marker when map is opened in the beginning
+
 
   void _onAddMarkerButtonPressed() {
     setState(() {
+
       _markers.add(Marker(
         onDragEnd: ((value){
           lat =value.latitude;
@@ -80,6 +80,38 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
+  _getCurrentLocation() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        lat=_currentPosition.latitude;
+        long=_currentPosition.longitude;
+        _markers.add(Marker(
+          onDragEnd: ((value){
+            lat =value.latitude;
+            long=value.longitude;
+
+
+          }),
+          // This marker id can be anything that uniquely identifies each marker.
+          markerId: MarkerId(LatLng(_currentPosition.latitude,_currentPosition.longitude).toString()),
+          draggable: true,
+          position: LatLng(_currentPosition.latitude,_currentPosition.longitude),
+          infoWindow: InfoWindow(
+            title: 'Marker',
+            //snippet: 'Custom Place',
+          ),
+          icon: BitmapDescriptor.defaultMarker,
+        ));
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +142,22 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                 child: Column(
                   children: <Widget> [
                     SizedBox(
-                      height: 550,
+                      height: 480,
                     )
                     ,
+                    FloatingActionButton(
+                      heroTag: "btn3",
+                      onPressed: _getCurrentLocation,
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.black,
+                      child: const Icon(Icons.my_location, size: 36.0),
+                    ),
+                    SizedBox(height: 16.0),
                     FloatingActionButton(
                       heroTag: "btn2",
                       onPressed: _onAddMarkerButtonPressed,
                       materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.deepOrange,
+                      backgroundColor: Colors.blue,
                       child: const Icon(Icons.add_location, size: 36.0),
                     ),
                     SizedBox(height: 16.0),

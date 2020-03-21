@@ -44,8 +44,9 @@ class MyCustomFormState extends State<MyCustomForm> {
   String _uploadedFileURL1 = '';
   String _uploadedFileURL2 = '';
   bool showSpinner = false;
-  String l1=DragMarkerMap().whichlat.toString();
-  String l2=DragMarkerMap().whichlong.toString();
+  DragMarkerMap obj=new DragMarkerMap();
+//  String l1=DragMarkerMap().whichlat.toString();
+//  String l2=DragMarkerMap().whichlong.toString();
   double l3= DragMarkerMap().whichlat;
   double l4= DragMarkerMap().whichlong;
   Completer<GoogleMapController> _controller = Completer();
@@ -62,6 +63,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
+    //obj.dispose();
     super.dispose();
   }
 
