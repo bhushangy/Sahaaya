@@ -441,24 +441,25 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 return DragMarkerMap();
                               }));
                             }):
-//                        Center(
-//
-//                            child: Text(
-//                              "Latitude : $l1\n\nLongitude : $l2",
-//                              style: TextStyle(
-//                                  fontSize: 25, fontWeight: FontWeight.bold),
-//                            ),
-//                          ),
-                  GoogleMap(
-                    onMapCreated: _onMapCreated,
-                    myLocationEnabled: true,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
 
-                      zoom: 11.0,
+                  GestureDetector(
+                    child: GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      myLocationEnabled: true,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
+
+                        zoom: 11.0,
+                      ),
+                      mapType: _currentMapType,
+                      markers: _markers,
                     ),
-                    mapType: _currentMapType,
-                    markers: _markers,
+                    onTap: () {
+                      Navigator.push((context), MaterialPageRoute(builder: (context)
+                      {
+                        return DragMarkerMap();
+                      }));
+                    },
                   )
                   ),
                   SizedBox(
