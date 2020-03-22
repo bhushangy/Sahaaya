@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -201,9 +202,17 @@ class MyCustomFormState extends State<MyCustomForm> {
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
     setState(() {
-      _markers.add(Marker(
-        markerId: MarkerId(LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong).toString()),
 
+      _markers.add(Marker(
+        onDragEnd: ((value){
+          DragMarkerMap().whichlat =value.latitude;
+          DragMarkerMap().whichlong=value.longitude;
+
+
+
+        }),
+        markerId: MarkerId(LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong).toString()),
+        draggable:true,
         position: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
         icon: BitmapDescriptor.defaultMarker,
       ));
@@ -417,51 +426,57 @@ class MyCustomFormState extends State<MyCustomForm> {
                   SizedBox(
                     height: 25,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 20,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.black38,
-                        width: 1,
-                      ),
-                    ),
-                    child: (DragMarkerMap().whichlat == null &&
-                        DragMarkerMap().whichlong == null)
-
-                        ? FlatButton(
-                            child: Icon(
-                              Icons.location_on,
-                              size: 75,
-                            ),
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return DragMarkerMap();
-                              }));
-                            }):
-
                   GestureDetector(
-                    child: GoogleMap(
-                      onMapCreated: _onMapCreated,
-                      myLocationEnabled: true,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
-
-                        zoom: 11.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 20,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.black38,
+                          width: 1,
+                        ),
                       ),
-                      mapType: _currentMapType,
-                      markers: _markers,
+                      child: (DragMarkerMap().whichlat == null &&
+                          DragMarkerMap().whichlong == null)
+
+                          ? FlatButton(
+                              child: Icon(
+                                Icons.location_on,
+                                size: 75,
+                              ),
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return DragMarkerMap();
+                                }));
+                              }):
+
+                        GoogleMap(
+                          onMapCreated: _onMapCreated,
+                          myLocationEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
+
+                            zoom: 11.0,
+                          ),
+                          mapType: _currentMapType,
+                          markers: _markers,
+                        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                          new Factory<OneSequenceGestureRecognizer>(() => new EagerGestureRecognizer(),),
+                        ].toSet(),
+                        ),
+
+
+
+
                     ),
                     onTap: () {
-                      Navigator.push((context), MaterialPageRoute(builder: (context)
-                      {
-                        return DragMarkerMap();
-                      }));
-                    },
-                  )
-                  ),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return DragMarkerMap();
+                          }));
+                    }),
                   SizedBox(
                     height: 50,
                   ),
