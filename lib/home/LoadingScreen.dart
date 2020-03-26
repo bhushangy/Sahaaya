@@ -6,7 +6,6 @@ import 'dart:io';
 import 'FactsScreen.dart';
 
 
-
 class LoadingScreen extends StatefulWidget {
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -16,8 +15,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(const Duration(milliseconds: 1250), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       getInternetData();
     });
 
