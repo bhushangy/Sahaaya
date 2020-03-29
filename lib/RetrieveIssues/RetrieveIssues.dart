@@ -18,6 +18,9 @@ class RetrieveIssues extends StatefulWidget {
 }
 
 class _RetrieveIssuesState extends State<RetrieveIssues> {
+
+
+
   void initState() {
     super.initState();
   }
@@ -79,11 +82,11 @@ class GrievanceStream extends StatelessWidget {
           }
           return grievances.length == 1
               ? Padding(
-                padding: const EdgeInsets.only(top:280.0),
-                child: Center(
+                  padding: const EdgeInsets.only(top: 280.0),
+                  child: Center(
                     child: Text('No Grievances Submitted....'),
                   ),
-              )
+                )
               : Expanded(
                   child: ListView(
                     children: grievanceTiles,
@@ -98,6 +101,31 @@ class GrievanceTiles extends StatelessWidget {
   String email;
 
   GrievanceTiles({this.grievance, this.email});
+  List<DocumentSnapshot> lis = [];
+
+  void deleteRecordFromConstituencyCollec() async {
+    try {
+      lis = (await databaseReference
+          .collection(grievance.data['Constituency'])
+          .document(
+          grievance.data["Category"].toString().toUpperCase() + "Complaints")
+          .collection("Complaints")
+          .where("RefId", isEqualTo: grievance.data['RefId'])
+          .getDocuments()).documents;
+
+      for (var i = 0; i < lis.length; i++) {
+        await databaseReference
+            .collection(grievance.data['Constituency'])
+            .document(
+            grievance.data["Category"].toString().toUpperCase() + "Complaints")
+            .collection("Complaints").document(lis[i].documentID).delete();
+      }
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
 
   void deleteRecord() async {
     try {
@@ -190,6 +218,7 @@ class GrievanceTiles extends StatelessWidget {
                   child: OutlineButton(
                     onPressed: () {
                       deleteRecord();
+                      deleteRecordFromConstituencyCollec();
                     },
                     child: Text("Delete"),
                     borderSide: BorderSide(color: Colors.redAccent),

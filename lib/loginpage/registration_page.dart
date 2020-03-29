@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voter_grievance_redressal/components/rounded_button.dart';
+import 'package:voter_grievance_redressal/home/build_home.dart';
 import 'package:voter_grievance_redressal/loginpage/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
@@ -47,6 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         'Image1': '',
         'Image2': '',
         'Created': '',
+        'RefId':'',
         'Location':GeoPoint(0.0, 0.0),
         'Resolved':false
       });

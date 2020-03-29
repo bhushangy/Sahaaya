@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,9 +16,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
-import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+
 
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -53,7 +53,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   MapType _currentMapType = MapType.normal;
-
+  Random r = new Random();
+  String Refid;
 
 
   void initState() {
@@ -121,7 +122,7 @@ class MyCustomFormState extends State<MyCustomForm> {
       DragMarkerMap ob = new DragMarkerMap();
       bool flag;
       ob.whichlat == null || ob.whichlong == null ? flag = false : flag = true;
-
+      Refid = buildhome.whichConstituency.toUpperCase().substring(0,3)+widget.category+r.nextInt(10000).toString();
       await databaseReference
           .collection(loggedInUser.email)
           .document(widget.category.toUpperCase())
@@ -134,11 +135,32 @@ class MyCustomFormState extends State<MyCustomForm> {
         'Image1': _uploadedFileURL1,
         'Image2': _uploadedFileURL2,
         'Created': FieldValue.serverTimestamp(),
+        'RefId':Refid,
         'Location': flag == true
             ? GeoPoint(DragMarkerMap().whichlat, DragMarkerMap().whichlong)
             : GeoPoint(0, 0),
         'Resolved': false
       });
+
+      await databaseReference
+          .collection(buildhome.whichConstituency.toUpperCase()).document(widget.category.toUpperCase()+"Complaints").collection("Complaints").document().setData(
+        {
+          'email':loggedInUser.email,
+          'phone':'',
+          'Constituency': buildhome.whichConstituency.toUpperCase(),
+          'Category': widget.category,
+          'Description': myController.text,
+          'Image1': _uploadedFileURL1,
+          'Image2': _uploadedFileURL2,
+          'Created': FieldValue.serverTimestamp(),
+          'RefId':Refid,
+          'Location': flag == true
+              ? GeoPoint(DragMarkerMap().whichlat, DragMarkerMap().whichlong)
+              : GeoPoint(0, 0),
+          'Resolved': false
+        }
+      );
+
     } catch (e) {
       print(e);
     }
