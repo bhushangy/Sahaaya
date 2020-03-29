@@ -106,19 +106,20 @@ class GrievanceTiles extends StatelessWidget {
   void deleteRecordFromConstituencyCollec() async {
     try {
       lis = (await databaseReference
-          .collection(grievance.data['Constituency'])
+          .collection("Constituencies")
           .document(
-          grievance.data["Category"].toString().toUpperCase() + "Complaints")
-          .collection("Complaints")
+          grievance.data["Constituency"].toString().toUpperCase())
+          .collection(grievance.data["Category"].toString().toUpperCase()+"Complaints")
           .where("RefId", isEqualTo: grievance.data['RefId'])
           .getDocuments()).documents;
 
       for (var i = 0; i < lis.length; i++) {
-        await databaseReference
-            .collection(grievance.data['Constituency'])
+        await await databaseReference
+            .collection("Constituencies")
             .document(
-            grievance.data["Category"].toString().toUpperCase() + "Complaints")
-            .collection("Complaints").document(lis[i].documentID).delete();
+            grievance.data["Constituency"].toString().toUpperCase())
+            .collection(grievance.data["Category"].toString().toUpperCase()+"Complaints").
+            document(lis[i].documentID).delete();
       }
     }
     catch(e){

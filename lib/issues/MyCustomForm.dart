@@ -143,7 +143,7 @@ class MyCustomFormState extends State<MyCustomForm> {
       });
 
       await databaseReference
-          .collection(buildhome.whichConstituency.toUpperCase()).document(widget.category.toUpperCase()+"Complaints").collection("Complaints").document().setData(
+          .collection("Constituencies").document(buildhome.whichConstituency.toUpperCase()).collection(widget.category.toUpperCase()+"Complaints").document().setData(
         {
           'email':loggedInUser.email,
           'phone':'',
