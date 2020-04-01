@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:voter_grievance_redressal/home/build_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -43,6 +43,9 @@ class _OnTileTapState extends State<OnTileTap> {
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   MapType _currentMapType = MapType.normal;
+  DocumentSnapshot doc;
+  var nres,res,totalres,ratio;
+
 
   void initState() {
     super.initState();
@@ -88,13 +91,50 @@ class _OnTileTapState extends State<OnTileTap> {
         .document(widget.grievance.documentID).updateData({
       "Resolved":isResolved
     });
-    setState(() {
-      showSpinner = false;
-    });
 
   }catch(e){
     print(e);
   }
+  }
+
+  void statsUpdate(bool val) async{
+    try{
+      doc = await databaseReference
+          .collection("Constituencies").document(constituency.toUpperCase()).collection('Stats').document('Numbers').get();
+
+      if(val == true){
+        nres = doc.data[widget.category.toLowerCase()+'nr'];
+        nres -= 1;
+        res = doc.data[widget.category.toLowerCase()+'r'];
+        res += 1;
+        totalres = doc.data['totalr'];
+        totalres += 1;
+        ratio = totalres/doc.data['totalcomp'];
+      }else{
+        nres = doc.data[widget.category.toLowerCase()+'nr'];
+        nres += 1;
+        res = doc.data[widget.category.toLowerCase()+'r'];
+        res -= 1;
+        totalres = doc.data['totalr'];
+        totalres -= 1;
+        ratio = totalres/doc.data['totalcomp'];
+      }
+
+      await databaseReference
+          .collection("Constituencies").document(constituency.toUpperCase()).collection('Stats').document('Numbers').updateData({
+        widget.category.toLowerCase()+'nr':nres,
+        widget.category.toLowerCase()+'r':res,
+        'totalr':totalres,
+        'ratio':ratio
+      });
+
+
+    }catch(e){
+      print(e);
+    }
+
+
+
   }
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -281,6 +321,10 @@ class _OnTileTapState extends State<OnTileTap> {
                               showSpinner = true;
                             });
                             await updateStatus();
+                            await statsUpdate(value);
+                            setState(() {
+                              showSpinner = false;
+                            });
                             _scaffoldKey.currentState.showSnackBar(snackbar);
                           },
                         ),

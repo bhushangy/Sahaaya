@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create:(context) => CheckBox(),
+      create:(context) => DropDown(),
       child: MaterialApp(
         home: LoadingScreen(),
       ),

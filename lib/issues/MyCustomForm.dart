@@ -9,8 +9,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:voter_grievance_redressal/issues/constants.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
+import 'package:voter_grievance_redressal/models/checkBox.dart';
 import 'imageCards.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
@@ -22,7 +23,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
 
-// ignore: must_be_immutable
+
 class MyCustomForm extends StatefulWidget {
   String category;
 
@@ -55,6 +56,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   MapType _currentMapType = MapType.normal;
   Random r = new Random();
   String Refid;
+  DocumentSnapshot doc;
+  var res,nres,totalc;
 
 
   void initState() {
@@ -63,9 +66,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     myController.dispose();
-    //obj.dispose();
     super.dispose();
   }
 
@@ -117,19 +118,40 @@ class MyCustomFormState extends State<MyCustomForm> {
     });
   }
 
+  void statsUpdate() async{
+  try{
+    doc = await databaseReference
+        .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection('Stats').document('Numbers').get();
+
+    nres = doc.data[widget.category.toLowerCase()+'nr'];
+    totalc = doc.data['totalcomp'];
+    nres += 1;
+    totalc += 1;
+
+
+    await databaseReference
+        .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection('Stats').document('Numbers').updateData({
+      widget.category.toLowerCase()+'nr':nres,
+      'totalcomp':totalc
+    });
+  }catch(e){
+    print(e);
+  }
+  }
+
   void createRecord() async {
     try {
       DragMarkerMap ob = new DragMarkerMap();
       bool flag;
       ob.whichlat == null || ob.whichlong == null ? flag = false : flag = true;
-      Refid = buildhome.whichConstituency.toUpperCase().substring(0,3)+widget.category+r.nextInt(10000).toString();
+      Refid = Provider.of<DropDown>(context,listen: false).consti.toUpperCase().substring(0,3)+widget.category+r.nextInt(10000).toString();
       await databaseReference
           .collection(loggedInUser.email)
           .document(widget.category.toUpperCase())
           .collection(widget.category.toUpperCase() + "Grievances")
           .document() // by default it goes to bbmp document...but this can be changed
           .setData({
-        'Constituency': buildhome.whichConstituency.toUpperCase(),
+        'Constituency': Provider.of<DropDown>(context,listen: false).consti.toUpperCase(),
         'Category': widget.category,
         'Description': myController.text,
         'Image1': _uploadedFileURL1,
@@ -143,11 +165,11 @@ class MyCustomFormState extends State<MyCustomForm> {
       });
 
       await databaseReference
-          .collection("Constituencies").document(buildhome.whichConstituency.toUpperCase()).collection(widget.category.toUpperCase()+"Complaints").document().setData(
+          .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection(widget.category.toUpperCase()+"Complaints").document().setData(
         {
           'email':loggedInUser.email,
           'phone':'',
-          'Constituency': buildhome.whichConstituency.toUpperCase(),
+          'Constituency': Provider.of<DropDown>(context,listen: false).consti.toUpperCase(),
           'Category': widget.category,
           'Description': myController.text,
           'Image1': _uploadedFileURL1,
@@ -272,7 +294,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 13, top: 17.0),
                       child: Text(
-                        buildhome.whichConstituency
+                        Provider.of<DropDown>(context,listen: false).consti
                             .toUpperCase(), // this variable coming from build_home.dart file
                         style: kConstituencyTextStyle,
                       ),
@@ -514,7 +536,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         color: Colors.deepOrange,
                         height: 50,
                       ),
-                      onTap: () {
+                      onTap: () async {
                         if (_image == null &&
                             _image2 == null &&
                             _image3 == null &&
@@ -529,8 +551,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                           _showDialog("Description Empty",
                               "Please type the Description");
                         else {
-                          createRecord();
-
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          showSpinner = true;
+                          await createRecord();
+                          await statsUpdate();
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          print( Provider.of<DropDown>(context,listen: false).consti.toUpperCase());
                           Navigator.pop(context);
                           _showDialog("Grievance Status",
                               "Grievance Submitted Successfully");

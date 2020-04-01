@@ -77,9 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Log In',
                 colour: Colors.deepOrange,
                 onPressed:  () async {
-                  setState(() {
                     showSpinner = true;
-                  });
                   try {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
@@ -91,9 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ));
 
                     }
-                    setState(() {
                       showSpinner = false;
-                    });
                   } catch (e) {
                     print(e);
                     setState(() {

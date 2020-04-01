@@ -183,18 +183,18 @@ class GrievanceTiles extends StatelessWidget {
                     ),
                     subtitle: Text(
                       grievance.data["Resolved"] == true
-                          ? 'Resolved' +
+                          ? grievance.data['Category'] + '\n'+
                               '\n' +
                               grievance.data["Created"]
                                   .toDate()
                                   .toString()
-                                  .substring(0, 16)
-                          : 'Not Resolved' +
-                              '\n' +
+                                  .substring(0, 16) + '\n'+'Resolved'
+                          : grievance.data['Category'] +
+                               '\n'+
                               grievance.data["Created"]
                                   .toDate()
                                   .toString()
-                                  .substring(0, 16),
+                                  .substring(0, 16) + '\n'+'Not Resolved',
                       style: TextStyle(color: Colors.black),
                     ),
                     trailing: Padding(
