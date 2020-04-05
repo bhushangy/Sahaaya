@@ -121,7 +121,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   void statsUpdate() async{
   try{
     doc = await databaseReference
-        .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection('Stats').document('Numbers').get();
+        .collection("Statistics").document(Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).get();
 
     nres = doc.data[widget.category.toLowerCase()+'nr'];
     totalc = doc.data['totalcomp'];
@@ -130,7 +130,7 @@ class MyCustomFormState extends State<MyCustomForm> {
 
 
     await databaseReference
-        .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection('Stats').document('Numbers').updateData({
+        .collection("Statistics").document(Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).updateData({
       widget.category.toLowerCase()+'nr':nres,
       'totalcomp':totalc
     });
@@ -168,6 +168,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           .collection("Constituencies").document( Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection(widget.category.toUpperCase()+"Complaints").document().setData(
         {
           'email':loggedInUser.email,
+          //TODO:phone number here
           'phone':'',
           'Constituency': Provider.of<DropDown>(context,listen: false).consti.toUpperCase(),
           'Category': widget.category,

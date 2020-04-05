@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create:(context) => DropDown(),
       child: MaterialApp(
-        home: LoadingScreen(),
+        home: SplashScreen(),
       ),
     );
   }

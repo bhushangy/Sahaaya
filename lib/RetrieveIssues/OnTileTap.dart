@@ -15,11 +15,10 @@ final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
 
 class OnTileTap extends StatefulWidget {
-  String category;
   final DocumentSnapshot
       grievance; // the snapshot of the document whose tile was pressed
 
-  OnTileTap({this.category, this.grievance});
+  OnTileTap({this.grievance});
 
   @override
   _OnTileTapState createState() => _OnTileTapState();
@@ -32,7 +31,6 @@ class _OnTileTapState extends State<OnTileTap> {
   FirebaseUser loggedInUser;
   final _auth = FirebaseAuth.instance;
   String description;
-  String constituency;
   String img1, img2;
   String dat;
   var pageIndex = 0;
@@ -55,7 +53,6 @@ class _OnTileTapState extends State<OnTileTap> {
 
   void getData() {
     description = widget.grievance.data["Description"];
-    constituency = widget.grievance.data["Constituency"];
     img1 = widget.grievance.data["Image1"];
     img2 = widget.grievance.data["Image2"];
     img1 == "" || img1 == null ? print("") : images.add(img1);
@@ -100,20 +97,20 @@ class _OnTileTapState extends State<OnTileTap> {
   void statsUpdate(bool val) async{
     try{
       doc = await databaseReference
-          .collection("Constituencies").document(constituency.toUpperCase()).collection('Stats').document('Numbers').get();
+          .collection("Statistics").document(widget.grievance.data["Constituency"].toUpperCase()).get();
 
       if(val == true){
-        nres = doc.data[widget.category.toLowerCase()+'nr'];
+        nres = doc.data[widget.grievance.data["Category"].toLowerCase()+'nr'];
         nres -= 1;
-        res = doc.data[widget.category.toLowerCase()+'r'];
+        res = doc.data[widget.grievance.data["Category"].toLowerCase()+'r'];
         res += 1;
         totalres = doc.data['totalr'];
         totalres += 1;
         ratio = totalres/doc.data['totalcomp'];
       }else{
-        nres = doc.data[widget.category.toLowerCase()+'nr'];
+        nres = doc.data[widget.grievance.data["Category"].toLowerCase()+'nr'];
         nres += 1;
-        res = doc.data[widget.category.toLowerCase()+'r'];
+        res = doc.data[widget.grievance.data["Category"].toLowerCase()+'r'];
         res -= 1;
         totalres = doc.data['totalr'];
         totalres -= 1;
@@ -121,9 +118,9 @@ class _OnTileTapState extends State<OnTileTap> {
       }
 
       await databaseReference
-          .collection("Constituencies").document(constituency.toUpperCase()).collection('Stats').document('Numbers').updateData({
-        widget.category.toLowerCase()+'nr':nres,
-        widget.category.toLowerCase()+'r':res,
+          .collection("Statistics").document(widget.grievance.data["Constituency"].toUpperCase()).updateData({
+        widget.grievance.data["Category"].toLowerCase()+'nr':nres,
+        widget.grievance.data["Category"].toLowerCase()+'r':res,
         'totalr':totalres,
         'ratio':ratio
       });
@@ -233,7 +230,7 @@ class _OnTileTapState extends State<OnTileTap> {
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
                       title: Text('Constituency'),
-                      subtitle: Text(constituency),
+                      subtitle: Text(widget.grievance.data["Constituency"]),
                     ),
                   ),
                   Card(
@@ -244,7 +241,7 @@ class _OnTileTapState extends State<OnTileTap> {
                       title: Text(
                         'Category',
                       ),
-                      subtitle: Text(widget.category),
+                      subtitle: Text(widget.grievance.data["Category"]),
                     ),
                   ),
                   Card(

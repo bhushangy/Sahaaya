@@ -34,7 +34,7 @@ class _buildhomeState extends State<buildhome> {
     try{
 
       doc = await databaseReference
-          .collection("Constituencies").document(Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).collection('Stats').document('Numbers').get();
+          .collection("Statistics").document(Provider.of<DropDown>(context,listen: false).consti.toUpperCase()).get();
       rating = double.parse((doc.data['ratio'] * 10).toStringAsFixed(2));
 
 

@@ -20,11 +20,6 @@ class RetrieveIssues extends StatefulWidget {
 class _RetrieveIssuesState extends State<RetrieveIssues> {
 
 
-
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +109,7 @@ class GrievanceTiles extends StatelessWidget {
           .getDocuments()).documents;
 
       for (var i = 0; i < lis.length; i++) {
-        await await databaseReference
+        await databaseReference
             .collection("Constituencies")
             .document(
             grievance.data["Constituency"].toString().toUpperCase())
@@ -209,7 +204,6 @@ class GrievanceTiles extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => OnTileTap(
-                                category: grievance.data["Category"],
                                 grievance: grievance))),
                     selected: true,
                   ),

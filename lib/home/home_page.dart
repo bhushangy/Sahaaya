@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voter_grievance_redressal/issues/my_issues.dart';
+import 'package:voter_grievance_redressal/Statistics/Statistics.dart';
 import 'package:voter_grievance_redressal/cards/raise_issues.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
 
@@ -17,7 +17,7 @@ class _homeState extends State<home> {
   [
     buildhome(),
     raise(),
-    myissues(),
+    Statistics(),
 
   ];
   void _onItemTapped(int index) {
