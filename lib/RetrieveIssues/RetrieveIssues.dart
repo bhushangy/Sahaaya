@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/RetrieveIssues/OnTileTap.dart';
 
 final _firestore = Firestore.instance;
@@ -18,21 +19,37 @@ class RetrieveIssues extends StatefulWidget {
 }
 
 class _RetrieveIssuesState extends State<RetrieveIssues> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(widget.category + ' Grievances'),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          widget.category,
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            fontSize: 18
+          ),
         ),
-        body: SafeArea(
-            child: Column(
+        centerTitle: true,
+        backgroundColor: Colors.indigo,
+        elevation: 10.0,
+        shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(15),
+          ),
+        ),
+
+      ),
+      body: SafeArea(
+        child: Column(
           children: <Widget>[
             GrievanceStream(category: widget.category, email: widget.email)
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
 
@@ -43,7 +60,7 @@ class GrievanceStream extends StatelessWidget {
   String email;
 
   GrievanceStream({this.category, this.email}) {
-    this.q = email + "/" + category + "/" + category + "Grievances";
+    this.q = "Users" + "/" + email + "/" + category + "Grievances";
   }
 
   @override
@@ -75,7 +92,7 @@ class GrievanceStream extends StatelessWidget {
             );
             grievanceTiles.add(grievanceTile);
           }
-          return grievances.length == 1
+          return grievances.length == 0
               ? Padding(
                   padding: const EdgeInsets.only(top: 280.0),
                   child: Center(
@@ -101,33 +118,33 @@ class GrievanceTiles extends StatelessWidget {
   void deleteRecordFromConstituencyCollec() async {
     try {
       lis = (await databaseReference
-          .collection("Constituencies")
-          .document(
-          grievance.data["Constituency"].toString().toUpperCase())
-          .collection(grievance.data["Category"].toString().toUpperCase()+"Complaints")
-          .where("RefId", isEqualTo: grievance.data['RefId'])
-          .getDocuments()).documents;
+              .collection("Constituencies")
+              .document(grievance.data["Constituency"].toString().toUpperCase())
+              .collection(grievance.data["Category"].toString().toUpperCase() +
+                  "Complaints")
+              .where("RefId", isEqualTo: grievance.data['RefId'])
+              .getDocuments())
+          .documents;
 
       for (var i = 0; i < lis.length; i++) {
         await databaseReference
             .collection("Constituencies")
-            .document(
-            grievance.data["Constituency"].toString().toUpperCase())
-            .collection(grievance.data["Category"].toString().toUpperCase()+"Complaints").
-            document(lis[i].documentID).delete();
+            .document(grievance.data["Constituency"].toString().toUpperCase())
+            .collection(grievance.data["Category"].toString().toUpperCase() +
+                "Complaints")
+            .document(lis[i].documentID)
+            .delete();
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e);
     }
-
   }
 
   void deleteRecord() async {
     try {
       await databaseReference
-          .collection(email)
-          .document(grievance.data["Category"].toString().toUpperCase())
+          .collection("Users")
+          .document(email)
           .collection(grievance.data["Category"].toString().toUpperCase() +
               "Grievances")
           .document(grievance.documentID)
@@ -139,91 +156,93 @@ class GrievanceTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return grievance.data["Description"] == ""
-        ? Container()
-        : Card(
-            color: Colors.white,
-            elevation: 4.0,
-            borderOnForeground: true,
-            margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 95.0,
-                  child: ListTile(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-                    leading: Container(
-                      padding: EdgeInsets.only(right: 10.0),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        border: new Border(
-                          right:
-                              new BorderSide(width: 2.0, color: Colors.black12),
-                        ),
-                      ),
-                      child: grievance.data["Resolved"] == true
-                          ? Icon(
-                              Icons.thumb_up,
-                              color: Colors.green,
-                            )
-                          : Icon(
-                              Icons.thumb_down,
-                              color: Colors.red,
-                            ),
-                    ),
-                    title: Text(
-                      grievance.data["Constituency"],
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    subtitle: Text(
-                      grievance.data["Resolved"] == true
-                          ? grievance.data['Category'] + '\n'+
-                              '\n' +
-                              grievance.data["Created"]
-                                  .toDate()
-                                  .toString()
-                                  .substring(0, 16) + '\n'+'Resolved'
-                          : grievance.data['Category'] +
-                               '\n'+
-                              grievance.data["Created"]
-                                  .toDate()
-                                  .toString()
-                                  .substring(0, 16) + '\n'+'Not Resolved',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    trailing: Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 11.0, 1.0, 5.0),
-                      child: Icon(
-                        Icons.keyboard_arrow_right,
-                        size: 30.0,
-                      ),
-                    ),
-                    isThreeLine: true,
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OnTileTap(
-                                grievance: grievance))),
-                    selected: true,
+    return Card(
+      color: Colors.white,
+      elevation: 4.0,
+      borderOnForeground: true,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 95.0,
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+              leading: Container(
+                padding: EdgeInsets.only(right: 10.0),
+                height: 50.0,
+                decoration: new BoxDecoration(
+                  border: new Border(
+                    right: new BorderSide(width: 2.0, color: Colors.black12),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3.0, left: 265.0),
-                  child: OutlineButton(
-                    onPressed: () {
-                      deleteRecord();
-                      deleteRecordFromConstituencyCollec();
-                    },
-                    child: Text("Delete"),
-                    borderSide: BorderSide(color: Colors.redAccent),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                )
-              ],
+                child: grievance.data["Resolved"] == true
+                    ? Icon(
+                        Icons.thumb_up,
+                        color: Colors.green,
+                      )
+                    : Icon(
+                        Icons.thumb_down,
+                        color: Colors.red,
+                      ),
+              ),
+              title: Text(
+                grievance.data["Constituency"],
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text(
+                grievance.data["Resolved"] == true
+                    ? grievance.data['Category'] +
+                        '\n' +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Resolved'
+                    : grievance.data['Category'] +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Not Resolved',
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 11.0, 1.0, 5.0),
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 30.0,
+                ),
+              ),
+              isThreeLine: true,
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OnTileTap(grievance: grievance,email:email
+                      ))),
+              selected: true,
             ),
-          );
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 3.0, left: 265.0),
+            child: OutlineButton(
+              onPressed: () {
+                deleteRecord();
+                deleteRecordFromConstituencyCollec();
+              },
+              child: Text("Delete"),
+              borderSide: BorderSide(color: Colors.redAccent),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
-import 'package:voter_grievance_redressal/loginpage/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -53,8 +52,7 @@ class _MyAppPageState extends State<MyAppPage> {
             //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
             this.verificationId = verId;
           },
-          codeSent:
-          smsOTPSent,
+          codeSent: smsOTPSent,
           // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
           timeout: const Duration(seconds: 20),
           verificationCompleted: (AuthCredential phoneAuthCredential) {
@@ -75,7 +73,6 @@ class _MyAppPageState extends State<MyAppPage> {
         builder: (BuildContext context) {
           return new AlertDialog(
             title: Text('Enter SMS Code'),
-
             content: Container(
               height: 85,
               child: Column(children: [
@@ -87,9 +84,9 @@ class _MyAppPageState extends State<MyAppPage> {
                 ),
                 (errorMessage != ''
                     ? Text(
-                  errorMessage,
-                  style: TextStyle(color: Colors.red),
-                )
+                        errorMessage,
+                        style: TextStyle(color: Colors.red),
+                      )
                     : Container())
               ]),
             ),
@@ -119,7 +116,8 @@ class _MyAppPageState extends State<MyAppPage> {
         verificationId: verificationId,
         smsCode: smsOTP,
       );
-      final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       Navigator.of(context).pop();
@@ -169,14 +167,13 @@ class _MyAppPageState extends State<MyAppPage> {
                 onChanged: (value) {
                   this.phoneNo = value;
                 },
-
               ),
             ),
             (errorMessage != ''
                 ? Text(
-              errorMessage,
-              style: TextStyle(color: Colors.red),
-            )
+                    errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  )
                 : Container()),
             SizedBox(
               height: 10,

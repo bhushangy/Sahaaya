@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:voter_grievance_redressal/RetrieveIssues/RetrieveIssues.dart';
-import 'package:voter_grievance_redressal/issues/MyCustomForm.dart';
+import 'package:voter_grievance_redressal/issues/FillForm.dart';
 import 'package:voter_grievance_redressal/issues/imageCards.dart';
 
 FirebaseUser loggedInUser;
@@ -42,10 +42,18 @@ class ReusableCard extends StatelessWidget {
                 children: <Widget>[
                   RoundIconButton(
                     icon: FontAwesomeIcons.plus,
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return MyCustomForm(value);
-                      }));
+                    onPressed: () async {
+                      try {
+                        final user = await _auth.currentUser();
+                        if (user != null) {
+                          loggedInUser = user;
+                        }
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return FillForm(value,loggedInUser.email);
+                        }));
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                   ),
                   SizedBox(

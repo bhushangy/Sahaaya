@@ -16,9 +16,10 @@ FirebaseUser loggedInUser;
 
 class OnTileTap extends StatefulWidget {
   final DocumentSnapshot
-      grievance; // the snapshot of the document whose tile was pressed
+      grievance;
+  String email;// the snapshot of the document whose tile was pressed
 
-  OnTileTap({this.grievance});
+  OnTileTap({this.grievance,this.email});
 
   @override
   _OnTileTapState createState() => _OnTileTapState();
@@ -47,7 +48,7 @@ class _OnTileTapState extends State<OnTileTap> {
 
   void initState() {
     super.initState();
-    getCurrentUser();
+    //getCurrentUser();
     getData();
   }
 
@@ -63,24 +64,22 @@ class _OnTileTapState extends State<OnTileTap> {
     isResolved = widget.grievance.data["Resolved"];
   }
 
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+//  void getCurrentUser() async {
+//    try {
+//      final user = await _auth.currentUser();
+//      if (user != null) {
+//        loggedInUser = user;
+//      }
+//    } catch (e) {
+//      print(e);
+//    }
+//  }
 
   void updateStatus() async {
   try{
     await databaseReference
-        .collection(loggedInUser.email)
-        .document(widget.grievance.data["Category"]
-        .toString()
-        .toUpperCase())
+        .collection("Users")//
+        .document(widget.email)
         .collection(widget.grievance.data["Category"]
         .toString()
         .toUpperCase() +
@@ -101,7 +100,7 @@ class _OnTileTapState extends State<OnTileTap> {
 
       if(val == true){
         nres = doc.data[widget.grievance.data["Category"].toLowerCase()+'nr'];
-        nres -= 1;
+        nres == 0? nres = 0:nres -= 1;
         res = doc.data[widget.grievance.data["Category"].toLowerCase()+'r'];
         res += 1;
         totalres = doc.data['totalr'];

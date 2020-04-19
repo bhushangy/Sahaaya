@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:voter_grievance_redressal/models/checkBox.dart';
@@ -50,13 +52,17 @@ class _buildhomeState extends State<buildhome> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavDrawer(),
-        appBar: AppBar(
-          leading: null,
-          actions: <Widget>[
-
-          ],
+        appBar:  AppBar(
+          title: Text(' Grievances'),
           centerTitle: true,
-          title: Text("Welcome $user_name !!"),
+          backgroundColor: Colors.indigo,
+          elevation: 10.0,
+          shape:RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
+            ),
+          ),
+
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,

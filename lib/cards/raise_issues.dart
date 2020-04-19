@@ -42,7 +42,7 @@ class _raiseState extends State<raise> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard('HEALTH'),
+                    child: ReusableCard('SANITATION'),
                   ),
                   Expanded(
                     child: ReusableCard('ROADS'),
@@ -54,10 +54,10 @@ class _raiseState extends State<raise> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard('SANITATION'),
+                    child: ReusableCard('CORRUPTION'),
                   ),
                   Expanded(
-                    child: ReusableCard('CORRUPTION'),
+                    child: ReusableCard('OTHER'),
                   ),
                 ],
               ),

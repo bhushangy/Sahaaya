@@ -32,6 +32,7 @@ dependencies:
   provider: ^4.0.4
   flare_flutter: ^2.0.2
   dots_indicator: ^1.0.0
+  google_fonts: ^0.4.0
 
 
 

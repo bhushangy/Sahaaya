@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:voter_grievance_redressal/loginpage/login_screen.dart';
-import 'package:voter_grievance_redressal/loginpage/registration_page.dart';
+import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
+import 'package:voter_grievance_redressal/loginpage/SignupPage.dart';
 
 
 class FactsScreen extends StatefulWidget {
@@ -154,7 +154,7 @@ class FactPages extends StatelessWidget {
                   //REGISTER PAGE
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context){
-                        return RegistrationScreen();
+                        return SignupPage();
                       }
                   ));
                 },
@@ -186,7 +186,7 @@ class FactPages extends StatelessWidget {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context){
-                          return LoginScreen();
+                          return LoginPage();
                         }
                     ));
                   },
