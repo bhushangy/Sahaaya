@@ -6,6 +6,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:voter_grievance_redressal/loginpage/otp_verification.dart';
 
 
 final databaseReference = Firestore.instance;
@@ -132,7 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       createCollection();
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context){
-                            return home();
+                            return MyApp();
                           }
                       ));
 

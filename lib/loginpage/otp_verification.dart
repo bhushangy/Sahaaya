@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
+import 'package:voter_grievance_redressal/home/home_page.dart';
 import 'package:voter_grievance_redressal/loginpage/login_screen.dart';
 
 void main() => runApp(MyApp());
@@ -13,8 +14,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Phone Authentication',
       routes: <String, WidgetBuilder>{
-        '/homepage': (BuildContext context) => buildhome(),
-        '/loginpage': (BuildContext context) => buildhome(),
+        '/homepage': (BuildContext context) => home(),
+        '/loginpage': (BuildContext context) => MyApp(),
       },
       theme: ThemeData.dark(),
       home: MyAppPage(title: 'Phone Authentication'),
@@ -101,7 +102,12 @@ class _MyAppPageState extends State<MyAppPage> {
                   _auth.currentUser().then((user) {
                     if (user != null) {
                       Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacementNamed('/homepage');
+                      //Navigator.of(context).pushReplacementNamed('/homepage');
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context){
+                            return home();
+                          }
+                      ));
                     } else {
                       signIn();
                     }
