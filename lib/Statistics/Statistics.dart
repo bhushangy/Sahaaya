@@ -22,8 +22,17 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('Rankings'),
+        appBar:  AppBar(
+          title: Text('Ranking'),
+          centerTitle: true,
+          backgroundColor: Colors.indigo,
+          elevation: 10.0,
+          shape:RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
+            ),
+          ),
+
         ),
         body: SafeArea(
             child: Column(
@@ -69,6 +78,7 @@ class RankingStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              //scrollDirection: Axis.horizontal,
               children: rankingTiles,
             ),
           );

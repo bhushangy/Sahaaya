@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voter_grievance_redressal/Statistics/Statistics.dart';
+import 'package:voter_grievance_redressal/Statistics/stat.dart';
 import 'package:voter_grievance_redressal/cards/raise.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
 
