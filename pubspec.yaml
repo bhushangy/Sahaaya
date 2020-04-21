@@ -52,3 +52,8 @@ flutter:
     - assets/images/
     - Sahaaya.flr
 
+fonts:
+  - family: Quicksand
+    fonts:
+      - asset: assets/Quicksand-Regular.ttf
+
