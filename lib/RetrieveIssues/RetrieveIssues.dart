@@ -230,10 +230,37 @@ class GrievanceTiles extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 3.0, left: 265.0),
             child: OutlineButton(
-              onPressed: () {
-                deleteRecord();
-                deleteRecordFromConstituencyCollec();
-              },
+
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                    title: new Text("Delete this Previous Record"),
+                    content: new Text("Are you sure you want to delete it ?"),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      new FlatButton(
+                        child: new Text(" YES"),
+                        onPressed: () {
+                          deleteRecord();
+                          deleteRecordFromConstituencyCollec();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      new FlatButton(
+                        child: new Text(" NO"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
               child: Text("Delete"),
               borderSide: BorderSide(color: Colors.redAccent),
               shape: RoundedRectangleBorder(
