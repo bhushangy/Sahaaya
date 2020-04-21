@@ -7,12 +7,7 @@ FirebaseUser loggedInUser;
 
 // ignore: must_be_immutable
 class DeptPage extends StatefulWidget {
-  String category,img;
 
-  DeptPage(String img,String category) {
-    this.category=category;
-    this.img=img;
-  }
   @override
   _DeptPageState createState() => _DeptPageState();
 }
@@ -21,22 +16,23 @@ class _DeptPageState extends State<DeptPage> {
   final _auth = FirebaseAuth.instance;
 
   @override
-//  Widget build(BuildContext context) {
-//    return ListView(
-//      scrollDirection: Axis.horizontal,
-//      children: <Widget>[
-//        _buildDeptCard('assets/images/vote0.png',  'BWSSB'),
-//        _buildDeptCard('assets/vote0.png',  'BESCOM'),
-//        _buildDeptCard('assets/vote0.png',  'SANITATION'),
-//        _buildDeptCard('assets/vote0.png',  'ROADS'),
-//        _buildDeptCard('assets/vote0.png',  'CORRUPTION'),
-//        _buildDeptCard('assets/vote0.png',  'OTHERS'),
-//
-//      ],
-//    );
-//  }
   Widget build(BuildContext context) {
     return ListView(
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+        _buildDeptCard('assets/images/vote0.png',  'BWSSB'),
+        _buildDeptCard('assets/images/vote0.png',  'BESCOM'),
+        _buildDeptCard('assets/images/vote0.png',  'SANITATION'),
+        _buildDeptCard('assets/images/vote0.png',  'ROADS'),
+        _buildDeptCard('assets/images/vote0.png',  'CORRUPTION'),
+        _buildDeptCard('assets/images/vote0.png',  'OTHERS'),
+
+      ],
+    );
+  }
+  Widget _buildDeptCard(String img,String category) {
+    return ListView(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: <Widget>[
         Padding(
@@ -71,8 +67,8 @@ class _DeptPageState extends State<DeptPage> {
                         }
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return FillForm(category, loggedInUser.email);
-                        }));
+                              return FillForm(category, loggedInUser.email);
+                            }));
                       } catch (e) {
                         print(e);
                       }
@@ -103,8 +99,8 @@ class _DeptPageState extends State<DeptPage> {
                         }
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return RetrieveIssues(category, loggedInUser.email);
-                        }));
+                              return RetrieveIssues(category, loggedInUser.email);
+                            }));
                       } catch (e) {
                         print(e);
                       }

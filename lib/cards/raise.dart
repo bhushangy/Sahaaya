@@ -60,12 +60,13 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  new DeptPage('assets/images/vote0.png','BWSSB'),
-                  new DeptPage('assets/images/vote0.png','BESCOM'),
-                  new DeptPage('assets/images/vote0.png','SANITATION'),
-                  new DeptPage('assets/images/vote0.png','ROADS'),
-                  new DeptPage('assets/images/vote0.png','CORRUPTION'),
-                  new DeptPage('assets/images/vote0.png','OTHERS'),
+
+                  new DeptPage(),
+                  new DeptPage(),
+                  new DeptPage(),
+                  new DeptPage(),
+                  new DeptPage(),
+                  new DeptPage(),
                 ],
               ),
             ),
