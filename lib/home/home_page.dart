@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/Statistics/Statistics.dart';
 import 'package:voter_grievance_redressal/cards/raise_issues.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
-
+import 'package:voter_grievance_redressal/home/HomePage.dart';
 
 class home extends StatefulWidget {
   @override
@@ -10,60 +10,58 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  int _currentIndex = 0;
 
-  int _currentIndex=0;
-
-  final List<Widget> _children=
-  [
-    buildhome(),
+  final List<Widget> children = [
+    HomePage(),
     raise(),
     Statistics(),
-
   ];
   void _onItemTapped(int index) {
     setState(() {
-      _currentIndex= index;
+      _currentIndex = index;
     });
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData.light(),
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
+      body: children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 13,
+        elevation: 15,
+        onTap: _onItemTapped,
+        currentIndex: _currentIndex,
 
-          body: _children[_currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-
-            onTap: _onItemTapped,
-            currentIndex: _currentIndex,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
-
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_alert),
-
-                title: Text('Raise Issue'),
-
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.timelapse),
-                title: Text('My Issues'),
-              ),
-
-            ],
-            selectedItemColor: Colors.deepOrange,
+        items:  <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,size: 22,),
+            title: Text(
+              'Home',
+              style: GoogleFonts.montserrat(
+                  fontSize: 13.0, fontWeight: FontWeight.w600),
+            ),
           ),
-        ));
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.error_outline,size: 22,),
+            title: Text(
+              'New Grievance',
+              style: GoogleFonts.montserrat(
+                  fontSize: 13.0, fontWeight: FontWeight.w600),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.insert_chart,size: 22,),
+            title: Text(
+              'Statistics',
+              style: GoogleFonts.montserrat(
+                  fontSize: 13.0, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
+        selectedItemColor: Colors.indigo,
+      ),
+    );
   }
-
 }

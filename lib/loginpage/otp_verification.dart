@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
+import 'package:voter_grievance_redressal/home/HomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Phone Authentication',
       routes: <String, WidgetBuilder>{
-        '/homepage': (BuildContext context) => buildhome(),
-        '/loginpage': (BuildContext context) => buildhome(),
+        '/homepage': (BuildContext context) => HomePage(),
+        '/loginpage': (BuildContext context) => HomePage(),
       },
       theme: ThemeData.dark(),
       home: MyAppPage(title: 'Phone Authentication'),

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
+import 'package:voter_grievance_redressal/home/HomePage.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
 import 'package:voter_grievance_redressal/models/checkBox.dart';
 

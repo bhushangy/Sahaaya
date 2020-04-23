@@ -11,8 +11,6 @@ class raise extends StatefulWidget {
 }
 
 class _raiseState extends State<raise> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

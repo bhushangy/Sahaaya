@@ -4,21 +4,17 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/issues/constants.dart';
 import 'package:voter_grievance_redressal/models/checkBox.dart';
-import 'imageCards.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -36,11 +32,10 @@ class FillForm extends StatefulWidget {
 }
 
 class _FillFormState extends State<FillForm> {
-  final _formKey = GlobalKey<FormState>();
-  File _image, _image2, _image3, _image4;
+  File image1, image2;
   final _auth = FirebaseAuth.instance;
   String description;
-  final myController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   String _uploadedFileURL1 = '';
   String _uploadedFileURL2 = '';
   bool showSpinner = false;
@@ -58,67 +53,11 @@ class _FillFormState extends State<FillForm> {
   var res, nres, totalc;
   int phone;
 
-//  void initState() {
-//    super.initState();
-//    getCurrentUser();
-//
-//  }
-
   void dispose() {
-    myController.dispose();
     super.dispose();
   }
-//
-//  void getCurrentUser() async {
-//    try {
-//      final user = await _auth.currentUser();
-//      if (user != null) {
-//        loggedInUser = user;
-//        // print(loggedInUser.email);
-//      }
-//
-//    } catch (e) {
-//      print(e);
-//    }
-//  }
 
-  Future _getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _image = image;
-      print('_image: $_image');
-    });
-  }
-
-  Future _getImage2() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image2 = image;
-      print('_image2: $_image2');
-    });
-  }
-
-  Future _getImage3() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _image3 = image;
-      print('_image3: $_image3');
-    });
-  }
-
-  Future _getImage4() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image4 = image;
-      print('_image4: $_image4');
-    });
-  }
-
-  void statsUpdate() async {
+  Future statsUpdate() async {
     try {
       doc = await databaseReference
           .collection("Statistics")
@@ -146,7 +85,7 @@ class _FillFormState extends State<FillForm> {
     }
   }
 
-  void createRecord() async {
+  Future createRecord() async {
     try {
       DragMarkerMap ob = new DragMarkerMap();
       bool flag;
@@ -166,7 +105,7 @@ class _FillFormState extends State<FillForm> {
         'Constituency':
             Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
-        'Description': myController.text,
+        'Description': description,
         'Image1': _uploadedFileURL1,
         'Image2': _uploadedFileURL2,
         'Created': FieldValue.serverTimestamp(),
@@ -189,7 +128,7 @@ class _FillFormState extends State<FillForm> {
         'Constituency':
             Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
-        'Description': myController.text,
+        'Description': description,
         'Image1': _uploadedFileURL1,
         'Image2': _uploadedFileURL2,
         'Created': FieldValue.serverTimestamp(),
@@ -204,33 +143,66 @@ class _FillFormState extends State<FillForm> {
     }
   }
 
-  Future uploadFile(File image) async {
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('images/${Path.basename(image.path)}}');
-    StorageUploadTask uploadTask = storageReference.putFile(image);
-    await uploadTask.onComplete;
-    print('File Uploaded');
-    storageReference.getDownloadURL().then((fileURL) {
-      setState(() {
-        _uploadedFileURL1 = fileURL;
-      });
+  Future getImage() async {
+    FocusScope.of(context).unfocus(focusPrevious: true);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image1 = image;
+      print('_image: $image1');
     });
   }
 
-  Future uploadFile2(File image2) async {
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('images/${Path.basename(image2.path)}}');
-    StorageUploadTask uploadTask = storageReference.putFile(image2);
-    await uploadTask.onComplete;
-    print('File Uploaded');
-    storageReference.getDownloadURL().then((fileURL) {
-      setState(() {
-        _uploadedFileURL2 = fileURL;
-      });
+  Future getImage2() async {
+    FocusScope.of(context).unfocus(focusPrevious: true);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image2 = image;
+      print('_image2: $image2');
     });
-    //print(_uploadedFileURL2);
+  }
+
+  Future uploadFile(File image1, File image2) async {
+    StorageReference storageReference;
+    StorageUploadTask uploadTask;
+    try {
+      if (image1 != null) {
+        storageReference = FirebaseStorage.instance
+            .ref()
+            .child('images/${Path.basename(image1.path)}}');
+        uploadTask = storageReference.putFile(image1);
+        await uploadTask.onComplete;
+        print('File 1 Uploaded');
+        await storageReference.getDownloadURL().then((fileURL) {
+          setState(() {
+            _uploadedFileURL1 = fileURL;
+          });
+        });
+      }
+    } catch (e) {
+      print(e);
+      _showDialog("Error", "Please try uploading images again.");
+    }
+
+    try {
+      if (image2 != null) {
+        storageReference = FirebaseStorage.instance
+            .ref()
+            .child('images/${Path.basename(image2.path)}}');
+        uploadTask = storageReference.putFile(image2);
+        await uploadTask.onComplete;
+        print('File 2 Uploaded');
+        await storageReference.getDownloadURL().then((fileURL) {
+          setState(() {
+            _uploadedFileURL2 = fileURL;
+          });
+        });
+      }
+    } catch (e) {
+      print(e);
+      _showDialog("Error", "Please try uploading images again.");
+    }
   }
 
   void _showDialog(
@@ -244,8 +216,18 @@ class _FillFormState extends State<FillForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text(a),
-          content: new Text(b),
+          title: Text(
+            a,
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),
+          ),
+          content: Text(
+            b,
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+            ),
+          ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -281,89 +263,318 @@ class _FillFormState extends State<FillForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    return SafeArea(
-        child: Scaffold(
-      appBar: CupertinoNavigationBar(
-        padding: EdgeInsetsDirectional.only(
-          top: 20.0,
-        ),
-        leading: Row(
-          children: <Widget>[
-            SizedBox(
-              width: 13.0,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'New Grievance',
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.indigo,
+          elevation: 10.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
             ),
-            Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: 25.0,
-            ),
-          ],
-        ),
-        middle: Text(
-          'New Grievance',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
           ),
         ),
-        backgroundColor: Colors.indigo,
-        border: Border.all(color: Colors.indigo),
-      ),
-      body: Column(children: <Widget>[
-        Container(
-          height: 20.0,
-          width: double.infinity,
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
           color: Colors.indigo,
-        ),
-        SizedBox(
-          height: 100,
-        ),
-        Container(
-          child: Expanded(
-            child: ListView(
-              physics: ScrollPhysics(
-                parent: BouncingScrollPhysics()
-              ),
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
-                Container(
-                  height: 300.0,
-                  width: double.infinity,
-                  child: TextField(
+          child: SafeArea(
+              child: ListView(
+            physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 50.0,
                   ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Container(
-                  height: 300.0,
-                  width: double.infinity,
-                  child: TextField(),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Container(
-                  height: 300.0,
-                  width: double.infinity,
-                  child: TextField(),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Container(
-                  height: 300.0,
-                  width: double.infinity,
-                  child: TextField(),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-              ],
+                  ConstiAndCateg(
+                      val: Provider.of<DropDown>(context, listen: false)
+                          .consti
+                          .toUpperCase(),
+                      label: 'CONSTITUENCY',
+                      icon: Icon(Icons.location_on)),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  ConstiAndCateg(
+                      val: widget.category.toUpperCase(),
+                      label: 'CATEGORY',
+                      icon: Icon(Icons.playlist_add_check)),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 0.022 * MediaQuery.of(context).size.width,
+                              right: 0.022 * MediaQuery.of(context).size.width),
+                          child: TextFormField(
+                            validator: (description) {
+                              if (description.isEmpty) {
+                                return 'Please enter grievance category';
+                              } else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            onChanged: (value) {
+                              description = value;
+                            },
+                            cursorColor: Colors.indigo,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.description,
+                                color: Colors.grey,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.indigo),
+                              ),
+                              labelText: 'DESCRIPTION',
+                              labelStyle: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Container(
+                    child: Text(
+                      'UPLOAD IMAGES',
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 35.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          getImage();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.75, color: Colors.grey),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: image1 == null
+                              ? Icon(Icons.insert_photo)
+                              : Image.file(
+                                  image1,
+                                  fit: BoxFit.fill,
+                                ),
+                          height: 0.234 * MediaQuery.of(context).size.height,
+                          width: 0.4 * MediaQuery.of(context).size.width,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          getImage2();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.75, color: Colors.grey),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: image2 == null
+                              ? Icon(Icons.insert_photo)
+                              : Image.file(
+                                  image2,
+                                  fit: BoxFit.fill,
+                                ),
+                          height: 0.234 * MediaQuery.of(context).size.height,
+                          width: 0.4 * MediaQuery.of(context).size.width,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 45.0,
+                  ),
+                  FormButtons(
+                    label: 'UPLOAD',
+                    width: 0.4 * MediaQuery.of(context).size.width,
+                    height: 40,
+                    onT: () async {
+                      if (image1 == null && image2 == null) {
+                        _showDialog("No images selected",
+                            "Please select atleast one image to upload.");
+                      } else {
+                        setState(() {
+                          showSpinner = true;
+                        });
+                        try {
+                          await uploadFile(image1, image2);
+                          _showDialog("Upload Successful",
+                              "Selected images uploaded successfully.");
+                        } catch (e) {
+                          print(e);
+                        }
+
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Container(
+                    child: Text(
+                      'SET LOCATION',
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 35.0,
+                  ),
+                  Container(
+                    width: 0.8 * MediaQuery.of(context).size.width,
+                    height: 0.3 * MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1.75, color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 65.0,
+                  ),
+                  FormButtons(
+                      label: 'SUBMIT',
+                      width: 0.93 * MediaQuery.of(context).size.width,
+                      height: 50,
+                      onT: () async {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          showSpinner = true;
+                          await createRecord();
+                          await statsUpdate();
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          _showDialog("Grievance Status",
+                              "Grievance Submitted Successfully");
+                          Navigator.pop(context);
+                        } else {
+                          print('description empty!!!');
+                          _showDialog("Description Empty",
+                              "Please grive a brief description of your grievance.");
+                        }
+                      }),
+                  SizedBox(
+                    height: 30,
+                  )
+                ],
+              )
+            ],
+          )),
+        ),
+      ),
+    );
+  }
+}
+
+class ConstiAndCateg extends StatelessWidget {
+  String val, label;
+  Icon icon;
+  ConstiAndCateg({this.val, this.label, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: 0.022 * MediaQuery.of(context).size.width,
+          right: 0.022 * MediaQuery.of(context).size.width),
+      child: TextFormField(
+        enabled: false,
+        initialValue: val,
+        // enabled: false,
+        decoration: InputDecoration(
+          prefixIcon: icon,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.indigo),
+          ),
+          labelText: label,
+          labelStyle: GoogleFonts.montserrat(
+            fontWeight: FontWeight.bold,
+            color: Colors.grey,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FormButtons extends StatelessWidget {
+  String label;
+  double width;
+  double height;
+  Function onT;
+  FormButtons({this.label, this.width, this.height, this.onT});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      child: InkWell(
+        onTap: onT,
+        child: Material(
+          color: Colors.indigo,
+          borderRadius: BorderRadius.circular(30.0),
+          shadowColor: Colors.indigo,
+          elevation: 5.0,
+          child: Center(
+            child: Text(
+              label,
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
-        )
-      ]),
-    ));
+        ),
+      ),
+    );
   }
 }
