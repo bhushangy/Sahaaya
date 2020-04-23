@@ -26,10 +26,13 @@ dependencies:
   firebase_storage:
   geolocation:
   flutter_map:
-  geolocator:
+  geolocator: ^5.1.3
   flutter_spinkit:
   carousel_slider: ^1.4.1
   provider: ^4.0.4
+  flare_flutter: ^2.0.2
+  dots_indicator: ^1.0.0
+  google_fonts: ^0.4.0
 
 
 
@@ -47,4 +50,5 @@ flutter:
 
   assets:
     - assets/images/
+    - Sahaaya.flr
 

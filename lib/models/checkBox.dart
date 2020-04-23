@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CheckBox extends ChangeNotifier {
+class DropDown extends ChangeNotifier {
 
-  bool isResolved = false;
-  void changeState(bool st){
-    isResolved = st;
+
+ String consti = 'Yalahanka';
+  void changeState(String constitu){
+    consti = constitu;
     notifyListeners();
   }
 

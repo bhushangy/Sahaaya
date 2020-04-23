@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/painting.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/RetrieveIssues/OnTileTap.dart';
 
 final _firestore = Firestore.instance;
-FirebaseUser loggedInUser;
 
 class RetrieveIssues extends StatefulWidget {
-  String category;
-  RetrieveIssues(String value) {
+  String category, email;
+  RetrieveIssues(String value, String mail) {
     this.category = value;
+    this.email = mail;
   }
 
   @override
@@ -18,166 +19,229 @@ class RetrieveIssues extends StatefulWidget {
 }
 
 class _RetrieveIssuesState extends State<RetrieveIssues> {
-  final _auth = FirebaseAuth.instance;
-  Future doc;
-  var len;
-  //final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          widget.category,
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            fontSize: 18
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.indigo,
+        elevation: 10.0,
+        shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(15),
+          ),
+        ),
 
-//  final snackBar = SnackBar(
-//    content: Text(
-//      'No Grievanvces submitted',
-//      style: TextStyle(color: Colors.black),
-//    ),
-//    duration: Duration(seconds: 3),
-//    backgroundColor: Colors.black38,
-//    elevation: 5.0,
-//  );
+      ),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            GrievanceStream(category: widget.category, email: widget.email)
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-//  void showSnackBar() {
-//    _scaffoldKey.currentState.showSnackBar(snackBar);
-//  }
+// ignore: must_be_immutable
+class GrievanceStream extends StatelessWidget {
+  String category;
+  String q;
+  String email;
 
-  void initState() {
-    super.initState();
-    getCurrentUser();
-    doc = getIssues();
+  GrievanceStream({this.category, this.email}) {
+    this.q = "Users" + "/" + email + "/" + category + "Grievances";
   }
 
-  void getCurrentUser() async {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _firestore
+            .collection(q)
+            .orderBy("Created", descending: true)
+            .snapshots(),
+        //the above function returns a stream of snapshots..each snapshot contains documents at different periods of time..the one snapshot with the mosr recent change
+        //is returned to the stream builder
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          // snapshot is a list of documents present in the collection
+          //TODO: Handle snapshot.hasError conditions also here....
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+          final grievances = snapshot.data.documents;
+          List<GrievanceTiles> grievanceTiles = [];
+          for (var grievance in grievances) {
+            final grievanceTile = GrievanceTiles(
+              grievance: grievance,
+              email: email,
+            );
+            grievanceTiles.add(grievanceTile);
+          }
+          return grievances.length == 0
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 280.0),
+                  child: Center(
+                    child: Text('No Grievances Submitted....'),
+                  ),
+                )
+              : Expanded(
+                  child: ListView(
+                    children: grievanceTiles,
+                  ),
+                );
+        });
+  }
+}
+
+class GrievanceTiles extends StatelessWidget {
+  final DocumentSnapshot grievance;
+  String email;
+
+  GrievanceTiles({this.grievance, this.email});
+  List<DocumentSnapshot> lis = [];
+
+  void deleteRecordFromConstituencyCollec() async {
     try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
+      lis = (await databaseReference
+              .collection("Constituencies")
+              .document(grievance.data["Constituency"].toString().toUpperCase())
+              .collection(grievance.data["Category"].toString().toUpperCase() +
+                  "Complaints")
+              .where("RefId", isEqualTo: grievance.data['RefId'])
+              .getDocuments())
+          .documents;
+
+      for (var i = 0; i < lis.length; i++) {
+        await databaseReference
+            .collection("Constituencies")
+            .document(grievance.data["Constituency"].toString().toUpperCase())
+            .collection(grievance.data["Category"].toString().toUpperCase() +
+                "Complaints")
+            .document(lis[i].documentID)
+            .delete();
       }
     } catch (e) {
       print(e);
     }
   }
 
-  Future getIssues() async {
-    String q = loggedInUser.email +
-        "/" +
-        widget.category +
-        "/" +
-        widget.category +
-        "Grievances";
-    QuerySnapshot qn = await _firestore
-        .collection(q)
-        .getDocuments(); // qn is a list of document snapshots
-    len = qn.documents.length;
-    return qn.documents;
-  }
-
-  void OnTileCallBack(DocumentSnapshot snap) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                OnTileTap(category: widget.category, grievance: snap)));
+  void deleteRecord() async {
+    try {
+      await databaseReference
+          .collection("Users")
+          .document(email)
+          .collection(grievance.data["Category"].toString().toUpperCase() +
+              "Grievances")
+          .document(grievance.documentID)
+          .delete();
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(widget.category + ' Grievances'),
-      ),
-      body: Container(
-        child: FutureBuilder(
-          future: doc,
-          builder: (_, snapshot) {
-            // snapshot is a list of documents that is nothing but documents that was returned as a Future
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                len == null) {
-              return Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.lightBlueAccent,
-                ),
-              );
-            } else if (snapshot.data.length == 1) {
-              return Center(
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  child: Text(
-                    'No Grievences Submitted....',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
+    return Card(
+      color: Colors.white,
+      elevation: 4.0,
+      borderOnForeground: true,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 95.0,
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+              leading: Container(
+                padding: EdgeInsets.only(right: 10.0),
+                height: 50.0,
+                decoration: new BoxDecoration(
+                  border: new Border(
+                    right: new BorderSide(width: 2.0, color: Colors.black12),
                   ),
                 ),
-              );
-            } else {
-              return ListView.builder(
-                  itemCount: len,
-                  itemBuilder: (_, index) {
-                    return snapshot.data[index].data["Constituency"] == ''
-                        ? Container()
-                        : Card(
-                            color: Colors.white,
-                            elevation: 4.0,
-                            borderOnForeground: true,
-                            margin: new EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 12.0),
-                            child: Container(
-                              child: ListTile(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 15.0),
-                                leading: Container(
-                                  padding: EdgeInsets.only(right: 10.0),
-                                  height: 50.0,
-                                  decoration: new BoxDecoration(
-                                    border: new Border(
-                                      right: new BorderSide(
-                                          width: 2.0, color: Colors.black12),
-                                    ),
-                                  ),
-                                  child:
-                                      snapshot.data[index].data["Resolved"] ==
-                                              true
-                                          ? Icon(
-                                              Icons.thumb_up,
-                                              color: Colors.green,
-                                            )
-                                          : Icon(
-                                              Icons.thumb_down,
-                                              color: Colors.red,
-                                            ),
-                                ),
-                                title: Text(
-                                  snapshot.data[index].data["Constituency"],
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                subtitle: Text(
-                                  snapshot.data[index].data["Category"] +
-                                      '\n' +
-                                      snapshot.data[index].data["Created"]
-                                          .toDate()
-                                          .toString()
-                                          .substring(0, 16),
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                trailing: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      10.0, 11.0, 1.0, 5.0),
-                                  child: Icon(
-                                    Icons.keyboard_arrow_right,
-                                    size: 30.0,
-                                  ),
-                                ),
-                                isThreeLine: true,
-                                onTap: () =>
-                                    OnTileCallBack(snapshot.data[index]),
-                                selected: true,
-                              ),
-                            ),
-                          );
-                  });
-            }
-          },
-        ),
+                child: grievance.data["Resolved"] == true
+                    ? Icon(
+                        Icons.thumb_up,
+                        color: Colors.green,
+                      )
+                    : Icon(
+                        Icons.thumb_down,
+                        color: Colors.red,
+                      ),
+              ),
+              title: Text(
+                grievance.data["Constituency"],
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text(
+                grievance.data["Resolved"] == true
+                    ? grievance.data['Category'] +
+                        '\n' +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Resolved'
+                    : grievance.data['Category'] +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Not Resolved',
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 11.0, 1.0, 5.0),
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 30.0,
+                ),
+              ),
+              isThreeLine: true,
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OnTileTap(grievance: grievance,email:email
+                      ))),
+              selected: true,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 3.0, left: 265.0),
+            child: OutlineButton(
+              onPressed: () {
+                deleteRecord();
+                deleteRecordFromConstituencyCollec();
+              },
+              child: Text("Delete"),
+              borderSide: BorderSide(color: Colors.redAccent),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

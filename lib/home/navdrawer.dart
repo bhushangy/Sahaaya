@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
-import 'package:voter_grievance_redressal/loginpage/login_screen.dart';
+import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -48,7 +47,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () {LoginScreen();}
+            onTap: () {LoginPage();}
           ),
         ],
       ),

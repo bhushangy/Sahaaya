@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 import 'package:voter_grievance_redressal/models/checkBox.dart';
-import 'home/LoadingScreen.dart';
 
 
 void main() => runApp(MyApp());
@@ -9,10 +10,18 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.indigo,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return ChangeNotifierProvider(
-      create:(context) => CheckBox(),
+      create:(context) => DropDown(),
       child: MaterialApp(
-        home: LoadingScreen(),
+        theme: ThemeData(
+          textSelectionHandleColor: Colors.indigo,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: LoginPage(),
       ),
     );
   }

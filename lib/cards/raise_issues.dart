@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:voter_grievance_redressal/cards/ReusableCard.dart';
+import 'package:voter_grievance_redressal/home/home_page.dart';
 
 class raise extends StatefulWidget {
   @override
@@ -12,6 +15,9 @@ class _raiseState extends State<raise> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+//          leading: FlatButton(child: Icon(Icons.arrow_back),onPressed: (){
+//            Navigator.pop(context);
+//          },),
           centerTitle: true,
           title: Text("Raise A New Issue"),
         ),
@@ -34,7 +40,7 @@ class _raiseState extends State<raise> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard('HEALTH'),
+                    child: ReusableCard('SANITATION'),
                   ),
                   Expanded(
                     child: ReusableCard('ROADS'),
@@ -46,10 +52,10 @@ class _raiseState extends State<raise> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard('SANITATION'),
+                    child: ReusableCard('CORRUPTION'),
                   ),
                   Expanded(
-                    child: ReusableCard('CORRUPTION'),
+                    child: ReusableCard('OTHER'),
                   ),
                 ],
               ),
@@ -58,4 +64,3 @@ class _raiseState extends State<raise> {
         ));
   }
 }
-
