@@ -20,7 +20,7 @@ class _DeptPageState extends State<DeptPage> {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: <Widget>[
-        _buildDeptCard('assets/images/vote0.png',  'BWSSB'),
+        _buildDeptCard('assets/images/1.png',  'BWSSB'),
         _buildDeptCard('assets/images/vote0.png',  'BESCOM'),
         _buildDeptCard('assets/images/vote0.png',  'SANITATION'),
         _buildDeptCard('assets/images/vote0.png',  'ROADS'),
