@@ -5,8 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/painting.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:voter_grievance_redressal/RetrieveIssues/RetrieveIssues.dart';
+import 'package:voter_grievance_redressal/RetrieveIssues/ret.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
 import 'package:voter_grievance_redressal/issues/FillForm.dart';
 
@@ -35,9 +36,28 @@ class _StatisticsState extends State<Statistics> {
           ),
 
         ),
-        body: SafeArea(
+        body: Container(
+            height: MediaQuery.of(context).size.height - 270.0,
+
             child: Column(
-              children: <Widget>[RankingStream()],
+              children: <Widget>[
+                SizedBox(
+                  height: 20.0,
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text('Ranking Of Constituencies',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0)),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RankingStream()],
             )));
   }
 }
@@ -79,7 +99,8 @@ class RankingStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
-              //scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
               children: rankingTiles,
             ),
           );
@@ -95,102 +116,63 @@ class RankingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Container(
-              height: 100.0,
-              width: 250.0,
-              decoration: BoxDecoration(
-                  color: Colors.indigo,
-                  borderRadius: BorderRadius.circular(15.0)),
-              child: Column(children: [
-                SizedBox(height: 15.0),
-                //Image.asset(img, fit: BoxFit.cover, height: 130.0),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                  child: Text("category",
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                SizedBox(height: 30.0),
-                InkWell(
-                  onTap: () {},
-//                    onTap: () async {
-//                      try {
-//                        final user = await _auth.currentUser();
-//                        if (user != null) {
-//                          loggedInUser = user;
-//                        }
-//                        Navigator.push(context,
-//                            MaterialPageRoute(builder: (context) {
-//                              return FillForm(category, loggedInUser.email);
-//                            }));
-//                      } catch (e) {
-//                        print(e);
-//                      }
-//                    },
-                    child: Container(
-                      height: 45.0,
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Center(
-                        child: Text(
-                          'Raise Issue',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: 17,
-                              color: Colors.white),
-                        ),
+    return
+      Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Container(
+            height: 100.0,
+            width: 250.0,
+            decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.circular(15.0)),
+            child: Column(children: [
+              SizedBox(height: 15.0),
+              Text("1",
+
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red,
+                    fontSize: 70
+                ),),
+              SizedBox(height: 20.0),
+              Text(rank.documentID,
+
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontSize: 24
+                ),),
+              SizedBox(height: 20.0),
+
+              SizedBox(height: 10.0),
+
+
+              SizedBox(height: 15.0),
+              InkWell(
+                onTap: () {},
+//                  onTap: () => Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                          builder: (context) => OnTileTap(grievance: grievance,email:email
+//                          ))),
+                  child: Container(
+                    height: 45.0,
+                    width: 180.0,
+                    decoration: BoxDecoration(
+                        color: Colors.indigoAccent,
+                        borderRadius: BorderRadius.circular(15.0)),
+                    child: Center(
+                      child: Text(
+                        'View Details',
+                        style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontSize: 17,
+                            color: Colors.white),
                       ),
-                    )),
-                SizedBox(height: 15.0),
-                InkWell(
-                  onTap: () {},
-//                    onTap: () async {
-//                      try {
-//                        final user = await _auth.currentUser();
-//                        if (user != null) {
-//                          loggedInUser = user;
-//                        }
-//                        Navigator.push(context,
-//                            MaterialPageRoute(builder: (context) {
-//                              return RetrieveIssues(category, loggedInUser.email);
-//                            }));
-//                      } catch (e) {
-//                        print(e);
-//                      }
-////});
-//                    },
-                    child: Container(
-                      height: 45.0,
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Center(
-                        child: Text(
-                          'Previous Issues',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: 17,
-                              color: Colors.white),
-                        ),
-                      ),
-                    )),
-              ])),
-        )
-      ],
-    );
+                    ),
+                  )),
+            ])),
+      );
+
   }
 }

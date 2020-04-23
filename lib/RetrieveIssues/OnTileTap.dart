@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/home/build_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -148,7 +149,25 @@ class _OnTileTapState extends State<OnTileTap> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Your Grievance'),
+
+        title: Text(
+          "Your Grievance",
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontSize: 18
+          ),
+
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.indigo,
+        elevation: 10.0,
+        shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(15),
+          ),
+        ),
+
       ),
       body: ModalProgressHUD(
         inAsyncCall:showSpinner ,

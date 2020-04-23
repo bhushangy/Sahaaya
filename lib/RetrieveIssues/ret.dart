@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
@@ -19,6 +20,8 @@ class RetrieveIssues extends StatefulWidget {
 }
 
 class _RetrieveIssuesState extends State<RetrieveIssues> {
+  TabController tabController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +47,37 @@ class _RetrieveIssuesState extends State<RetrieveIssues> {
         ),
 
       ),
-      body: SafeArea(
+      body:
+
+      Container(
+        height: MediaQuery.of(context).size.height - 220.0,
+
         child: Column(
+
           children: <Widget>[
-            GrievanceStream(category: widget.category, email: widget.email)
+            SizedBox(
+              height: 20.0,
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 10.0),
+              child: Text('Previous Grievances',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0)),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            GrievanceStream(category: widget.category, email: widget.email),
           ],
         ),
       ),
+
+
+
     );
   }
 }
@@ -99,19 +126,25 @@ class GrievanceStream extends StatelessWidget {
               ? Padding(
             padding: const EdgeInsets.only(top: 280.0),
             child: Center(
-              child: Text('No Grievances Submitted....'),
+              child: Text('No Grievances Submitted....',
+              style: TextStyle(
+                fontSize: 24
+              ),),
             ),
           )
-              : Expanded(
+              :Expanded(
             child: ListView(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              children: <Widget>[
-
-                new GrievanceTiles(),
-
-              ],
+              children: grievanceTiles,
             ),
           );
+
+
+
+
+
+
         });
   }
 }
@@ -164,10 +197,7 @@ class GrievanceTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      children: <Widget>[
+    return
         Padding(
           padding: EdgeInsets.all(12.0),
           child: Container(
@@ -181,10 +211,12 @@ class GrievanceTiles extends StatelessWidget {
                 grievance.data["Resolved"] == true
                     ? Icon(
                   Icons.thumb_up,
+                  size: 60,
                   color: Colors.green,
                 )
                     : Icon(
                   Icons.thumb_down,
+                  size: 60,
                   color: Colors.red,
                 ),
                 SizedBox(height: 20.0),
@@ -192,12 +224,11 @@ class GrievanceTiles extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                   child: Text(grievance.data["Constituency"],
 
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      )),
+                      style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 24
+                  ),),
 
                 ),
                 SizedBox(height: 10.0),
@@ -205,16 +236,16 @@ class GrievanceTiles extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                   child: Text(
                       grievance.data["Resolved"] == true
-                          ? grievance.data['Category'] +
+                          ? '\n'+grievance.data['Category'] +
                           '\n' +
-                          '\n' +
+
                           grievance.data["Created"]
                               .toDate()
                               .toString()
                               .substring(0, 16) +
                           '\n' +
                           'Resolved'
-                          : grievance.data['Category'] +
+                          : '\n'+grievance.data['Category'] +
                           '\n' +
                           grievance.data["Created"]
                               .toDate()
@@ -223,17 +254,16 @@ class GrievanceTiles extends StatelessWidget {
                           '\n' +
                           'Not Resolved',
 
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
+                    style: GoogleFonts.montserrat(
+                        //fontWeight: FontWeight.w600,
                         color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      )),
+                        fontSize: 22
+                    ),),
 
                 ),
 
 
-                SizedBox(height: 10.0),
+                SizedBox(height: 30.0),
                 InkWell(
                     onTap: () => Navigator.push(
                         context,
@@ -296,7 +326,7 @@ class GrievanceTiles extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
                         child: Text(
-                          'DELETE',
+                          'Delete',
                           style: TextStyle(
                               fontFamily: 'Quicksand',
                               fontSize: 17,
@@ -305,8 +335,7 @@ class GrievanceTiles extends StatelessWidget {
                       ),
                     )),
               ])),
-        )
-      ],
-    );
+        );
+
   }
 }
