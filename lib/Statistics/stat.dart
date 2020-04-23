@@ -37,8 +37,8 @@ class _StatisticsState extends State<Statistics> {
 
         ),
         body: Container(
-            height: MediaQuery.of(context).size.height - 270.0,
-
+            //height: MediaQuery.of(context).size.height - 270.0,
+            height: MediaQuery.of(context).size.height * 0.65,
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -127,7 +127,7 @@ class RankingTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0)),
             child: Column(children: [
               SizedBox(height: 15.0),
-              Text("1",
+              Text(index.toString(),
 
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,

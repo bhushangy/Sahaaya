@@ -55,7 +55,7 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
               height: 10.0,
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 270.0,
+              height: MediaQuery.of(context).size.height * 0.6,
 
               child: TabBarView(
                 controller: tabController,

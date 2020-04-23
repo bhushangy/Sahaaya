@@ -50,7 +50,7 @@ class _RetrieveIssuesState extends State<RetrieveIssues> {
       body:
 
       Container(
-        height: MediaQuery.of(context).size.height - 220.0,
+        height: MediaQuery.of(context).size.height * 0.7,
 
         child: Column(
 
