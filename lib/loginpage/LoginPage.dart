@@ -174,10 +174,13 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
 
                                   try{
-
-
+                                        if(email!="" || email==null){
                                 _auth.sendPasswordResetEmail(email: email);
                                 _showDialog("Password Reset", "Password reset link sent to your email.");
+                                  }
+                                  else{
+                                          _showDialog("Email Invalid", "Email cannot be empty.Enter your email.");
+                                        }
                                   }
 
                               catch(e){
