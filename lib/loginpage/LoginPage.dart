@@ -170,7 +170,24 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: Alignment(1.0, 0.0),
                           padding: EdgeInsets.only(top: 15.0, left: 25.0),
                           child: InkWell(
-                            onTap: () {},
+
+                            onTap: () {
+
+                                  try{
+
+
+                                _auth.sendPasswordResetEmail(email: email);
+                                _showDialog("Password Reset", "Password reset link sent to your email.");
+                                  }
+
+                              catch(e){
+
+                                      _showDialog("Invalid Email", "Enter valid Email.");
+
+                              }
+
+
+                            },
                             child: Text(
                               'Forgot Password',
                               style: GoogleFonts.montserrat(
