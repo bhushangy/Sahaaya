@@ -41,7 +41,7 @@ class _DeptPageState extends State<DeptPage> {
               height: 100.0,
               width: 250.0,
               decoration: BoxDecoration(
-                  color: Colors.indigo,
+                  color: Color(0xffeceff1),
                   borderRadius: BorderRadius.circular(15.0)),
               child: Column(children: [
                 SizedBox(height: 15.0),
@@ -52,7 +52,7 @@ class _DeptPageState extends State<DeptPage> {
                   child: Text(category,
                       style: TextStyle(
                         fontFamily: 'Quicksand',
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       )),
@@ -77,7 +77,7 @@ class _DeptPageState extends State<DeptPage> {
                       height: 45.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
+                          color: Color(0xffe0e0e0).withOpacity(0.4),
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
                         child: Text(
@@ -85,7 +85,7 @@ class _DeptPageState extends State<DeptPage> {
                           style: TextStyle(
                               fontFamily: 'Quicksand',
                               fontSize: 17,
-                              color: Colors.white),
+                              color: Colors.black),
                         ),
                       ),
                     )),
@@ -110,7 +110,7 @@ class _DeptPageState extends State<DeptPage> {
                       height: 45.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
+                          color: Color(0xffe0e0e0).withOpacity(0.4),
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
                         child: Text(
@@ -118,7 +118,7 @@ class _DeptPageState extends State<DeptPage> {
                           style: TextStyle(
                               fontFamily: 'Quicksand',
                               fontSize: 17,
-                              color: Colors.white),
+                              color: Colors.black),
                         ),
                       ),
                     )),

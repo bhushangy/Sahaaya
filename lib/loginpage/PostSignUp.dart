@@ -192,7 +192,7 @@ class _PostSignUpState extends State<PostSignUp> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => home()),
+                                        builder: (context) =>home()),
                                   );
                                   setState(() {
                                     showSpinner = false;
