@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/home/build_home.dart';
+
 import 'package:voter_grievance_redressal/home/home_page.dart';
-import 'package:voter_grievance_redressal/models/checkBox.dart';
+
+
+
 
 class PostSignUp extends StatefulWidget {
   String email;
@@ -34,6 +34,9 @@ class _PostSignUpState extends State<PostSignUp> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           title: new Text(a),
           content: new Text(b),
           actions: <Widget>[

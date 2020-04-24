@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
@@ -295,6 +294,9 @@ class GrievanceTiles extends StatelessWidget {
                         builder: (BuildContext context) {
                           // return object of type Dialog
                           return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             title: new Text("Delete this Previous Record"),
                             content: new Text("Are you sure you want to delete it ?"),
                             actions: <Widget>[
