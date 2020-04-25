@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:voter_grievance_redressal/models/checkBox.dart';
 
 
 
@@ -22,6 +25,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   Set<Marker> _markers = {};
 
   LatLng _lastMapPosition = _center;
+  bool showSpinner=false;
 
 
   MapType _currentMapType = MapType.normal;
@@ -29,6 +33,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   Position pos;
   Widget _child;
   Position _currentPosition;
+  int i=0;
 
 //void initState(){
 //  _getCurrentLocation();
@@ -45,6 +50,8 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
         onDragEnd: ((value){
           lat =value.latitude;
           long=value.longitude;
+          Provider.of<DropDown>(context,listen: false).map(lat,long);
+
 
 
         }),
@@ -89,6 +96,8 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
         _currentPosition = position;
         lat=_currentPosition.latitude;
         long=_currentPosition.longitude;
+        Provider.of<DropDown>(context,listen: false).map(lat,long);
+
         _markers.add(Marker(
           onDragEnd: ((value){
             lat =value.latitude;
@@ -115,64 +124,72 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
 
-        body: Stack(
-          children: <Widget>[
-            GoogleMap(
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Stack(
+            children: <Widget>[
+              GoogleMap(
 
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: _center,
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
 //               target: LatLng(
 //                 pos.latitude,pos.longitude
 //               ),
-                zoom: 11.0,
-              ),
-              mapType: _currentMapType,
-              markers: _markers,
-              onCameraMove: _onCameraMove,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  children: <Widget> [
-                    SizedBox(
-                      height: 480,
-                    )
-                    ,
-                    FloatingActionButton(
-                      heroTag: "btn3",
-                      onPressed: _getCurrentLocation,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.black,
-                      child: const Icon(Icons.my_location, size: 36.0),
-                    ),
-                    SizedBox(height: 16.0),
-                    FloatingActionButton(
-                      heroTag: "btn2",
-                      onPressed: _onAddMarkerButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.blue,
-                      child: const Icon(Icons.add_location, size: 36.0),
-                    ),
-                    SizedBox(height: 16.0),
-                    FloatingActionButton(
-                      heroTag: "btn1",
-                      onPressed: (){Navigator.pop(context);},
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.check, size: 36.0),
-                    ),
-
-                  ],
+                  zoom: 11.0,
                 ),
+                mapType: _currentMapType,
+                markers: _markers,
+                onCameraMove: _onCameraMove,
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    children: <Widget> [
+                      SizedBox(
+                        height: 480,
+                      )
+                      ,
+                      FloatingActionButton(
+                        heroTag: "btn3",
+                        onPressed:_getCurrentLocation ,
+
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        backgroundColor: Colors.black,
+                        child: const Icon(Icons.my_location, size: 36.0),
+                      ),
+                      SizedBox(height: 16.0),
+                      FloatingActionButton(
+                        heroTag: "btn2",
+                        onPressed: _onAddMarkerButtonPressed ,
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        backgroundColor: Colors.blue,
+                        child: const Icon(Icons.add_location, size: 36.0),
+                      ),
+                      SizedBox(height: 16.0),
+                      FloatingActionButton(
+                        heroTag: "btn1",
+                        onPressed: (){Navigator.pop(context);},
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        backgroundColor: Colors.green,
+                        child: const Icon(Icons.check, size: 36.0),
+                      ),
+
+
+                    ],
+                  ),
+                ),
+
+              ),
+
+            ],
+          ),
         ),
       ),
     );

@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +33,7 @@ class FillForm extends StatefulWidget {
   _FillFormState createState() => _FillFormState();
 }
 
+
 class _FillFormState extends State<FillForm> {
   File image1, image2;
   final _auth = FirebaseAuth.instance;
@@ -52,6 +55,15 @@ class _FillFormState extends State<FillForm> {
   DocumentSnapshot doc;
   var res, nres, totalc;
   int phone;
+  int i=0;
+
+  @override
+  void initState() {
+    super.initState();
+    DragMarkerMap().whichlong=null;
+    DragMarkerMap().whichlat=null;
+
+  }
 
   void dispose() {
     super.dispose();
@@ -148,6 +160,7 @@ class _FillFormState extends State<FillForm> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
+
       image1 = image;
       print('_image: $image1');
     });
@@ -158,6 +171,7 @@ class _FillFormState extends State<FillForm> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
+
       image2 = image;
       print('_image2: $image2');
     });
@@ -166,6 +180,10 @@ class _FillFormState extends State<FillForm> {
   Future uploadFile(File image1, File image2) async {
     StorageReference storageReference;
     StorageUploadTask uploadTask;
+    setState(() {
+      i++;
+      print(i);
+    });
     try {
       if (image1 != null) {
         storageReference = FirebaseStorage.instance
@@ -216,6 +234,9 @@ class _FillFormState extends State<FillForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           title: Text(
             a,
             style: GoogleFonts.montserrat(
@@ -436,6 +457,7 @@ class _FillFormState extends State<FillForm> {
                               showSpinner = true;
                             });
                             try {
+                              i++;
                               await uploadFile(image1, image2);
                               _showDialog("Upload Successful",
                                   "Selected images uploaded successfully.");
@@ -444,6 +466,7 @@ class _FillFormState extends State<FillForm> {
                             }
 
                             setState(() {
+                            i++;
                               showSpinner = false;
                             });
                           }
@@ -466,13 +489,48 @@ class _FillFormState extends State<FillForm> {
                         height: 35.0,
                       ),
                       Container(
-                        width: 0.8 * MediaQuery.of(context).size.width,
+                        width: 0.9 * MediaQuery.of(context).size.width,
                         height: 0.3 * MediaQuery.of(context).size.height,
                         decoration: BoxDecoration(
                           border: Border.all(width: 1.75, color: Colors.grey),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
+                          child: (Provider.of<DropDown>(context,listen: false).whichLong == null &&
+                              Provider.of<DropDown>(context,listen: false).whichLong==null)
+
+
+                              ? FlatButton(
+                              child: Icon(
+                                Icons.location_on,
+                                size: 75,
+                              ),
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return DragMarkerMap();
+                                    }));
+                              }):
+
+                          GoogleMap(
+                            onMapCreated: _onMapCreated,
+                            myLocationEnabled: true,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
+
+                              zoom: 11.0,
+                            ),
+                            mapType: _currentMapType,
+                            markers: _markers,
+
+                            gestureRecognizers:
+                            <Factory<OneSequenceGestureRecognizer>>[
+                              new Factory<OneSequenceGestureRecognizer>(
+                                    () => new EagerGestureRecognizer(),
+                              ),
+                            ].toSet(),
+                          ),
                       ),
+
                       SizedBox(
                         height: 65.0,
                       ),
@@ -481,11 +539,21 @@ class _FillFormState extends State<FillForm> {
                           width: 0.93 * MediaQuery.of(context).size.width,
                           height: 50,
                           onT: () async {
+                            print(i);
+                            if (DragMarkerMap().whichlat == null||
+                            DragMarkerMap().whichlong == null)
+                            _showDialog("Location Not Selected",
+                            "Please mark the location");
+                            else if((image1!=null && i==0)||(image2!=null && i==0)){
+                              _showDialog("Image(s) Not Uploaded",
+                                  "Please upload the image(s)");}
+                            else{
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
 
                               setState(() {
                                 showSpinner = true;
+
                               });
                               showSpinner = true;
                               await createRecord();
@@ -493,15 +561,18 @@ class _FillFormState extends State<FillForm> {
                               setState(() {
                                 showSpinner = false;
                               });
+
+                              Navigator.pop(context);
                               _showDialog("Grievance Status",
                                   "Grievance Submitted Successfully");
-                              Navigator.pop(context);
+                              Provider.of<DropDown>(context,listen: false).map(null,null);
+
                             } else {
                               print('description empty!!!');
                               _showDialog("Description Empty",
                                   "Please grive a brief description of your grievance.");
                             }
-                          }),
+                          }},),
                       SizedBox(
                         height: 30,
                       )

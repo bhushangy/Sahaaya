@@ -328,31 +328,30 @@ class _OnTileTapState extends State<OnTileTap> {
                     SizedBox(
                       height: 30.0,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 15,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.black38,
-                          width: 1,
+                    Center(
+                      child: Container(
+                        width: 0.95* MediaQuery.of(context).size.width,
+                        height: 0.3 * MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.75, color: Colors.grey),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                      ),
-                      child: GoogleMap(
-                        onMapCreated: _onMapCreated,
-                        myLocationEnabled: true,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(lat, long),
-                          zoom: 11.0,
-                        ),
-                        mapType: _currentMapType,
-                        markers: _markers,
-                        gestureRecognizers:
-                        <Factory<OneSequenceGestureRecognizer>>[
-                          new Factory<OneSequenceGestureRecognizer>(
-                                () => new EagerGestureRecognizer(),
+                        child: GoogleMap(
+                          onMapCreated: _onMapCreated,
+                          myLocationEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(lat, long),
+                            zoom: 11.0,
                           ),
-                        ].toSet(),
+                          mapType: _currentMapType,
+                          markers: _markers,
+                          gestureRecognizers:
+                          <Factory<OneSequenceGestureRecognizer>>[
+                            new Factory<OneSequenceGestureRecognizer>(
+                                  () => new EagerGestureRecognizer(),
+                            ),
+                          ].toSet(),
+                        ),
                       ),
                     ),
                     SizedBox(

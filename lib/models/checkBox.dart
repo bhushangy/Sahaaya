@@ -5,8 +5,15 @@ class DropDown extends ChangeNotifier {
 
 
  String consti = 'Yalahanka';
+ double whichLat=null,whichLong=null;
   void changeState(String constitu){
     consti = constitu;
+    notifyListeners();
+  }
+  void map(double a,double b)
+  {
+    whichLat=a;
+    whichLong=b;
     notifyListeners();
   }
 
