@@ -282,6 +282,13 @@
             </list>
           </value>
         </entry>
+        <entry key="fluttertoast">
+          <value>
+            <list>
+              <option value="$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-4.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="font_awesome_flutter">
           <value>
             <list>
@@ -686,6 +693,7 @@
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.17.1/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_swiper-1.1.6/lib" />
+      <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-4.0.1/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-8.5.0/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/geolocation-1.1.2/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.0/lib" />

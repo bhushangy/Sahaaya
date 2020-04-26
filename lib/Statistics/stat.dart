@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voter_grievance_redressal/home/home_page.dart';
 
 
 final _firestore = Firestore.instance;
@@ -18,43 +19,53 @@ class Statistics extends StatefulWidget {
 class _StatisticsState extends State<Statistics> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar:  AppBar(
-          title: Text('Ranking'),
-          centerTitle: true,
-          backgroundColor: Colors.indigo,
-          elevation: 10.0,
-          shape:RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+              return home();
+            }));
+
+        return false;
+      },
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar:  AppBar(
+            title: Text('Ranking'),
+            centerTitle: true,
+            backgroundColor: Colors.indigo,
+            elevation: 10.0,
+            shape:RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
             ),
+
           ),
+          body: Container(
+              //height: MediaQuery.of(context).size.height - 270.0,
+              height: MediaQuery.of(context).size.height * 0.65,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20.0,
+                  ),
 
-        ),
-        body: Container(
-            //height: MediaQuery.of(context).size.height - 270.0,
-            height: MediaQuery.of(context).size.height * 0.65,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text('Ranking Of Constituencies',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0)),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                RankingStream()],
-            )));
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text('Ranking Of Constituencies',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0)),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RankingStream()],
+              ))),
+    );
   }
 }
 
