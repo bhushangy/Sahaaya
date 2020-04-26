@@ -6,6 +6,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 import 'package:voter_grievance_redressal/loginpage/SignupPage.dart';
 
+import 'GetInfo.dart';
+
 
 class FactsScreen extends StatefulWidget {
   @override
@@ -21,6 +23,29 @@ class _FactsScreenState extends State<FactsScreen> {
   void initState() {
     super.initState();
     getInternetData();
+    //TODO --> Ashwitha
+//    Future<String> res = UserDetails().checkInternetStatus();
+//    if (res == "Active"){
+//
+//    }else{
+//      Alert(
+//        context: context,
+//        type: AlertType.error,
+//        title: "No Network!!",
+//        desc: "Please check your Internet connection and restart the app",
+//        buttons: [
+//          DialogButton(
+//            child: Text(
+//              "Restart",
+//              style: TextStyle(color: Colors.white, fontSize: 20),
+//            ),
+//            onPressed: () =>
+//                SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+//            width: 120,
+//          )
+//        ],
+//      ).show();
+//    }
   }
 
   void dispose() {

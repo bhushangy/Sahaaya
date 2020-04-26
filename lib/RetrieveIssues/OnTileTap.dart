@@ -28,6 +28,7 @@ class OnTileTap extends StatefulWidget {
 class _OnTileTapState extends State<OnTileTap> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var snackbar = SnackBar(
+    behavior:SnackBarBehavior.floating ,
       content: Text("Status Updated"),
       duration: Duration(seconds: 1),
       elevation: 10.0);
@@ -37,7 +38,6 @@ class _OnTileTapState extends State<OnTileTap> {
   String description;
   String img1, img2;
   String dat;
-  String status;
   var pageIndex = 0;
   bool isResolved;
   bool showSpinner = false;
@@ -48,13 +48,18 @@ class _OnTileTapState extends State<OnTileTap> {
   MapType _currentMapType = MapType.normal;
   DocumentSnapshot doc;
   var nres, res, totalres, ratio;
+  var _txtControl = TextEditingController();
 
   void initState() {
     super.initState();
     //getCurrentUser();
     getData();
-  }
 
+  }
+void dispose(){
+    super.dispose();
+    _txtControl.dispose();
+}
   void getData() {
     //description = widget.grievance.data["Description"];
     img1 = widget.grievance.data["Image1"];
@@ -65,7 +70,7 @@ class _OnTileTapState extends State<OnTileTap> {
     lat = widget.grievance.data["Location"].latitude;
     long = widget.grievance.data["Location"].longitude;
     isResolved = widget.grievance.data["Resolved"];
-    isResolved == true ? status = "Yes" : status = "No";
+    isResolved == true ? _txtControl.text = "Yes" : _txtControl.text = "No";
   }
 
 //  void getCurrentUser() async {
@@ -279,7 +284,7 @@ class _OnTileTapState extends State<OnTileTap> {
                       onChanged: (bool value) async {
                         setState(() {
                           isResolved = value;
-                          value == true ? status = "Yes" : status = "No";
+                          value == true ? _txtControl.text = "Yes" : _txtControl.text = "No";
                           showSpinner = true;
                         });
                         await updateStatus();
@@ -295,12 +300,11 @@ class _OnTileTapState extends State<OnTileTap> {
                           left: 0.022 * MediaQuery.of(context).size.width,
                           right: 0.022 * MediaQuery.of(context).size.width),
                       child: TextFormField(
-                        enabled: true,
+                        controller: _txtControl,
+                        enabled: false,
                         onChanged: (value) {
-                          status = value;
+                          _txtControl.text = value;
                         },
-                        initialValue: status,
-                        // enabled: false,
                         decoration: InputDecoration(
                           prefixIcon: isResolved == true
                               ? Icon(
@@ -380,6 +384,8 @@ class ConstiAndCateg extends StatelessWidget {
           left: 0.022 * MediaQuery.of(context).size.width,
           right: 0.022 * MediaQuery.of(context).size.width),
       child: TextFormField(
+        maxLines: null,
+        keyboardType: TextInputType.multiline ,
         enabled: false,
         initialValue: val,
         // enabled: false,

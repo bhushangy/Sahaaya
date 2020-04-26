@@ -542,7 +542,6 @@ class _FillFormState extends State<FillForm> {
                             child: (Provider.of<DropDown>(context,listen: false).whichLong == null &&
                                 Provider.of<DropDown>(context,listen: false).whichLong==null)
 
-
                                 ? FlatButton(
                                 child: Icon(
                                   Icons.location_on,

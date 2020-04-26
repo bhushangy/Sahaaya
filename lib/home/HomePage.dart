@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     'Malleshwaram',
     'Vidyaranyapura'
   ];
+
   Future<bool>dontgoback(){
     return showDialog(
       context: context,
@@ -68,6 +69,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -94,11 +96,6 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.arrow_back),
-                            onPressed: () {},
-                            color: Colors.white,
-                          ),
                           Text(
                             'Sahaaya',
                             style: GoogleFonts.montserrat(
@@ -185,7 +182,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 130,
                 child: ListView(
-                  physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+                  physics: ScrollPhysics(parent: PageScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     menuCard(
@@ -200,24 +197,68 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.035),
-                child: Container(
-                  child: Text(
-                    'How it works?',
-                    style: GoogleFonts.montserrat(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
+
+              Material(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.2,
+                    width:MediaQuery.of(context).size.width*0.95,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.horizontal(left:Radius.circular(30),right:Radius.circular(30)),color: Colors.white),
+                   child: Column(
+                     children: <Widget>[
+                       SizedBox(
+                         height:MediaQuery.of(context).size.height*0.04 ,
+                       ),
+                       Text(
+                         'Select Constituency',
+                         style: GoogleFonts.montserrat(
+                             fontSize: 20.0, fontWeight: FontWeight.bold),
+                       ),
+                       SizedBox(
+                         height:10 ,
+                       ),
+                       DropdownButton<String>(
+
+                         elevation: 2,
+                         value:Provider.of<DropDown>(context,listen: false).consti,
+                         icon: Icon(Icons.arrow_drop_down),
+                         iconSize: 24,
+                         onChanged: (String newValue) async {
+                           setState(() {
+                             Provider.of<DropDown>(context,listen: false).changeState(newValue);
+                             //  dropdownValue = newValue;
+                             HomePage.whichConstituency = Provider.of<DropDown>(context,listen: false).consti;
+                             //print(buildhome.whichConstituency);
+                           });
+                         },
+                         items: constituency.map<DropdownMenuItem<String>>((String value) {
+                           return DropdownMenuItem<String>(
+                             value: value,
+                             child: Text(
+                               value,
+                               style: TextStyle(fontSize: 18),
+                             ),
+                           );
+                         }).toList(),
+                       ),
+
+                     ],
+                   ),
+                   // child: ,
                   ),
                 ),
               ),
+
               SizedBox(
                 height: 20,
               ),
+
               Container(
                 height: 130,
                 child: ListView(
-                  physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+                  physics: ScrollPhysics(parent: PageScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     menuCard(
@@ -231,48 +272,6 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.035),
-                child: Container(
-                  child: Text(
-                    'Select your Constituency',
-                    style: GoogleFonts.montserrat(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                child:Center(
-                  child: DropdownButton<String>(
-
-                    elevation: 2,
-                    value:Provider.of<DropDown>(context,listen: false).consti,
-                    icon: Icon(Icons.arrow_drop_down),
-                    iconSize: 24,
-                    onChanged: (String newValue) async {
-                      setState(() {
-                        Provider.of<DropDown>(context,listen: false).changeState(newValue);
-                        //  dropdownValue = newValue;
-                        HomePage.whichConstituency = Provider.of<DropDown>(context,listen: false).consti;
-                        //print(buildhome.whichConstituency);
-                      });
-                    },
-                    items: constituency.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
               ),
               SizedBox(
                 height: 30,
@@ -288,14 +287,14 @@ class _HomePageState extends State<HomePage> {
 Widget menuCard(BuildContext context, String announcemnet, String imgPath) {
   return Padding(
     padding: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * 0.035,
-        right: MediaQuery.of(context).size.width * 0.035),
+        left: MediaQuery.of(context).size.width * 0.04,
+        right: MediaQuery.of(context).size.width * 0.04),
     child: Material(
       borderRadius: BorderRadius.circular(7.0),
       elevation: 0.5,
       child: Container(
         height: 125.0,
-        width: MediaQuery.of(context).size.width * 0.86,
+        width: MediaQuery.of(context).size.width * 0.92,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7.0), color: Colors.white),
         child: Row(

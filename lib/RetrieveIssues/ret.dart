@@ -26,38 +26,27 @@ class _RetrieveIssuesState extends State<RetrieveIssues> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
         title: Text(
           widget.category,
           style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-              fontSize: 18
-          ),
-
+              fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
         ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
         elevation: 10.0,
-        shape:RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(15),
           ),
         ),
-
       ),
-      body:
-
-      Container(
+      body: Container(
         height: MediaQuery.of(context).size.height * 0.7,
-
         child: Column(
-
           children: <Widget>[
             SizedBox(
               height: 20.0,
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Text('Previous Grievances',
@@ -74,9 +63,6 @@ class _RetrieveIssuesState extends State<RetrieveIssues> {
           ],
         ),
       ),
-
-
-
     );
   }
 }
@@ -123,27 +109,21 @@ class GrievanceStream extends StatelessWidget {
           }
           return grievances.length == 0
               ? Padding(
-            padding: const EdgeInsets.only(top: 280.0),
-            child: Center(
-              child: Text('No Grievances Submitted....',
-              style: TextStyle(
-                fontSize: 24
-              ),),
-            ),
-          )
-              :Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: grievanceTiles,
-            ),
-          );
-
-
-
-
-
-
+                  padding: const EdgeInsets.only(top: 280.0),
+                  child: Center(
+                    child: Text(
+                      'No Grievances Submitted....',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    children: grievanceTiles,
+                  ),
+                );
         });
   }
 }
@@ -158,12 +138,12 @@ class GrievanceTiles extends StatelessWidget {
   void deleteRecordFromConstituencyCollec() async {
     try {
       lis = (await databaseReference
-          .collection("Constituencies")
-          .document(grievance.data["Constituency"].toString().toUpperCase())
-          .collection(grievance.data["Category"].toString().toUpperCase() +
-          "Complaints")
-          .where("RefId", isEqualTo: grievance.data['RefId'])
-          .getDocuments())
+              .collection("Constituencies")
+              .document(grievance.data["Constituency"].toString().toUpperCase())
+              .collection(grievance.data["Category"].toString().toUpperCase() +
+                  "Complaints")
+              .where("RefId", isEqualTo: grievance.data['RefId'])
+              .getDocuments())
           .documents;
 
       for (var i = 0; i < lis.length; i++) {
@@ -171,7 +151,7 @@ class GrievanceTiles extends StatelessWidget {
             .collection("Constituencies")
             .document(grievance.data["Constituency"].toString().toUpperCase())
             .collection(grievance.data["Category"].toString().toUpperCase() +
-            "Complaints")
+                "Complaints")
             .document(lis[i].documentID)
             .delete();
       }
@@ -186,7 +166,7 @@ class GrievanceTiles extends StatelessWidget {
           .collection("Users")
           .document(email)
           .collection(grievance.data["Category"].toString().toUpperCase() +
-          "Grievances")
+              "Grievances")
           .document(grievance.documentID)
           .delete();
     } catch (e) {
@@ -196,153 +176,142 @@ class GrievanceTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Container(
-              height: 100.0,
-              width: 250.0,
-              decoration: BoxDecoration(
-                  color: Colors.indigo,
-                  borderRadius: BorderRadius.circular(15.0)),
-              child: Column(children: [
-                SizedBox(height: 15.0),
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Container(
+          height: 100.0,
+          width: 250.0,
+          decoration: BoxDecoration(
+              color: Colors.indigo, borderRadius: BorderRadius.circular(15.0)),
+          child: Column(children: [
+            SizedBox(height: 15.0),
+            grievance.data["Resolved"] == true
+                ? Icon(
+                    Icons.thumb_up,
+                    size: 60,
+                    color: Colors.green,
+                  )
+                : Icon(
+                    Icons.thumb_down,
+                    size: 60,
+                    color: Colors.red,
+                  ),
+            SizedBox(height: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Text(
+                grievance.data["Constituency"],
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontSize: 24),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Text(
                 grievance.data["Resolved"] == true
-                    ? Icon(
-                  Icons.thumb_up,
-                  size: 60,
-                  color: Colors.green,
-                )
-                    : Icon(
-                  Icons.thumb_down,
-                  size: 60,
-                  color: Colors.red,
-                ),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                  child: Text(grievance.data["Constituency"],
-
-                      style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      fontSize: 24
-                  ),),
-
-                ),
-                SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                  child: Text(
-                      grievance.data["Resolved"] == true
-                          ? '\n'+grievance.data['Category'] +
-                          '\n' +
-
-                          grievance.data["Created"]
-                              .toDate()
-                              .toString()
-                              .substring(0, 16) +
-                          '\n' +
-                          'Resolved'
-                          : '\n'+grievance.data['Category'] +
-                          '\n' +
-                          grievance.data["Created"]
-                              .toDate()
-                              .toString()
-                              .substring(0, 16) +
-                          '\n' +
-                          'Not Resolved',
-
-                    style: GoogleFonts.montserrat(
-                        //fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 22
-                    ),),
-
-                ),
-
-
-                SizedBox(height: 30.0),
-                InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OnTileTap(grievance: grievance,email:email
-                            ))),
-                    child: Container(
-                      height: 45.0,
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Center(
-                        child: Text(
-                          'View Details',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: 17,
-                              color: Colors.white),
+                    ? '\n' +
+                        grievance.data['Category'] +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Resolved'
+                    : '\n' +
+                        grievance.data['Category'] +
+                        '\n' +
+                        grievance.data["Created"]
+                            .toDate()
+                            .toString()
+                            .substring(0, 16) +
+                        '\n' +
+                        'Not Resolved',
+                style: GoogleFonts.montserrat(
+                    //fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontSize: 22),
+              ),
+            ),
+            SizedBox(height: 30.0),
+            InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            OnTileTap(grievance: grievance, email: email))),
+                child: Container(
+                  height: 45.0,
+                  width: 180.0,
+                  decoration: BoxDecoration(
+                      color: Colors.indigoAccent,
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Center(
+                    child: Text(
+                      'View Details',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontSize: 17,
+                          color: Colors.white),
+                    ),
+                  ),
+                )),
+            SizedBox(height: 15.0),
+            InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      // return object of type Dialog
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                    )),
-                SizedBox(height: 15.0),
-                InkWell(
-                    onTap:() {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            title: new Text("Delete this Previous Record",style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
-                            content: new Text("Are you sure you want to delete it ?",
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),),
-                            actions: <Widget>[
-                              // usually buttons at the bottom of the dialog
-                              new FlatButton(
-                                child: new Text(" YES"),
-                                onPressed: () {
-                                  deleteRecord();
-                                  deleteRecordFromConstituencyCollec();
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              new FlatButton(
-                                child: new Text(" NO"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                        title: new Text("Delete this Previous Record"),
+                        content:
+                            new Text("Are you sure you want to delete it ?"),
+                        actions: <Widget>[
+                          // usually buttons at the bottom of the dialog
+                          new FlatButton(
+                            child: new Text(" YES"),
+                            onPressed: () {
+                              deleteRecord();
+                              deleteRecordFromConstituencyCollec();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          new FlatButton(
+                            child: new Text(" NO"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       );
                     },
-                    child: Container(
-                      height: 45.0,
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Center(
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: 17,
-                              color: Colors.white),
-                        ),
-                      ),
-                    )),
-              ])),
-        );
-
+                  );
+                },
+                child: Container(
+                  height: 45.0,
+                  width: 180.0,
+                  decoration: BoxDecoration(
+                      color: Colors.indigoAccent,
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Center(
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontSize: 17,
+                          color: Colors.white),
+                    ),
+                  ),
+                )),
+          ])),
+    );
   }
 }
