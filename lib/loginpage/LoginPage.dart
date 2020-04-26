@@ -42,8 +42,12 @@ class _LoginPageState extends State<LoginPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: new Text(a),
-          content: new Text(b),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -219,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
 
                               onTap: () {
                                 if(email=="" || email==null)
-                                  _showDialog("Email Invalid", "Email cannot be empty.Enter your email.");
+                                  _showDialog("Email Invalid", "Email cannot be empty. Enter your email.");
 
                                 else{
                                 try{
@@ -284,11 +288,11 @@ class _LoginPageState extends State<LoginPage> {
                                   {
                                     case "ERROR_USER_NOT_FOUND":
                                     {
-                                      _showDialog("Invalid User", "Email does not exist.Please Sign Up.");
+                                      _showDialog("Invalid User", "Email does not exist. Please Sign Up.");
                                     }break;
                                     case "ERROR_INVALID_EMAIL":
                                       {
-                                        _showDialog("Invalid Email", "Email is in Invalid format.Please Retry.");
+                                        _showDialog("Invalid Email", "Email is in Invalid format. Please Retry.");
                                       }break;
                                     case "ERROR_WRONG_PASSWORD":
                                       {

@@ -25,21 +25,26 @@ class _PostSignUpState extends State<PostSignUp> {
   bool showSpinner = false;
 
   void _showDialog(
-    String a,b
-
-  ) {
+      String a,
+      String b,
+      ) {
     // flutter defined function
     showDialog(
       context: context,
       barrierDismissible: false,
+
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: new Text(a),
-          content: new Text(b),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

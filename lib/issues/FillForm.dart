@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -280,306 +281,350 @@ class _FillFormState extends State<FillForm> {
       ));
     });
   }
+  Future<bool>dontgoback(){
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: Text(
+            "Discard Form",
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),
+          ),
+          content: Text(
+            "Do you want to discard this grievance ?",
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+            ),
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(" YES"),
+              onPressed: () {
+                Navigator.pop(context,true);
+              },
+            ),
+            new FlatButton(
+              child: new Text(" NO"),
+              onPressed: () {
+                Navigator.pop(context,false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
+    return WillPopScope(
+      onWillPop: dontgoback,
+      child: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
 
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'New Grievance',
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.indigo,
-          elevation: 10.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'New Grievance',
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.indigo,
+            elevation: 10.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
             ),
           ),
-        ),
-        body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          color: Colors.indigo,
-          child: SafeArea(
-              child: ListView(
-                physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 50.0,
-                      ),
-                      ConstiAndCateg(
-                          val: Provider.of<DropDown>(context, listen: false)
-                              .consti
-                              .toUpperCase(),
-                          label: 'CONSTITUENCY',
-                          icon: Icon(Icons.location_on)),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      ConstiAndCateg(
-                          val: widget.category.toUpperCase(),
-                          label: 'CATEGORY',
-                          icon: Icon(Icons.playlist_add_check)),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: 0.022 * MediaQuery.of(context).size.width,
-                                  right: 0.022 * MediaQuery.of(context).size.width),
-                              child: TextFormField(
-                                validator: (description) {
-                                  if (description.isEmpty) {
-                                    return 'Please enter grievance category';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                                onChanged: (value) {
-                                  description = value;
-                                },
-                                cursorColor: Colors.indigo,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.description,
-                                    color: Colors.grey,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.indigo),
-                                  ),
-                                  labelText: 'DESCRIPTION',
-                                  labelStyle: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+          body: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            color: Colors.indigo,
+            child: SafeArea(
+                child: ListView(
+                  physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 50.0,
+                        ),
+                        ConstiAndCateg(
+                            val: Provider.of<DropDown>(context, listen: false)
+                                .consti
+                                .toUpperCase(),
+                            label: 'CONSTITUENCY',
+                            icon: Icon(Icons.location_on)),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        ConstiAndCateg(
+                            val: widget.category.toUpperCase(),
+                            label: 'CATEGORY',
+                            icon: Icon(Icons.playlist_add_check)),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: 0.022 * MediaQuery.of(context).size.width,
+                                    right: 0.022 * MediaQuery.of(context).size.width),
+                                child: TextFormField(
+                                  validator: (description) {
+                                    if (description.isEmpty) {
+                                      return 'Please enter grievance category';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                  onChanged: (value) {
+                                    description = value;
+                                  },
+                                  cursorColor: Colors.indigo,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.description,
+                                      color: Colors.grey,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.indigo),
+                                    ),
+                                    labelText: 'DESCRIPTION',
+                                    labelStyle: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          child: Text(
+                            'UPLOAD IMAGES',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 35.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                getImage();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1.75, color: Colors.grey),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                child: image1 == null
+                                    ? Icon(Icons.insert_photo)
+                                    : Image.file(
+                                  image1,
+                                  fit: BoxFit.fill,
+                                ),
+                                height: 0.234 * MediaQuery.of(context).size.height,
+                                width: 0.4 * MediaQuery.of(context).size.width,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                getImage2();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1.75, color: Colors.grey),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                child: image2 == null
+                                    ? Icon(Icons.insert_photo)
+                                    : Image.file(
+                                  image2,
+                                  fit: BoxFit.fill,
+                                ),
+                                height: 0.234 * MediaQuery.of(context).size.height,
+                                width: 0.4 * MediaQuery.of(context).size.width,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Container(
-                        child: Text(
-                          'UPLOAD IMAGES',
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
+                        SizedBox(
+                          height: 45.0,
                         ),
-                      ),
-                      SizedBox(
-                        height: 35.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {
-                              getImage();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1.75, color: Colors.grey),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                              ),
-                              child: image1 == null
-                                  ? Icon(Icons.insert_photo)
-                                  : Image.file(
-                                image1,
-                                fit: BoxFit.fill,
-                              ),
-                              height: 0.234 * MediaQuery.of(context).size.height,
-                              width: 0.4 * MediaQuery.of(context).size.width,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              getImage2();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1.75, color: Colors.grey),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                              ),
-                              child: image2 == null
-                                  ? Icon(Icons.insert_photo)
-                                  : Image.file(
-                                image2,
-                                fit: BoxFit.fill,
-                              ),
-                              height: 0.234 * MediaQuery.of(context).size.height,
-                              width: 0.4 * MediaQuery.of(context).size.width,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 45.0,
-                      ),
-                      FormButtons(
-                        label: 'UPLOAD',
-                        width: 0.4 * MediaQuery.of(context).size.width,
-                        height: 40,
-                        onT: () async {
-                          if (image1 == null && image2 == null) {
-                            _showDialog("No images selected",
-                                "Please select atleast one image to upload.");
-                          } else {
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            try {
-                              i++;
-                              await uploadFile(image1, image2);
-                              _showDialog("Upload Successful",
-                                  "Selected images uploaded successfully.");
-                            } catch (e) {
-                              print(e);
-                            }
-
-                            setState(() {
-                            i++;
-                              showSpinner = false;
-                            });
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Container(
-                        child: Text(
-                          'SET LOCATION',
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35.0,
-                      ),
-                      Container(
-                        width: 0.9 * MediaQuery.of(context).size.width,
-                        height: 0.3 * MediaQuery.of(context).size.height,
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1.75, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                          child: (Provider.of<DropDown>(context,listen: false).whichLong == null &&
-                              Provider.of<DropDown>(context,listen: false).whichLong==null)
-
-
-                              ? FlatButton(
-                              child: Icon(
-                                Icons.location_on,
-                                size: 75,
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return DragMarkerMap();
-                                    }));
-                              }):
-
-                          GoogleMap(
-                            onMapCreated: _onMapCreated,
-                            myLocationEnabled: true,
-                            initialCameraPosition: CameraPosition(
-                              target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
-
-                              zoom: 11.0,
-                            ),
-                            mapType: _currentMapType,
-                            markers: _markers,
-
-                            gestureRecognizers:
-                            <Factory<OneSequenceGestureRecognizer>>[
-                              new Factory<OneSequenceGestureRecognizer>(
-                                    () => new EagerGestureRecognizer(),
-                              ),
-                            ].toSet(),
-                          ),
-                      ),
-
-                      SizedBox(
-                        height: 65.0,
-                      ),
-                      FormButtons(
-                          label: 'SUBMIT',
-                          width: 0.93 * MediaQuery.of(context).size.width,
-                          height: 50,
+                        FormButtons(
+                          label: 'UPLOAD',
+                          width: 0.4 * MediaQuery.of(context).size.width,
+                          height: 40,
                           onT: () async {
-                            print(i);
-                            if (DragMarkerMap().whichlat == null||
-                            DragMarkerMap().whichlong == null)
-                            _showDialog("Location Not Selected",
-                            "Please mark the location");
-                            else if((image1!=null && i==0)||(image2!=null && i==0)){
-                              _showDialog("Image(s) Not Uploaded",
-                                  "Please upload the image(s)");}
-                            else{
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-
+                            if (image1 == null && image2 == null) {
+                              _showDialog("No images selected",
+                                  "Please select atleast one image to upload.");
+                            } else {
                               setState(() {
                                 showSpinner = true;
-
                               });
-                              showSpinner = true;
-                              await createRecord();
-                              await statsUpdate();
+                              try {
+                                i++;
+                                await uploadFile(image1, image2);
+                                _showDialog("Upload Successful",
+                                    "Selected images uploaded successfully.");
+                              } catch (e) {
+                                print(e);
+                              }
+
                               setState(() {
+                              i++;
                                 showSpinner = false;
                               });
-
-                              Navigator.pop(context);
-                              _showDialog("Grievance Status",
-                                  "Grievance Submitted Successfully");
-                              Provider.of<DropDown>(context,listen: false).map(null,null);
-
-                            } else {
-                              print('description empty!!!');
-                              _showDialog("Description Empty",
-                                  "Please grive a brief description of your grievance.");
                             }
-                          }},),
-                      SizedBox(
-                        height: 30,
-                      )
-                    ],
-                  )
-                ],
-              )),
+                          },
+                        ),
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          child: Text(
+                            'SET LOCATION',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 35.0,
+                        ),
+                        Container(
+                          width: 0.9 * MediaQuery.of(context).size.width,
+                          height: 0.3 * MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.75, color: Colors.grey),
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                            child: (Provider.of<DropDown>(context,listen: false).whichLong == null &&
+                                Provider.of<DropDown>(context,listen: false).whichLong==null)
+
+
+                                ? FlatButton(
+                                child: Icon(
+                                  Icons.location_on,
+                                  size: 75,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return DragMarkerMap();
+                                      }));
+                                }):
+
+                            GoogleMap(
+                              onMapCreated: _onMapCreated,
+                              myLocationEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(DragMarkerMap().whichlat,DragMarkerMap().whichlong),
+
+                                zoom: 11.0,
+                              ),
+                              mapType: _currentMapType,
+                              markers: _markers,
+
+                              gestureRecognizers:
+                              <Factory<OneSequenceGestureRecognizer>>[
+                                new Factory<OneSequenceGestureRecognizer>(
+                                      () => new EagerGestureRecognizer(),
+                                ),
+                              ].toSet(),
+                            ),
+                        ),
+
+                        SizedBox(
+                          height: 65.0,
+                        ),
+                        FormButtons(
+                            label: 'SUBMIT',
+                            width: 0.93 * MediaQuery.of(context).size.width,
+                            height: 50,
+                            onT: () async {
+                              print(i);
+                              if (DragMarkerMap().whichlat == null||
+                              DragMarkerMap().whichlong == null)
+                              _showDialog("Location Not Selected",
+                              "Please mark the location");
+                              else if((image1!=null && i==0)||(image2!=null && i==0)){
+                                _showDialog("Image(s) Not Uploaded",
+                                    "Please upload the image(s)");}
+                              else{
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
+
+                                setState(() {
+                                  showSpinner = true;
+
+                                });
+                                showSpinner = true;
+                                await createRecord();
+                                await statsUpdate();
+                                setState(() {
+                                  showSpinner = false;
+                                });
+
+                                Navigator.pop(context);
+                                _showDialog("Grievance Status",
+                                    "Grievance Submitted Successfully");
+                                Provider.of<DropDown>(context,listen: false).map(null,null);
+
+                              } else {
+                                print('description empty!!!');
+                                _showDialog("Description Empty",
+                                    "Please grive a brief description of your grievance.");
+                              }
+                            }},),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    )
+                  ],
+                )),
+          ),
         ),
       ),
     );

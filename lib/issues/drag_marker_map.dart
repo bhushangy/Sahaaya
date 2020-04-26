@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -120,6 +121,40 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
       print(e);
     });
   }
+  void _showDialog(
+      String a,
+      String b,
+      ) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(" OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +193,9 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                       ,
                       FloatingActionButton(
                         heroTag: "btn3",
-                        onPressed:_getCurrentLocation ,
+                        onPressed: (){_getCurrentLocation();
+                        _showDialog("Note", "To drag the marker, long press on it and drag.");
+                        },
 
                         materialTapTargetSize: MaterialTapTargetSize.padded,
                         backgroundColor: Colors.black,
@@ -167,7 +204,9 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                       SizedBox(height: 16.0),
                       FloatingActionButton(
                         heroTag: "btn2",
-                        onPressed: _onAddMarkerButtonPressed ,
+                        onPressed: (){_onAddMarkerButtonPressed();
+                        _showDialog("Note", "To drag the marker, long press on it and drag.");
+                        },
                         materialTapTargetSize: MaterialTapTargetSize.padded,
                         backgroundColor: Colors.blue,
                         child: const Icon(Icons.add_location, size: 36.0),
