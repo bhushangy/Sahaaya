@@ -37,7 +37,7 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
         return false;
       },
       child: Scaffold(
-          drawer: NavDrawer(),
+
           appBar:  AppBar(
             title: Text('Raise A New Issue'),
             centerTitle: true,

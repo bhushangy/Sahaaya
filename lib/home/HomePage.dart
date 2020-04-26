@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool expanded = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   static List<String> constituency = [
     'Yalahanka',
     'Malleshwaram',
@@ -75,6 +76,8 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: dontgoback,
       child: Scaffold(
+          key: _scaffoldKey,
+        endDrawer: NavDrawer(),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           IconButton(
                             icon: Icon(Icons.filter_list),
-                            onPressed: () {},
+                            onPressed: (){_scaffoldKey.currentState.openEndDrawer();},
                             color: Colors.white,
                           ),
                         ],

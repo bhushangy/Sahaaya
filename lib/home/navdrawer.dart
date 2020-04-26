@@ -15,7 +15,7 @@ class NavDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
             decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: Colors.indigo,
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage('assets/images/voting.png'))),
@@ -23,7 +23,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Welcome'),
-            onTap: () => {},
+            onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Icons.verified_user),

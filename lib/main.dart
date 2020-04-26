@@ -14,8 +14,12 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var email = prefs.getString('email');
   print(email);
-  runApp(ChangeNotifierProvider(create: (context)=>DropDown(),child: MaterialApp(home: email == null ? MyApp() : home())));
-}
+  runApp(ChangeNotifierProvider(create: (context)=>DropDown(),child: MaterialApp(
+    theme: ThemeData(
+      textSelectionHandleColor: Colors.indigo,
+    ),
+    debugShowCheckedModeBanner: false,
+    home: email==null?MyApp():home(),),));}
 
 class MyApp extends StatelessWidget {
   @override

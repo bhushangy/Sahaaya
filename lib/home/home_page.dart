@@ -49,7 +49,7 @@ class _homeState extends State<home> {
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.error_outline, size: 22,),
+                icon: Icon(Icons.error, size: 22,),
                 title: Text(
                   'New Grievance',
                   style: GoogleFonts.montserrat(

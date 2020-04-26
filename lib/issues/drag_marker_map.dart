@@ -193,9 +193,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                       ,
                       FloatingActionButton(
                         heroTag: "btn3",
-                        onPressed: (){_getCurrentLocation();
-                        _showDialog("Note", "To drag the marker, long press on it and drag.");
-                        },
+                        onPressed: _getCurrentLocation,
 
                         materialTapTargetSize: MaterialTapTargetSize.padded,
                         backgroundColor: Colors.black,

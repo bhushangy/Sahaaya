@@ -275,7 +275,7 @@ class _FillFormState extends State<FillForm> {
         markerId: MarkerId(
             LatLng(DragMarkerMap().whichlat, DragMarkerMap().whichlong)
                 .toString()),
-        draggable: true,
+        draggable: false,
         position: LatLng(DragMarkerMap().whichlat, DragMarkerMap().whichlong),
         icon: BitmapDescriptor.defaultMarker,
       ));
@@ -308,6 +308,7 @@ class _FillFormState extends State<FillForm> {
             new FlatButton(
               child: new Text(" YES"),
               onPressed: () {
+                Provider.of<DropDown>(context,listen: false).map(null,null);
                 Navigator.pop(context,true);
               },
             ),
