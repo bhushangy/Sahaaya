@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -47,7 +48,12 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () {LoginPage();}
+            onTap: ()async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('email');
+    Navigator.pushReplacement(context,
+    MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
+    },
           ),
         ],
       ),

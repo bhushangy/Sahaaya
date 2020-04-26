@@ -520,6 +520,34 @@
             </list>
           </value>
         </entry>
+        <entry key="shared_preferences">
+          <value>
+            <list>
+              <option value="$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="shared_preferences_macos">
+          <value>
+            <list>
+              <option value="$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+7/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="shared_preferences_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="shared_preferences_web">
+          <value>
+            <list>
+              <option value="$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="sky_engine">
           <value>
             <list>
@@ -727,6 +755,10 @@
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.0.4/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.5/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/rflutter_alert-1.0.3/lib" />
+      <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7/lib" />
+      <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+7/lib" />
+      <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.3/lib" />
+      <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+4/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.5.5/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-1.3.0/lib" />
       <root url="file://$USER_HOME$/src/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite_common-1.0.0+1/lib" />

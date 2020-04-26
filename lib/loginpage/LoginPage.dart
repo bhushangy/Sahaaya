@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SignupPage.dart';
 
@@ -266,6 +267,8 @@ class _LoginPageState extends State<LoginPage> {
                                       await _auth.signInWithEmailAndPassword(
                                           email: email, password: password);
                                   if (user != null) {
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('email', email);
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(builder: (context) {
                                       return home();

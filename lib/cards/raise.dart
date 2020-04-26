@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/home/HomePage.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
+import 'package:voter_grievance_redressal/home/navdrawer.dart';
 
 import 'dept.dart';
 
@@ -37,7 +38,8 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
         return false;
       },
       child: Scaffold(
-            appBar:  AppBar(
+        drawer: NavDrawer(),
+        appBar:  AppBar(
               title: Text('Raise A New Issue'),
               centerTitle: true,
               backgroundColor: Colors.indigo,
