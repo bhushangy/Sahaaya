@@ -27,9 +27,9 @@ class _PostSignUpState extends State<PostSignUp> {
   bool showSpinner = false;
 
   void _showDialog(
-    String a,
-    String b,
-  ) {
+      String a,
+      String b,
+      ) {
     // flutter defined function
     showDialog(
       context: context,
@@ -150,12 +150,12 @@ class _PostSignUpState extends State<PostSignUp> {
                     ),
                     Container(
                       padding:
-                          EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                      EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                           TextFormField(
+                            TextFormField(
                               validator: (nam) {
                                 if (nam.isEmpty) {
                                   return 'Please enter your name.';

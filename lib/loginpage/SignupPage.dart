@@ -181,11 +181,12 @@ class _SignupPageState extends State<SignupPage> {
 
                             try {
                               final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: email, password: password);
+                              await _auth.createUserWithEmailAndPassword(
+                                  email: email, password: password);
                               if (newUser != null) {
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
                                 prefs.setString('email', email);
+                                prefs.setInt('i', 1);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -203,8 +204,8 @@ class _SignupPageState extends State<SignupPage> {
                               });
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return SignupPage();
-                              }));
+                                    return SignupPage();
+                                  }));
                               switch(e.code)
                               {
                                 case "ERROR_EMAIL_ALREADY_IN_USE":

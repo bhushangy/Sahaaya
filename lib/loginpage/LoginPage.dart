@@ -269,6 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (user != null) {
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('email', email);
+                                    prefs.setInt('i', 1);
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(builder: (context) {
                                       return home();

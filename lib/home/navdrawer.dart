@@ -49,11 +49,11 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: ()async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('email');
-    Navigator.pushReplacement(context,
-    MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
-    },
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('email');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => LoginPage()));
+            },
           ),
         ],
       ),

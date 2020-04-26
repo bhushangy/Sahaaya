@@ -179,7 +179,7 @@ class FactPages extends StatelessWidget {
                   //REGISTER PAGE
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context){
-                        return SignupPage();
+                        return LoginPage();
                       }
                   ));
                 },
@@ -195,36 +195,7 @@ class FactPages extends StatelessWidget {
               height: 20.0,
               width: 20.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Already have an account?',
-                  style: TextStyle(
 
-                    fontSize: 20,
-                  ),),
-                SizedBox(
-                  height: 8.0,
-                  width: 8.0,
-                ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context){
-                          return LoginPage();
-                        }
-                    ));
-                  },
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         )
           :Container(),
