@@ -101,7 +101,11 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-
+                          IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.indigo,
+                              )),
                           Text(
                             'Sahaaya',
                             style: GoogleFonts.montserrat(
