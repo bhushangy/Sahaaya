@@ -30,12 +30,18 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.indigo,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return Scaffold(
           body: children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.white,
+
             type: BottomNavigationBarType.fixed,
             selectedFontSize: 13,
-            elevation: 15,
+            elevation: 5,
             onTap: _onItemTapped,
             currentIndex: _currentIndex,
 

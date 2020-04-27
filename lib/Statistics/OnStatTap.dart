@@ -18,6 +18,7 @@ class _OnStatTapState extends State<OnStatTap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           widget.constituency.documentID,
@@ -41,7 +42,7 @@ class _OnStatTapState extends State<OnStatTap> {
                 height: MediaQuery.of(context).size.height * 0.08,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.32,
+                height: MediaQuery.of(context).size.height * 0.29,
                 child: ListView(
                   physics: ScrollPhysics(parent: BouncingScrollPhysics()),
                   scrollDirection: Axis.horizontal,
@@ -51,42 +52,36 @@ class _OnStatTapState extends State<OnStatTap> {
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["bwssbnr"],
                         r: widget.constituency.data["bwssbr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     StatsCard(
                         cat: 'BESCOM',
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["bwssbr"],
                         r: widget.constituency.data["bescomr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     StatsCard(
                         cat: 'SANITATION',
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["sanitationnr"],
                         r: widget.constituency.data["sanitationr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     StatsCard(
                         cat: 'ROADS',
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["roadsnr"],
                         r: widget.constituency.data["roadsr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     StatsCard(
                         cat: 'CORRUPTION',
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["corruptionnr"],
                         r: widget.constituency.data["corruptionr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     StatsCard(
                         cat: 'OTHERS',
                         imgPath: 'assets/images/vote1.png',
                         nr: widget.constituency.data["othernr"],
                         r: widget.constituency.data["otherr"],
-                        bgColor: Color(0xFFECEFF1),
                         txtColor: Color(0xFF000000)),
                     SizedBox(
                       width: 15.0,
@@ -100,11 +95,13 @@ class _OnStatTapState extends State<OnStatTap> {
               Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Container(
+
                   height: MediaQuery.of(context).size.height * 0.2,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Color(0xFFECEFF1)),
+                    border: Border.all(color: Colors.grey,width: 0.4),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                   child: Row(
                     children: <Widget>[
                       SizedBox(
@@ -128,7 +125,7 @@ class _OnStatTapState extends State<OnStatTap> {
                           children: <Widget>[
                             SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height * 0.035,
+                              MediaQuery.of(context).size.height * 0.035,
                             ),
                             Text(
                               'Rank',
@@ -190,7 +187,7 @@ class _OnStatTapState extends State<OnStatTap> {
                 repNum1: widget.constituency.data['Corporators']['Ward-101'][1],
                 repNum2: widget.constituency.data['Corporators']['Ward-101'][2],
                 repOffice: widget.constituency.data['Corporators']['Ward-101']
-                    [3],
+                [3],
               ),
               ContactTabs(
                 pos: 'Corporator',
@@ -222,19 +219,20 @@ class _OnStatTapState extends State<OnStatTap> {
 class StatsCard extends StatelessWidget {
   String cat, imgPath;
   int nr, r;
-  Color bgColor, txtColor;
+  Color txtColor;
 
   StatsCard(
-      {this.cat, this.imgPath, this.nr, this.r, this.bgColor, this.txtColor});
+      {this.cat, this.imgPath, this.nr, this.r,this.txtColor});
 
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 12.0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.height * 0.2,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0), color: bgColor),
+          border: Border.all(color: Colors.grey,width: 0.4),
+          borderRadius: BorderRadius.circular(15.0),),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -242,12 +240,12 @@ class StatsCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.08,
                 width: MediaQuery.of(context).size.height * 0.09,
                 decoration:
-                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                 child: Center(
                     child: Image.asset(imgPath,
                         height: MediaQuery.of(context).size.height * 0.06,
                         width: MediaQuery.of(context).size.height * 0.06))),
-            SizedBox(height: 25.0),
+            SizedBox(height: 18.0),
             Text(
               cat,
               style: GoogleFonts.montserrat(
@@ -281,38 +279,47 @@ class ContactTabs extends StatelessWidget {
   String pos, rep, ward, repOffice;
   int repNum1, repNum2;
 
-  ContactTabs(
-      {this.pos,
-      this.rep,
-      this.ward,
-      this.repNum1,
-      this.repNum2,
-      this.repOffice});
+  ContactTabs({this.pos,
+    this.rep,
+    this.ward,
+    this.repNum1,
+    this.repNum2,
+    this.repOffice});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15.0),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           showModalBottomSheet<dynamic>(
             isScrollControlled: true,
             backgroundColor: Color(0xFF757575),
             context: context,
-            builder: (context) => BottomSheetContent(
-                Num1: repNum1, Num2: repNum2, Office: repOffice),
+            builder: (context) =>
+                BottomSheetContent(
+                    Num1: repNum1, Num2: repNum2, Office: repOffice),
           );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.9,
               child: Row(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    width: MediaQuery.of(context).size.height * 0.09,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.09,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.09,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7.0),
                       color: Color(0xFFFFE3DF),
