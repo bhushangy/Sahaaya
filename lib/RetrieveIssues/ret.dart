@@ -182,7 +182,8 @@ class GrievanceTiles extends StatelessWidget {
           height: 100.0,
           width: 250.0,
           decoration: BoxDecoration(
-              color: Colors.indigo, borderRadius: BorderRadius.circular(15.0)),
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(15.0)),
           child: Column(children: [
             SizedBox(height: 15.0),
             grievance.data["Resolved"] == true
@@ -203,7 +204,7 @@ class GrievanceTiles extends StatelessWidget {
                 grievance.data["Constituency"],
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 24),
               ),
             ),
@@ -232,7 +233,7 @@ class GrievanceTiles extends StatelessWidget {
                         'Not Resolved',
                 style: GoogleFonts.montserrat(
                     //fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 22),
               ),
             ),
@@ -247,15 +248,15 @@ class GrievanceTiles extends StatelessWidget {
                   height: 45.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                      color: Colors.indigoAccent,
+                      color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Center(
                     child: Text(
                       'View Details',
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontSize: 17,
-                          color: Colors.white),
+                      style: GoogleFonts.montserrat(
+
+                          color: Colors.black,
+                          fontSize: 17),
                     ),
                   ),
                 )),
@@ -299,15 +300,14 @@ class GrievanceTiles extends StatelessWidget {
                   height: 45.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                      color: Colors.indigoAccent,
+                      color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Center(
                     child: Text(
                       'Delete',
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontSize: 17,
-                          color: Colors.white),
+                      style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 17),
                     ),
                   ),
                 )),

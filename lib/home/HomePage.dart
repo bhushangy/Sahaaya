@@ -241,7 +241,10 @@ class _HomePageState extends State<HomePage> {
                              value: value,
                              child: Text(
                                value,
-                               style: TextStyle(fontSize: 18),
+                               style: GoogleFonts.montserrat(
+
+                                   color: Colors.black,
+                                   fontSize: 17.5),
                              ),
                            );
                          }).toList(),
