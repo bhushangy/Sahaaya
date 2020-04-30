@@ -214,7 +214,11 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                       ,
                       FloatingActionButton(
                         heroTag: "btn3",
-                        onPressed:(){
+                        onPressed:()async{
+                          bool isLocationEnabled = await Geolocator().isLocationServiceEnabled();
+                          if(isLocationEnabled==false)
+                            _showDialog("Location Detection Alert", "Please turn on GPS(Location) service.");
+                          else
                           _getCurrentLocation();
                           //_showDialog("Note", "To drag the marker, long press on it and drag.");
                         },
