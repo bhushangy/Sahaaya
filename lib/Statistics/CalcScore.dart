@@ -1,4 +1,4 @@
-import 'package:voter_grievance_redressal/Statistics/OnStatTap.dart';
+import 'package:voter_grievance_redressal/Statistics/RankingDetails.dart';
 
 abstract class CalculateScore{
   void getCount();

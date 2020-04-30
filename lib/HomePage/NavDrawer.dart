@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
+import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class NavDrawer extends StatelessWidget {
                 color: Colors.indigo,
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('assets/images/voting.png'))),
+                    image: AssetImage('assets/images/vote1.png'))),
           ),
           ListTile(
             leading: Icon(Icons.home),

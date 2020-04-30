@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/home/LoadingScreen.dart';
-import 'package:voter_grievance_redressal/home/LoadingScreen2.dart';
-import 'package:voter_grievance_redressal/home/LoadingScreen3.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
-import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
-import 'package:voter_grievance_redressal/models/checkBox.dart';
+import 'package:voter_grievance_redressal/SplashScreen/SplashScreen1.dart';
+import 'package:voter_grievance_redressal/SplashScreen/SplashScreen2.dart';
+import 'package:voter_grievance_redressal/SplashScreen/SplashScreen3.dart';
+import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
+import 'package:voter_grievance_redressal/Provider//ProviderClass.dart';
 
 
 //void main() => runApp(MyApp());
@@ -26,7 +25,7 @@ Future<void> main() async {
       textSelectionHandleColor: Colors.indigo,
     ),
     debugShowCheckedModeBanner: false,
-    home: SplashScreen(),),));
+    home: SplashScreen1(),),));
   else if(i!=null && email==null)
     runApp(ChangeNotifierProvider(create: (context)=>DropDown(),child: MaterialApp(
       theme: ThemeData(

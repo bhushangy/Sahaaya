@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/home/HomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -15,17 +14,17 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
 
-class OnTileTap extends StatefulWidget {
+class GrievanceDetails extends StatefulWidget {
   final DocumentSnapshot grievance;
   String email; // the snapshot of the document whose tile was pressed
 
-  OnTileTap({this.grievance, this.email});
+  GrievanceDetails({this.grievance, this.email});
 
   @override
-  _OnTileTapState createState() => _OnTileTapState();
+  _GrievanceDetailsState createState() => _GrievanceDetailsState();
 }
 
-class _OnTileTapState extends State<OnTileTap> {
+class _GrievanceDetailsState extends State<GrievanceDetails> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var snackbar = SnackBar(
     behavior:SnackBarBehavior.floating ,

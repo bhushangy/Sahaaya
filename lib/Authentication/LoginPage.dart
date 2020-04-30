@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 
 import 'SignupPage.dart';
 
@@ -290,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
                                     prefs.setInt('i', 1);
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(builder: (context) {
-                                      return home();
+                                      return BottomNavBar();
                                     }));
                                   }
                                   setState(() {

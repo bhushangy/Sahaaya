@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 
-import 'package:voter_grievance_redressal/home/home_page.dart';
 
 
 
@@ -266,7 +266,7 @@ class _PostSignUpState extends State<PostSignUp> {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => home()),
+                                              builder: (context) => BottomNavBar()),
                                         );
                                         setState(() {
                                           showSpinner = false;

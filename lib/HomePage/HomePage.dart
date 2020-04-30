@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/models/checkBox.dart';
-import 'navdrawer.dart';
+import 'package:voter_grievance_redressal/Provider//ProviderClass.dart';
+import 'NavDrawer.dart';
 
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;

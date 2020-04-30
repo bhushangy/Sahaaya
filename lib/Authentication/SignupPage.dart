@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/loginpage/PostSignUp.dart';
+import 'package:voter_grievance_redressal/Authentication//PostSignUp.dart';
 
 class SignupPage extends StatefulWidget {
   @override

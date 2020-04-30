@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/RetrieveIssues/ret.dart';
-import 'package:voter_grievance_redressal/issues/FillForm.dart';
+import 'package:voter_grievance_redressal/OldGrievance//RetrieveGrievances.dart';
+import 'package:voter_grievance_redressal/NewGrievance//FillForm.dart';
+
 
 FirebaseUser loggedInUser;
 
@@ -97,7 +98,7 @@ class _DeptPageState extends State<DeptPage> {
                         }
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return RetrieveIssues(category, loggedInUser.email);
+                          return RetrieveGrievances(category, loggedInUser.email);
                         }));
                       } catch (e) {
                         print(e);

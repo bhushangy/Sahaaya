@@ -12,10 +12,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/models/checkBox.dart';
+import 'package:voter_grievance_redressal/Provider//ProviderClass.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
-import 'package:voter_grievance_redressal/issues/drag_marker_map.dart';
+import 'package:voter_grievance_redressal/NewGrievance//Map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -392,7 +392,7 @@ class _FillFormState extends State<FillForm> {
                                 child: TextFormField(
                                   validator: (description) {
                                     if (description.isEmpty) {
-                                      return 'Please enter grievance category';
+                                      return 'Please provide a brief description of your grievance';
                                     } else {
                                       return null;
                                     }

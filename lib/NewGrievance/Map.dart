@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/models/checkBox.dart';
+import 'package:voter_grievance_redressal/Provider//ProviderClass.dart';
 
 
 

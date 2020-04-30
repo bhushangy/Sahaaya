@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/home/HomePage.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
-import 'package:voter_grievance_redressal/home/navdrawer.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
+import 'Department.dart';
 
-import 'dept.dart';
-
-class raiseIssue extends StatefulWidget {
+class RaiseGrievance extends StatefulWidget {
   @override
-  _raiseIssueState createState() => _raiseIssueState();
+  _RaiseGrievanceState createState() => _RaiseGrievanceState();
 }
 
-class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateMixin{
+class _RaiseGrievanceState extends State<RaiseGrievance> with SingleTickerProviderStateMixin{
   TabController tabController;
 
   @override
@@ -31,7 +26,7 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
       onWillPop: () async {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-              return home();
+              return BottomNavBar();
             }));
 
         return false;

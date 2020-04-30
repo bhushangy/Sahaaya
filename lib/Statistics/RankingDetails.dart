@@ -3,18 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'BottomSheetContent.dart';
+import 'ContactDetails.dart';
 
-class OnStatTap extends StatefulWidget {
+// ignore: must_be_immutable
+class RankingDetails extends StatefulWidget {
   final DocumentSnapshot constituency;
   String position,path;
-  OnStatTap({this.constituency, this.position,this.path});
+  RankingDetails({this.constituency, this.position,this.path});
 
   @override
-  _OnStatTapState createState() => _OnStatTapState();
+  _RankingDetailsState createState() => _RankingDetailsState();
 }
 
-class _OnStatTapState extends State<OnStatTap> {
+class _RankingDetailsState extends State<RankingDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -317,7 +318,7 @@ class ContactTabs extends StatelessWidget {
             isScrollControlled: true,
             backgroundColor: Color(0xFF757575),
             context: context,
-            builder: (context) => BottomSheetContent(
+            builder: (context) => ContactDetails(
                 Num1: repNum1, Num2: repNum2, Office: repOffice),
           );
         },

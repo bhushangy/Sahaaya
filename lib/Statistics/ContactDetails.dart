@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomSheetContent extends StatelessWidget {
+class ContactDetails extends StatelessWidget {
   int Num1, Num2;
   String Office;
 
-  BottomSheetContent({this.Num1,this.Num2,this.Office});
+  ContactDetails({this.Num1,this.Num2,this.Office});
 
   @override
   Widget build(BuildContext context) {

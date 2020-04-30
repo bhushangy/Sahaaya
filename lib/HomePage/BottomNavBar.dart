@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/Statistics/stat.dart';
-import 'package:voter_grievance_redressal/cards/raise.dart';
-import 'package:voter_grievance_redressal/home/HomePage.dart';
+import 'package:voter_grievance_redressal/NewGrievance/RaiseGrievance.dart';
+import 'package:voter_grievance_redressal/Statistics/Ranking.dart';
+import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
-class home extends StatefulWidget {
+class BottomNavBar extends StatefulWidget {
   @override
-  _homeState createState() => _homeState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _homeState extends State<home> {
+class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
   final List<Widget> children = [
     HomePage(),
-    raiseIssue(),
-    Statistics(),
+    RaiseGrievance(),
+    Ranking(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,7 +41,7 @@ class _homeState extends State<home> {
     return Scaffold(
           body: children[_currentIndex],
           bottomNavigationBar: SizedBox(
-            height: 51,
+            height: 49,
             child: BottomNavigationBar(
               backgroundColor: Colors.white,
 
@@ -53,27 +53,30 @@ class _homeState extends State<home> {
 
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home, size: 22,),
+                  icon: Icon(Icons.home, size: 20,),
                   title: Text(
                     'Home',
                     style: GoogleFonts.montserrat(
-                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                        fontSize: 11.5, fontWeight: FontWeight.w600),
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.error, size: 22,),
-                  title: Text(
-                    'New Grievance',
-                    style: GoogleFonts.montserrat(
-                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                  icon: Icon(Icons.error, size: 20,),
+                  title: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      'New Grievance',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 11.5, fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.insert_chart, size: 22,),
+                  icon: Icon(Icons.insert_chart, size: 20,),
                   title: Text(
                     'Statistics',
                     style: GoogleFonts.montserrat(
-                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                        fontSize: 11.5, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],

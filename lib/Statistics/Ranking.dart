@@ -3,25 +3,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/Statistics/OnStatTap.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
+import 'package:voter_grievance_redressal/Statistics/RankingDetails.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 
 final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
 
-class Statistics extends StatefulWidget {
+class Ranking extends StatefulWidget {
   @override
-  _StatisticsState createState() => _StatisticsState();
+  _RankingState createState() => _RankingState();
 }
 
-class _StatisticsState extends State<Statistics> {
+class _RankingState extends State<Ranking> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return home();
+          return BottomNavBar();
         }));
         return false;
       },
@@ -169,7 +169,7 @@ class RankingTile extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              OnStatTap(constituency: rank, position: index,path:'assets/Ranking/$index.png')),
+                              RankingDetails(constituency: rank, position: index,path:'assets/Ranking/$index.png')),
                     ),
                 child: Container(
                   height: 45.0,

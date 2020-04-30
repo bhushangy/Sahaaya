@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/RetrieveIssues/OnTileTap.dart';
+import 'package:voter_grievance_redressal/OldGrievance//GrievanceDetails.dart';
+
 
 final _firestore = Firestore.instance;
 
-class RetrieveIssues extends StatefulWidget {
+class RetrieveGrievances extends StatefulWidget {
   String category, email;
-  RetrieveIssues(String value, String mail) {
+  RetrieveGrievances(String value, String mail) {
     this.category = value;
     this.email = mail;
   }
 
   @override
-  _RetrieveIssuesState createState() => _RetrieveIssuesState();
+  _RetrieveGrievancesState createState() => _RetrieveGrievancesState();
 }
 
-class _RetrieveIssuesState extends State<RetrieveIssues> {
+class _RetrieveGrievancesState extends State<RetrieveGrievances> {
   TabController tabController;
 
   @override
@@ -233,7 +234,7 @@ class GrievanceTiles extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            OnTileTap(grievance: grievance, email: email))),
+                            GrievanceDetails(grievance: grievance, email: email))),
                 child: Container(
                   height: 45.0,
                   width: 180.0,

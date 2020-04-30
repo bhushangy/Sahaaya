@@ -2,25 +2,22 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
-import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 import 'dart:io';
 import 'FactsScreen.dart';
 
 
-class SplashScreen2 extends StatefulWidget {
+class SplashScreen1 extends StatefulWidget {
   @override
-  _SplashScreen2State createState() => _SplashScreen2State();
+  _SplashScreen1State createState() => _SplashScreen1State();
 }
 
-class _SplashScreen2State extends State<SplashScreen2> {
+class _SplashScreen1State extends State<SplashScreen1> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 3500), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return LoginPage();
+        return FactsScreen();
       }));
     });
   }
@@ -29,8 +26,8 @@ class _SplashScreen2State extends State<SplashScreen2> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.indigo,
-      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
     ));
     return  Scaffold(
       backgroundColor: Colors.white,

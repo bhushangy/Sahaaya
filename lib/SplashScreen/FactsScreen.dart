@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
-import 'package:voter_grievance_redressal/loginpage/SignupPage.dart';
+import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 
-import 'GetInfo.dart';
 
 class FactsScreen extends StatefulWidget {
   @override

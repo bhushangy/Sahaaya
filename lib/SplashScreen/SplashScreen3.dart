@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/home/home_page.dart';
-import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
+import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 import 'dart:io';
 import 'FactsScreen.dart';
 
@@ -20,7 +20,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 3500), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return home();
+        return BottomNavBar();
       }));
     });
   }
