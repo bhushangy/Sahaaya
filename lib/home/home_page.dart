@@ -34,6 +34,10 @@ class _homeState extends State<home> {
       statusBarColor: Colors.indigo,
       statusBarIconBrightness: Brightness.light,
     ));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
           body: children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
