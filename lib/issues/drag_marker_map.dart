@@ -209,7 +209,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                     children: <Widget> [
                       SizedBox(
                         height: 480,
-                        
+
                       )
                       ,
                       FloatingActionButton(
