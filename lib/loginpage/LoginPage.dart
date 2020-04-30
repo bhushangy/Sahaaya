@@ -223,21 +223,38 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.only(top: 15.0, left: 25.0),
                             child: InkWell(
 
-                              onTap: () {
+                              onTap: () async{
                                 if(email=="" || email==null)
                                   _showDialog("Email Invalid", "Email cannot be empty. Enter your email.");
 
                                 else{
+                                  setState(() {
+                                    showSpinner=true;
+                                  });
                                 try{
 
-                                  _auth.sendPasswordResetEmail(email: email);
+                                 await  _auth.sendPasswordResetEmail(email: email);
+                                 setState(() {
+                                   showSpinner=false;
+                                 });
                                   _showDialog("Password Reset", "Password reset link sent to your email.");
 
                                     }on PlatformException
 
                                 catch(e){
+                                  setState(() {
+                                    showSpinner=false;
+                                  });
+                                  switch(e.code) {
 
-                                        _showDialog("Invalid Email", "Enter valid Email or Sign Up.");
+                                    case("ERROR_USER_NOT_FOUND"):{
+                                  _showDialog("Invalid Email",
+                                      "Enter valid Email or Sign Up.");}break;
+                                    case "ERROR_INVALID_EMAIL":
+                                      {
+                                        _showDialog("Invalid Email", "Email is in Invalid format. Please Retry.");
+                                      }break;
+                                }
 
                                 }
 

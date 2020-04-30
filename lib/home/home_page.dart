@@ -40,42 +40,45 @@ class _homeState extends State<home> {
     ]);
     return Scaffold(
           body: children[_currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
+          bottomNavigationBar: SizedBox(
+            height: 51,
+            child: BottomNavigationBar(
+              backgroundColor: Colors.white,
 
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: 13,
-            elevation: 5,
-            onTap: _onItemTapped,
-            currentIndex: _currentIndex,
+              type: BottomNavigationBarType.fixed,
+              selectedFontSize: 13,
+              elevation: 5,
+              onTap: _onItemTapped,
+              currentIndex: _currentIndex,
 
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 22,),
-                title: Text(
-                  'Home',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 13.0, fontWeight: FontWeight.w600),
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, size: 22,),
+                  title: Text(
+                    'Home',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.error, size: 22,),
-                title: Text(
-                  'New Grievance',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 13.0, fontWeight: FontWeight.w600),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.error, size: 22,),
+                  title: Text(
+                    'New Grievance',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.insert_chart, size: 22,),
-                title: Text(
-                  'Statistics',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 13.0, fontWeight: FontWeight.w600),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.insert_chart, size: 22,),
+                  title: Text(
+                    'Statistics',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 13.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-            ],
-            selectedItemColor: Colors.indigo,
+              ],
+              selectedItemColor: Colors.indigo,
+            ),
           ),
         );
 

@@ -548,11 +548,17 @@ class _FillFormState extends State<FillForm> {
                                   Icons.location_on,
                                   size: 75,
                                 ),
-                                onPressed: () {
-                                  Navigator.push(context,
+                                onPressed: () async{
+                                  setState(() {
+                                    showSpinner=true;
+                                  });
+                                  await Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
                                         return DragMarkerMap();
                                       }));
+                                  setState(() {
+                                    showSpinner=false;
+                                  });
                                 }):
 
                             GoogleMap(

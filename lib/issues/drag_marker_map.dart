@@ -46,6 +46,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
 
   void _onAddMarkerButtonPressed() {
     setState(() {
+      _markers.clear();
 
       _markers.add(Marker(
         onDragEnd: ((value){
@@ -73,7 +74,8 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
     CameraPosition newPos = CameraPosition(
-        target: position.target
+        target: position.target,
+
     );
     Marker marker = _markers.first;
 
@@ -86,11 +88,23 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-  }
-  _getCurrentLocation() {
-    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+    setState(() {
+      _controller1=controller;
+    });
 
-    geolocator
+  }
+  Future<void> _gotoLocation(double lat,double long) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(lat, long), zoom: 15,tilt: 50.0,
+      bearing: 45.0,)));
+  }
+  _getCurrentLocation() async{
+    _markers.clear();
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+    setState(() {
+      showSpinner=true;
+    });
+    await geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       setState(() {
@@ -98,6 +112,7 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
         lat=_currentPosition.latitude;
         long=_currentPosition.longitude;
         Provider.of<DropDown>(context,listen: false).map(lat,long);
+
 
         _markers.add(Marker(
           onDragEnd: ((value){
@@ -116,6 +131,11 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
           ),
           icon: BitmapDescriptor.defaultMarker,
         ));
+
+        setState(() {
+          showSpinner=false;
+        });
+        _gotoLocation(lat, long);
       });
     }).catchError((e) {
       print(e);
@@ -189,26 +209,21 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                     children: <Widget> [
                       SizedBox(
                         height: 480,
+                        
                       )
                       ,
                       FloatingActionButton(
                         heroTag: "btn3",
-                        onPressed: _getCurrentLocation,
+                        onPressed:(){
+                          _getCurrentLocation();
+                          //_showDialog("Note", "To drag the marker, long press on it and drag.");
+                        },
 
                         materialTapTargetSize: MaterialTapTargetSize.padded,
                         backgroundColor: Colors.black,
                         child: const Icon(Icons.my_location, size: 36.0),
                       ),
-                      SizedBox(height: 16.0),
-                      FloatingActionButton(
-                        heroTag: "btn2",
-                        onPressed: (){_onAddMarkerButtonPressed();
-                        _showDialog("Note", "To drag the marker, long press on it and drag.");
-                        },
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.blue,
-                        child: const Icon(Icons.add_location, size: 36.0),
-                      ),
+
                       SizedBox(height: 16.0),
                       FloatingActionButton(
                         heroTag: "btn1",

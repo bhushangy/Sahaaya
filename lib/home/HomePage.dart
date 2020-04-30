@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: dontgoback,
       child: Scaffold(
         key: _scaffoldKey,
-        endDrawer: NavDrawer(),
+        drawer: NavDrawer(),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -102,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(
-                                Icons.arrow_back,
-                                color: Colors.indigo,
-                              )),
+                            icon: Icon(Icons.filter_list),
+                            onPressed:  (){_scaffoldKey.currentState.openDrawer();},
+                            color: Colors.white,
+                          ),
                           Text(
                             'Sahaaya',
                             style: GoogleFonts.montserrat(
@@ -114,10 +114,13 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white),
                           ),
                           IconButton(
-                            icon: Icon(Icons.filter_list),
-                            onPressed:  (){_scaffoldKey.currentState.openEndDrawer();},
-                            color: Colors.white,
-                          )
+                            onPressed: (){},
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.indigo,
+
+                              )),
+
                         ],
                       ),
                     ),
