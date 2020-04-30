@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
 import 'package:voter_grievance_redressal/loginpage/SignupPage.dart';
 
 import 'GetInfo.dart';
-
 
 class FactsScreen extends StatefulWidget {
   @override
@@ -17,7 +17,6 @@ class FactsScreen extends StatefulWidget {
 class _FactsScreenState extends State<FactsScreen> {
   PageController _controller = PageController(
     initialPage: 0,
-
   );
 
   void initState() {
@@ -85,120 +84,103 @@ class _FactsScreenState extends State<FactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: PageView(
         controller: _controller,
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
         children: <Widget>[
           FactPages(
-              index:0,
-              img: 'vote0.png',
-              txt1: 'VOTE',
-              txt2:
-                  'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it'),
+              index: 0,
+              img: 'angry.png',
+              txt:
+                  'Have issues in your neighborhood that need to be addressed ?'),
           FactPages(
-              index:1,
-              img: 'vote1.png',
-              txt1: 'VOTE',
-              txt2:
-                  'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it'),
+              index: 1,
+              img: 'report.png',
+              txt:
+                  'Report it here using the Sahaaya app to the concerned authority.'),
           FactPages(
-              index:2,
-              img: 'vote2.png',
-              txt1: 'VOTE',
-              txt2:
-                  'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it'),
+              index: 2,
+              img: 'ranking.png',
+              txt: 'See where your constituency stands.'),
         ],
       ),
     );
   }
 }
 
-
 class FactPages extends StatelessWidget {
-  String img, txt1, txt2;
+  String img, txt;
   int index;
-  FactPages({this.index,this.img, this.txt1, this.txt2});
+  FactPages({this.index, this.img, this.txt});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 120.0),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.25),
           child: Container(
-            width: 120,
-            height: 120,
+            width: MediaQuery.of(context).size.width*0.4,
+            height: MediaQuery.of(context).size.width*0.4 ,
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
+              shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/images/$img'),
+                image: AssetImage('assets/FactsScreen/$img'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
         ),
         SizedBox(
-          height: 70,
-          width: 70,
+          height:  MediaQuery.of(context).size.width*0.16,
         ),
-        Text(
-          '$txt1',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 35.0,
-          ),
-        ),
-        SizedBox(
-          height: 70,
-          width: 70,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width - 30,
-          child: Text(
-            '$txt2',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 20.0,
+        Flexible(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Text(
+              '$txt',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                  fontSize: 20.0, fontWeight: FontWeight.normal)
             ),
           ),
         ),
         SizedBox(
-          height: 30,
-          width: 30,
+          height:  MediaQuery.of(context).size.width*0.15,
         ),
-        index==2?Column(
-          children: <Widget>[
-            ButtonTheme(
-              minWidth: 300,
-              height: 45.0,
-              child: RaisedButton(
-                onPressed: () {
-                  //REGISTER PAGE
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        return LoginPage();
-                      }
-                  ));
-                },
-                child: Text('Get Started'),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                color: Colors.black45,
-                textColor: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-              width: 20.0,
-            ),
-
-          ],
-        )
-          :Container(),
+        index == 2
+            ? Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.4,
+                    height: MediaQuery.of(context).size.height*0.07,
+                    child: InkWell(
+                      onTap: () =>  Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return LoginPage();
+                          })),
+                      child: Material(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(5.0),
+                        shadowColor: Colors.black38,
+                        elevation: 10.0,
+                        child: Center(
+                          child: Text(
+                            'Get Started',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
       ],
     );
   }

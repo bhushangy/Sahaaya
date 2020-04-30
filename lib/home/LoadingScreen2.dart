@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/home/home_page.dart';
 import 'package:voter_grievance_redressal/loginpage/LoginPage.dart';
@@ -27,7 +28,12 @@ class _SplashScreen2State extends State<SplashScreen2> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.indigo,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return  Scaffold(
+      backgroundColor: Colors.white,
       body: FlareActor("assets/Sahaaya.flr", alignment: Alignment.center,
           fit: BoxFit.contain,
           animation: "Splash"),

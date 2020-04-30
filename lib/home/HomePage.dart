@@ -140,16 +140,16 @@ class _HomePageState extends State<HomePage> {
                       top: MediaQuery.of(context).size.height * 0.135,
                       left: (MediaQuery.of(context).size.width / 2 - 50.0),
                       child: Container(
-                        height: 100.0,
-                        width: 100.0,
+                        height: 102.0,
+                        width: 102,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                               50.0,
                             ),
-                            color: Colors.grey,
+                            color: Colors.white,
                             image: DecorationImage(
-                                image: AssetImage('assets/images/vote1.png'),
-                                fit: BoxFit.cover)),
+                                image: AssetImage('assets/HomePage/user.png'),
+                                fit: BoxFit.fill)),
                       ),
                     ),
                     Align(
@@ -200,10 +200,11 @@ class _HomePageState extends State<HomePage> {
                     menuCard(
                       context,
                       'Announcement',
-                      'assets/images/vote1.png',
+                      'assets/HomePage/announcement.png',
+                      'BWSSB to lay out new pipelines in North Bengaluru.'
                     ),
                     menuCard(
-                        context, 'Announcement', 'assets/images/vote1.png'),
+                        context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
                   ],
                 ),
               ),
@@ -232,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                           width: 100.0,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/dropdown2.png'),
+                                  image: AssetImage('assets/HomePage/dropdown2.png'),
                                   fit: BoxFit.cover),
                               borderRadius: BorderRadius.circular(7.0)),
                         ),
@@ -296,10 +297,15 @@ class _HomePageState extends State<HomePage> {
                     menuCard(
                       context,
                       'How it works?',
-                      'assets/images/howitworks.png',
+                      'assets/HomePage/howitworks.png',
+                      'Swipe left to find out how to submit your grievance.'
                     ),
                     menuCard(
-                        context, 'How it works?', 'assets/images/howitworks.png'),
+                        context, 'How it works?', 'assets/HomePage/dropdown2.png','Select the constituency from the dropdown above.'),
+                    menuCard(
+                        context, 'How it works?', 'assets/HomePage/tap.png','Tap on New Grievance button below and select Raise Issue.'),
+                    menuCard(
+                        context, 'How it works?', 'assets/HomePage/form.png','Fill the form with proper details and taop on Submit.'),
                   ],
                 ),
               ),
@@ -312,7 +318,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget menuCard(BuildContext context, String announcemnet, String imgPath) {
+Widget menuCard(BuildContext context, String announcemnet, String imgPath,String txt) {
   return Padding(
     padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.04,
@@ -355,13 +361,15 @@ Widget menuCard(BuildContext context, String announcemnet, String imgPath) {
                   ),
                 ),
                 SizedBox(height: 7.0),
-                Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.49,
-                  child: Text(
-                    announcemnet + 'vjjhvvhvhjvh hvjhvjhvvvhj jhjhg gjhvjvhj',
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14.0, fontWeight: FontWeight.normal),
+                Flexible(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.2,
+                    width: MediaQuery.of(context).size.width * 0.55,
+                    child: Text(
+                      txt,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 14.0, fontWeight: FontWeight.normal),
+                    ),
                   ),
                 ),
               ],

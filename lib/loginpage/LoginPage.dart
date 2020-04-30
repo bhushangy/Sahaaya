@@ -110,6 +110,7 @@ class _LoginPageState extends State<LoginPage> {
       child: WillPopScope(
         onWillPop: dontgoback,
         child: Scaffold(
+          backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
           body: ModalProgressHUD(
             inAsyncCall: showSpinner,

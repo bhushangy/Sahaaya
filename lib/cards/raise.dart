@@ -37,7 +37,7 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
         return false;
       },
       child: Scaffold(
-
+        backgroundColor: Colors.white,
           appBar:  AppBar(
             title: Text('Raise A New Issue'),
             centerTitle: true,
@@ -56,31 +56,33 @@ class _raiseIssueState extends State<raiseIssue> with SingleTickerProviderStateM
                 height: 20.0,
               ),
 
-              Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text('All Categories',
-                    style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0)),
-              ),
+//              Padding(
+//                padding: EdgeInsets.only(left: 10.0),
+//                child: Text('All Categories',
+//                    style: TextStyle(
+//                        fontFamily: 'Quicksand',
+//                        fontWeight: FontWeight.bold,
+//                        fontSize: 25.0)),
+//              ),
               SizedBox(
                 height: 10.0,
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+              Padding(
+                padding: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.075),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: TabBarView(
+                    controller: tabController,
+                    children: <Widget>[
 
-                child: TabBarView(
-                  controller: tabController,
-                  children: <Widget>[
-
-                    new DeptPage(),
-                    new DeptPage(),
-                    new DeptPage(),
-                    new DeptPage(),
-                    new DeptPage(),
-                    new DeptPage(),
-                  ],
+                      new DeptPage(),
+                      new DeptPage(),
+                      new DeptPage(),
+                      new DeptPage(),
+                      new DeptPage(),
+                      new DeptPage(),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10.0),

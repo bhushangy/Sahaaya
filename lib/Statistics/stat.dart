@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,8 +21,8 @@ class _StatisticsState extends State<Statistics> {
       onWillPop: () async {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-              return home();
-            }));
+          return home();
+        }));
         return false;
       },
       child: Scaffold(
@@ -40,29 +38,14 @@ class _StatisticsState extends State<Statistics> {
               ),
             ),
           ),
-          body: Container(
-              //height: MediaQuery.of(context).size.height - 270.0,
-              height: MediaQuery.of(context).size.height * 0.65,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text('Ranking Of Constituencies',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontFamily: 'Quicksand',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25.0)),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  RankingStream(),
-                ],
-              ))),
+          body: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 20.0,
+              ),
+              RankingStream(),
+            ],
+          )),
     );
   }
 }
@@ -102,10 +85,16 @@ class RankingStream extends StatelessWidget {
             rankingTiles.add(rankingTile);
           }
           return Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: rankingTiles,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                physics: ScrollPhysics(
+                  parent: BouncingScrollPhysics()
+                ),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: rankingTiles,
+              ),
             ),
           );
         });
@@ -121,35 +110,66 @@ class RankingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12.0),
+      padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
       child: Container(
-          height: 100.0,
-          width: 250.0,
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.0)),
+        height: 100,
+          width: 260.0,
+//          decoration: BoxDecoration(
+//            //color: Colors.grey.withOpacity(0.2),
+//            color: Colors.white,
+//            borderRadius: BorderRadius.circular(15.0),
+//            border: Border.all(color: Colors.grey, width: 0.4),
+//          ),
           child: Column(children: [
             SizedBox(height: 15.0),
-            Text(
-              index.toString(),
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w600, color: Colors.red, fontSize: 70),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.width * 0.2,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage('assets/Ranking/$index.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Flexible(
+              child: Text(
+                rank.documentID,
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 20),
+              ),
             ),
             SizedBox(height: 20.0),
             Text(
-              rank.documentID,
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                  fontSize: 24),
+              'Total Complaints',
+              style: GoogleFonts.montserrat(fontSize: 16.0,),
             ),
-            SizedBox(height: 20.0),
-            SizedBox(height: 10.0),
-            SizedBox(height: 15.0),
+            Text(
+              rank.data["totalcomp"].toString(),
+              style: GoogleFonts.montserrat(fontSize: 15.0,fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.02,
+            ),
+            Text(
+              'Total Resolved',
+              style: GoogleFonts.montserrat(fontSize: 16.0,),
+            ),
+            Text(
+              rank.data["totalr"].toString(),
+              style: GoogleFonts.montserrat(fontSize: 15.0,fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height*0.05),
             InkWell(
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OnStatTap(constituency: rank,position:index)),
+                          builder: (context) =>
+                              OnStatTap(constituency: rank, position: index,path:'assets/Ranking/$index.png')),
                     ),
                 child: Container(
                   height: 45.0,
@@ -161,9 +181,7 @@ class RankingTile extends StatelessWidget {
                     child: Text(
                       'View Details',
                       style: GoogleFonts.montserrat(
-
-                          color: Colors.black,
-                          fontSize: 17),
+                          color: Colors.black, fontSize: 17),
                     ),
                   ),
                 )),
