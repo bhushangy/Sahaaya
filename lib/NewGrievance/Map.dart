@@ -175,7 +175,41 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
       },
     );
   }
+  void _showDialog2(
+      String a,
+      String b,
+      ) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
 
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("CONTINUE"),
+              onPressed: () {
+                Navigator.pop(context);
+                _getCurrentLocation();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -219,8 +253,8 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
                           if(isLocationEnabled==false)
                             _showDialog("Location Detection Alert", "Please turn on GPS(Location) service.");
                           else
-                          _getCurrentLocation();
-                          //_showDialog("Note", "To drag the marker, long press on it and drag.");
+
+                          _showDialog2("Note", "To drag the marker, long press on it and drag.");
                         },
 
                         materialTapTargetSize: MaterialTapTargetSize.padded,
