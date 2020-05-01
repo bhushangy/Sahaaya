@@ -57,7 +57,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   title: Text(
                     'Home',
                     style: GoogleFonts.montserrat(
-                        fontSize: 11.5, fontWeight: FontWeight.w600),
+                        fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
                 BottomNavigationBarItem(
@@ -67,7 +67,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     child: Text(
                       'New Grievance',
                       style: GoogleFonts.montserrat(
-                          fontSize: 11.5, fontWeight: FontWeight.w600),
+                          fontSize: 13, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -76,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   title: Text(
                     'Statistics',
                     style: GoogleFonts.montserrat(
-                        fontSize: 11.5, fontWeight: FontWeight.w600),
+                        fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],

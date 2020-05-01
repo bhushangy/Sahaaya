@@ -263,9 +263,15 @@ class GrievanceTiles extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        title: new Text("Delete this Previous Record"),
+                        title: new Text("Delete this Previous Record",
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
                         content:
-                            new Text("Are you sure you want to delete it ?"),
+                            new Text("Are you sure you want to delete it ?",
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),),
                         actions: <Widget>[
                           // usually buttons at the bottom of the dialog
                           new FlatButton(
