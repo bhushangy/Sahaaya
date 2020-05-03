@@ -4,7 +4,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawer extends StatefulWidget {
+  @override
+  _NavDrawerState createState() => _NavDrawerState();
+}
+
+class _NavDrawerState extends State<NavDrawer> {
+  String ema;
+  void initState() {
+    super.initState();
+    ee();
+
+
+  }
+  Future ee ()async{
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var email = prefs.getString('email');
+    ema=email;
+    print(ema);
+    return(ema);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +34,7 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Hello Kobe Bryant !!',
+              "Hello "+ee().toString(),
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
             decoration: BoxDecoration(
