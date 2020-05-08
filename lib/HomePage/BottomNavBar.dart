@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +7,7 @@ import 'package:voter_grievance_redressal/Statistics/Ranking.dart';
 import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
+FirebaseUser loggedInUser;
 class BottomNavBar extends StatefulWidget {
   @override
   _BottomNavBarState createState() => _BottomNavBarState();

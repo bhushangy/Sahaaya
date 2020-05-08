@@ -1,38 +1,38 @@
-import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 
-abstract class GetInfo{
+import 'BottomNavBar.dart';
 
-  Future<void> checkInternetStatus();
-  void getUserInfo();
-
+final databaseReference = Firestore.instance;
+class GetInfo extends StatefulWidget {
+  String email;
+  GetInfo({this.email});
+  @override
+  _GetInfoState createState() => _GetInfoState();
 }
 
+class _GetInfoState extends State<GetInfo> {
 
 
-
-class UserDetails extends GetInfo{
-
-  String name,constituency;
-  int phone;
-
-  @override
-  Future<void> checkInternetStatus() async {
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      return "Active";
-
-    }else{
-      return "InActive";
-    }
+  void initState(){
+    super.initState();
+    //getUserInfo();
 
   }
 
-  //TODO -- > ASHWITHA
+
   @override
-  void getUserInfo() {
-
-    //get user info from firebase here and use in home page
-
-
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }
+
+

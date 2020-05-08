@@ -4,16 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
-
-
-
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 
 
 class PostSignUp extends StatefulWidget {
   String email;
   PostSignUp({this.email});
-
   @override
   _PostSignUpState createState() => _PostSignUpState();
 }
@@ -23,7 +22,7 @@ class _PostSignUpState extends State<PostSignUp> {
   String name;
   final _formKey = GlobalKey<FormState>();
   int phone;
-  String address;
+  String constituency;
   bool showSpinner = false;
 
   void _showDialog(
@@ -211,7 +210,7 @@ class _PostSignUpState extends State<PostSignUp> {
                             TextFormField(
                               validator: (add) {
                                 if (add.isEmpty) {
-                                  return 'Please enter address.';
+                                  return 'Please enter your constituency.';
                                 } else {
                                   return null;
                                 }
@@ -219,14 +218,14 @@ class _PostSignUpState extends State<PostSignUp> {
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
                               onChanged: (value) {
-                                address = value;
+                                constituency = value;
                               },
                               cursorColor: Colors.indigo,
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.indigo),
                                 ),
-                                labelText: 'ADDRESS',
+                                labelText: 'CONSTITUENCY',
                                 labelStyle: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
@@ -256,13 +255,18 @@ class _PostSignUpState extends State<PostSignUp> {
                                         await databaseReference
                                             .collection("UserInfo")
                                             .document(widget.email)
-                                            .setData({
+                                            .updateData({
                                           'Name': name,
-                                          'Email': widget.email,
                                           'Phone': phone,
-                                          'Address': address,
+                                          'Constituency': constituency,
                                         });
-
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        prefs.setString('name',name);
+                                        prefs.setString('phone',phone.toString());
+                                        prefs.setString('constituency',constituency);
+                                        Provider.of<DropDown>(context,
+                                            listen: false)
+                                            .setUserInfo(name, phone.toString(), constituency);
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(

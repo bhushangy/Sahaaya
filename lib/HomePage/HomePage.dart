@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:voter_grievance_redressal/Provider//ProviderClass.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'NavDrawer.dart';
 
 final databaseReference = Firestore.instance;
@@ -14,13 +15,18 @@ FirebaseUser loggedInUser;
 
 class HomePage extends StatefulWidget {
   static String whichConstituency = _HomePageState.constituency[0];
-
+  String email;
+  HomePage({this.email});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
+
+  String name,consti;
   bool expanded = false;
+  final _auth = FirebaseAuth.instance;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   static List<String> constituency = [
@@ -28,6 +34,23 @@ class _HomePageState extends State<HomePage> {
     'Malleshwaram',
     'Vidyaranyapura'
   ];
+
+  void initState(){
+    super.initState();
+    getEmail();
+  }
+
+  void getEmail()async{
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   Future<bool> dontgoback() {
     return showDialog(
@@ -164,7 +187,8 @@ class _HomePageState extends State<HomePage> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Center(
                             child: Text(
-                              'Lalo',
+                              //'Lalo',
+                              Provider.of<DropDown>(context,listen: false).name == null?Provider.of<DropDown>(context,listen: false).email: Provider.of<DropDown>(context,listen: false).name,
                               style: GoogleFonts.montserrat(
                                   fontSize: 20.0, fontWeight: FontWeight.w600),
                             ),
@@ -181,7 +205,8 @@ class _HomePageState extends State<HomePage> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Center(
                             child: Text(
-                              'Yalahanka',
+                             // 'Yalahanka',
+                               Provider.of<DropDown>(context,listen: false).constituency == null? "Bengaluru": Provider.of<DropDown>(context,listen: false).constituency,
                               style: GoogleFonts.montserrat(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.normal),

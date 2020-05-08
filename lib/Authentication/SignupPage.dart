@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication//PostSignUp.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -17,6 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   String password;
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
+  final databaseReference = Firestore.instance;
 
   void initState() {
     super.initState();
@@ -184,14 +188,29 @@ class _SignupPageState extends State<SignupPage> {
                               await _auth.createUserWithEmailAndPassword(
                                   email: email, password: password);
                               if (newUser != null) {
+                                await databaseReference
+                                    .collection("UserInfo")
+                                    .document(email)
+                                    .setData({
+                                  'Name':null,
+                                  'Email':email,
+                                  'Phone':null,
+                                  'Constituency':null,
+                                });
+                                Provider.of<DropDown>(context,
+                                    listen: false)
+                                    .setEmail(email);
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setString('email', email);
+                                  prefs.setString('email', email);
+                                prefs.setString('name',null);
+                                prefs.setString('phone',null);
+                                prefs.setString('constituency',null);
                                 prefs.setInt('i', 1);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          PostSignUp(email: email)),
+                                          PostSignUp(email: email,)),
                                 );
                               }
                               setState(() {

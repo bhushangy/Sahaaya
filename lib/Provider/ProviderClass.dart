@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class DropDown extends ChangeNotifier {
 
-
- String consti = 'Yalahanka';
- double whichLat=null,whichLong=null;
+  String consti = 'Yalahanka';
+  String email,name,constituency,phone;
+  double whichLat=null,whichLong=null;
   void changeState(String constitu){
     consti = constitu;
     notifyListeners();
@@ -14,6 +14,16 @@ class DropDown extends ChangeNotifier {
   {
     whichLat=a;
     whichLong=b;
+    notifyListeners();
+  }
+  void setEmail(String e){
+    email = e;
+    notifyListeners();
+  }
+  void setUserInfo(String n,String p,String c){
+    name = n;
+    phone = p;
+    constituency = c;
     notifyListeners();
   }
 

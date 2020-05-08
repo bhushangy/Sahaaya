@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 
 
 class FactsScreen extends StatefulWidget {
@@ -16,68 +18,6 @@ class _FactsScreenState extends State<FactsScreen> {
   PageController _controller = PageController(
     initialPage: 0,
   );
-
-  void initState() {
-    super.initState();
-    getInternetData();
-    //TODO --> Ashwitha
-//    Future<String> res = UserDetails().checkInternetStatus();
-//    if (res == "Active"){
-//
-//    }else{
-//      Alert(
-//        context: context,
-//        type: AlertType.error,
-//        title: "No Network!!",
-//        desc: "Please check your Internet connection and restart the app",
-//        buttons: [
-//          DialogButton(
-//            child: Text(
-//              "Restart",
-//              style: TextStyle(color: Colors.white, fontSize: 20),
-//            ),
-//            onPressed: () =>
-//                SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-//            width: 120,
-//          )
-//        ],
-//      ).show();
-//    }
-  }
-
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void getInternetData() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        //print('connected');
-
-      }
-    } on SocketException catch (_) {
-      //print('not connected');
-      Alert(
-        context: context,
-        type: AlertType.error,
-        title: "No Network!!",
-        desc: "Please check your Internet connection and restart the app",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "Restart",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () =>
-                SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-            width: 120,
-          )
-        ],
-      ).show();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

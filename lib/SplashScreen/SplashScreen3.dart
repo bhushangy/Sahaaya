@@ -2,9 +2,11 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'dart:io';
 import 'FactsScreen.dart';
 
@@ -18,13 +20,20 @@ class _SplashScreen3State extends State<SplashScreen3> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3500), () {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+        timer();
+    });
+  }
+  void timer()async {
+    Future.delayed(const Duration(milliseconds: 3500), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Provider.of<DropDown>(context,listen: false).setEmail(prefs.getString('email'));
+      Provider.of<DropDown>(context,listen: false).setUserInfo(prefs.getString('name'),prefs.getString('phone'),prefs.getString('constituency'));
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return BottomNavBar();
       }));
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +43,20 @@ class _SplashScreen3State extends State<SplashScreen3> {
     ));
     return  Scaffold(
       backgroundColor: Colors.white,
-      body: FlareActor("assets/Sahaaya.flr", alignment: Alignment.center,
-          fit: BoxFit.contain,
-          animation: "Splash"),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Container(
+            child: Center(
+              child: Text('Sahaaya'),
+            ),
+          ),
+          Container(
+            child: CircularProgressIndicator(),
+          )
+        ],
+      ),
     );
   }
 }
