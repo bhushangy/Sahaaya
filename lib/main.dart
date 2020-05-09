@@ -12,6 +12,7 @@ Future<void> main() async {
   var email = prefs.getString('email');
   var i = prefs.getInt('i');
   print(email);
+
   print(i);
   if (i == null)
     runApp(ChangeNotifierProvider(
