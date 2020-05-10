@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 import 'ContactDetails.dart';
 
@@ -243,6 +244,7 @@ class StatsCard extends StatelessWidget {
   StatsCard({this.cat, this.imgPath, this.nr, this.r, this.txtColor});
 
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.only(left: 12.0),
       child: Container(

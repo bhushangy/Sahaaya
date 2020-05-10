@@ -10,6 +10,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 final databaseReference = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -71,17 +72,6 @@ void dispose(){
     isResolved = widget.grievance.data["Resolved"];
     isResolved == true ? _txtControl.text = "Yes" : _txtControl.text = "No";
   }
-
-//  void getCurrentUser() async {
-//    try {
-//      final user = await _auth.currentUser();
-//      if (user != null) {
-//        loggedInUser = user;
-//      }
-//    } catch (e) {
-//      print(e);
-//    }
-//  }
 
   void updateStatus() async {
     try {
@@ -150,6 +140,7 @@ void dispose(){
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -164,7 +155,7 @@ void dispose(){
           title: Text(
             'Your Grievance',
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+                fontWeight: FontWeight.w600, color: Colors.white,fontSize:SizeConfig.safeBlockHorizontal*4.2),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -180,19 +171,20 @@ void dispose(){
           child: Container(
             padding: EdgeInsets.all(5.0),
             child: SingleChildScrollView(
+              physics: ScrollPhysics(parent: BouncingScrollPhysics()),
               child: Column(children: [
                 SizedBox(
-                  height: 10.0,
+                  height:SizeConfig.safeBlockVertical*1,
                 ),
                 images.length == 0
                     ? Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding:EdgeInsets.all(SizeConfig.safeBlockHorizontal*1),
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 250,
+                    width:SizeConfig.safeBlockHorizontal*97,
+                    height:SizeConfig.safeBlockHorizontal*59,
                     child: Icon(
                       Icons.image,
-                      size: 40,
+                        size:SizeConfig.safeBlockHorizontal*10,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -204,7 +196,7 @@ void dispose(){
                 )
                     : CarouselSlider(
                   enableInfiniteScroll: false,
-                  height: 250,
+                  height:SizeConfig.safeBlockVertical*35,
                   viewportFraction: 1.0,
                   autoPlay: false,
                   onPageChanged: (index) {
@@ -217,9 +209,9 @@ void dispose(){
                       return Builder(
                         builder: (BuildContext context) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
+                            padding: EdgeInsets.only(top:SizeConfig.safeBlockHorizontal*1),
                             child: Container(
-                              padding: EdgeInsets.all(4.0),
+                              padding: EdgeInsets.all(3.0),
                               width: MediaQuery.of(context).size.width,
                               margin:
                               EdgeInsets.symmetric(horizontal: 2.0),
@@ -244,7 +236,7 @@ void dispose(){
                   ).toList(),
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height:SizeConfig.safeBlockVertical*3,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,52 +244,60 @@ void dispose(){
                     ConstiAndCateg(
                         val: widget.grievance.data["Constituency"],
                         label: 'CONSTITUENCY',
-                        icon: Icon(Icons.location_on)),
+                        icon: Icon(Icons.location_on,size:SizeConfig.safeBlockHorizontal*6),),
                     SizedBox(
-                      height: 30.0,
+                     height:SizeConfig.safeBlockVertical*4,
                     ),
                     ConstiAndCateg(
                         val: widget.grievance.data["Category"],
                         label: 'CATEGORY',
-                        icon: Icon(Icons.playlist_add_check)),
+                        icon: Icon(Icons.playlist_add_check,size:SizeConfig.safeBlockHorizontal*7),),
                     SizedBox(
-                      height: 30.0,
+                      height:SizeConfig.safeBlockVertical*4,
                     ),
                     ConstiAndCateg(
                         val: dat,
                         label: 'CREATED',
-                        icon: Icon(Icons.calendar_today)),
+                        icon: Icon(Icons.calendar_today,size:SizeConfig.safeBlockHorizontal*6),),
                     SizedBox(
-                      height: 30.0,
+                      height:SizeConfig.safeBlockVertical*4,
                     ),
                     ConstiAndCateg(
                         val: widget.grievance.data["Description"],
                         label: 'DESCRIPTION',
-                        icon: Icon(Icons.description)),
+                        icon: Icon(Icons.description,size:SizeConfig.safeBlockHorizontal*6),),
                     SizedBox(
-                      height: 30.0,
+                      height:SizeConfig.safeBlockVertical*4,
                     ),
-                    CheckboxListTile(
-                      title: Text('Is this grievance addressed?'),
-                      value: isResolved,
-                      onChanged: (bool value) async {
-                        setState(() {
-                          isResolved = value;
-                          value == true ? _txtControl.text = "Yes" : _txtControl.text = "No";
-                          showSpinner = true;
-                        });
-                        await updateStatus();
-                        await statsUpdate(value);
-                        setState(() {
-                          showSpinner = false;
-                        });
-                        _scaffoldKey.currentState.showSnackBar(snackbar);
-                      },
+                    Padding(
+                      padding:EdgeInsets.only(
+                          left:  SizeConfig.safeBlockHorizontal * 2,
+                          right:
+                          SizeConfig.safeBlockHorizontal * 2),
+                      child: CheckboxListTile(
+                        title: Text('Is this grievance addressed?',style:TextStyle(
+                             color: Colors.black,fontSize:SizeConfig.safeBlockHorizontal*4.1),),
+                        value: isResolved,
+                        onChanged: (bool value) async {
+                          setState(() {
+                            isResolved = value;
+                            value == true ? _txtControl.text = "Yes" : _txtControl.text = "No";
+                            showSpinner = true;
+                          });
+                          await updateStatus();
+                          await statsUpdate(value);
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          _scaffoldKey.currentState.showSnackBar(snackbar);
+                        },
+                      ),
                     ),
                     Container(
                       padding: EdgeInsets.only(
-                          left: 0.022 * MediaQuery.of(context).size.width,
-                          right: 0.022 * MediaQuery.of(context).size.width),
+                          left:  SizeConfig.safeBlockHorizontal * 2,
+                          right:
+                          SizeConfig.safeBlockHorizontal * 2),
                       child: TextFormField(
                         controller: _txtControl,
                         enabled: false,
@@ -308,8 +308,7 @@ void dispose(){
                           prefixIcon: isResolved == true
                               ? Icon(
                             Icons.thumb_up,
-                            color: Colors.green,
-                          )
+                            color: Colors.green, size:SizeConfig.safeBlockHorizontal * 6)
                               : Icon(
                             Icons.thumb_down,
                             color: Colors.red,
@@ -325,16 +324,14 @@ void dispose(){
                         ),
                       ),
                     ),
+
                     SizedBox(
-                      width: 20.0,
-                    ),
-                    SizedBox(
-                      height: 30.0,
+                      height:SizeConfig.safeBlockVertical*5,
                     ),
                     Center(
                       child: Container(
-                        width: 0.95* MediaQuery.of(context).size.width,
-                        height: 0.3 * MediaQuery.of(context).size.height,
+                        width: 94 *  SizeConfig.safeBlockHorizontal,
+                        height:  SizeConfig.safeBlockVertical * 35,
                         decoration: BoxDecoration(
                           border: Border.all(width: 1.75, color: Colors.grey),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -358,7 +355,7 @@ void dispose(){
                       ),
                     ),
                     SizedBox(
-                      height: 30.0,
+                      height:SizeConfig.safeBlockVertical*5,
                     ),
                   ],
                 ),
@@ -380,8 +377,9 @@ class ConstiAndCateg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          left: 0.022 * MediaQuery.of(context).size.width,
-          right: 0.022 * MediaQuery.of(context).size.width),
+          left:  SizeConfig.safeBlockHorizontal * 2,
+          right:
+          SizeConfig.safeBlockHorizontal * 2),
       child: TextFormField(
         maxLines: null,
         keyboardType: TextInputType.multiline ,

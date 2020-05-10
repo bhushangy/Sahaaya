@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 
 class FactsScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _FactsScreenState extends State<FactsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: PageView(
@@ -32,7 +34,7 @@ class _FactsScreenState extends State<FactsScreen> {
               index: 0,
               img: 'angry.png',
               txt:
-                  'Have issues in your neighborhood that need to be addressed ?'),
+                  'Have issues in your neighborhood that needs an ear ?'),
           FactPages(
               index: 1,
               img: 'report.png',
@@ -58,10 +60,10 @@ class FactPages extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.25),
+          padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical*30),
           child: Container(
-            width: MediaQuery.of(context).size.width*0.4,
-            height: MediaQuery.of(context).size.width*0.4 ,
+            width: SizeConfig.blockSizeHorizontal*30,
+            height:SizeConfig.safeBlockVertical*20 ,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -72,28 +74,28 @@ class FactPages extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height:  MediaQuery.of(context).size.width*0.16,
+          height:  SizeConfig.safeBlockVertical*8,
         ),
         Flexible(
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
+            width:SizeConfig.safeBlockHorizontal*60,
             child: Text(
               '$txt',
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
-                  fontSize: 20.0, fontWeight: FontWeight.normal)
+                  fontSize:SizeConfig.safeBlockHorizontal*5, fontWeight: FontWeight.normal)
             ),
           ),
         ),
         SizedBox(
-          height:  MediaQuery.of(context).size.width*0.15,
+          height:  SizeConfig.safeBlockVertical*10,
         ),
         index == 2
             ? Column(
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width*0.4,
-                    height: MediaQuery.of(context).size.height*0.07,
+                    width: SizeConfig.safeBlockHorizontal*60,
+                    height:SizeConfig.safeBlockVertical*7,
                     child: InkWell(
                       onTap: () =>  Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
@@ -108,6 +110,7 @@ class FactPages extends StatelessWidget {
                           child: Text(
                             'Get Started',
                             style: GoogleFonts.montserrat(
+                              fontSize:SizeConfig.safeBlockHorizontal*4 ,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),

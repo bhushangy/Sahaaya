@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 
 
@@ -214,71 +215,70 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-
-        body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: Stack(
-            children: <Widget>[
-              GoogleMap(
-
-                onMapCreated: _onMapCreated,
-                myLocationEnabled: true,
-                initialCameraPosition: CameraPosition(
-                  target: _center,
+      home: SafeArea(
+        child: Scaffold(
+          body: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: Stack(
+              children: <Widget>[
+                GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  myLocationEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: _center,
 //               target: LatLng(
 //                 pos.latitude,pos.longitude
 //               ),
-                  zoom: 11.0,
-                ),
-                mapType: _currentMapType,
-                markers: _markers,
-                onCameraMove: _onCameraMove,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Column(
-                    children: <Widget> [
-                      SizedBox(
-                        height: 480,
-
-                      )
-                      ,
-                      FloatingActionButton(
-                        heroTag: "btn3",
-                        onPressed:()async{
-                          bool isLocationEnabled = await Geolocator().isLocationServiceEnabled();
-                          if(isLocationEnabled==false)
-                            _showDialog("Location Detection Alert", "Please turn on GPS(Location) service.");
-                          else
-
-                          _showDialog2("Note", "To drag the marker, long press on it and drag.");
-                        },
-
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.black,
-                        child: const Icon(Icons.my_location, size: 36.0),
-                      ),
-
-                      SizedBox(height: 16.0),
-                      FloatingActionButton(
-                        heroTag: "btn1",
-                        onPressed: (){Navigator.pop(context);},
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.green,
-                        child: const Icon(Icons.check, size: 36.0),
-                      ),
-
-
-                    ],
+                    zoom: 10.0,
                   ),
+                  mapType: _currentMapType,
+                  markers: _markers,
+                  onCameraMove: _onCameraMove,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      children: <Widget> [
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 62,
+
+                        )
+                        ,
+                        FloatingActionButton(
+                          heroTag: "btn3",
+                          onPressed:()async{
+                            bool isLocationEnabled = await Geolocator().isLocationServiceEnabled();
+                            if(isLocationEnabled==false)
+                              _showDialog("Location Detection Alert", "Please turn on GPS(Location) service.");
+                            else
+
+                            _showDialog2("Note", "To drag the marker, long press on it and drag.");
+                          },
+
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                          backgroundColor: Colors.black,
+                          child: Icon(Icons.my_location, size: SizeConfig.safeBlockHorizontal*8),
+                        ),
+
+                        SizedBox(height: SizeConfig.safeBlockVertical*2 ),
+                        FloatingActionButton(
+                          heroTag: "btn1",
+                          onPressed: (){Navigator.pop(context);},
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                          backgroundColor: Colors.green,
+                          child: Icon(Icons.check, size: SizeConfig.safeBlockHorizontal*8),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
                 ),
 
-              ),
-
-            ],
+              ],
+            ),
           ),
         ),
       ),

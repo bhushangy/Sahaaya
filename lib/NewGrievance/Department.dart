@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/OldGrievance//RetrieveGrievances.dart';
 import 'package:voter_grievance_redressal/NewGrievance//FillForm.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 
 FirebaseUser loggedInUser;
@@ -18,6 +19,7 @@ class _DeptPageState extends State<DeptPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return ListView(
       scrollDirection: Axis.horizontal,
       children: <Widget>[
@@ -34,29 +36,30 @@ class _DeptPageState extends State<DeptPage> {
   Widget _buildDeptCard(String img, String category) {
     return ListView(
       shrinkWrap: true,
+      physics: ScrollPhysics(parent: BouncingScrollPhysics()),
       scrollDirection: Axis.horizontal,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*5,top:SizeConfig.safeBlockVertical*4.2 ),
           child: Container(
-              height: 100.0,
-              width: 250.0,
+              height: SizeConfig.safeBlockVertical*50,
+              width: SizeConfig.safeBlockHorizontal*62,
               decoration: BoxDecoration(
                   //color: Colors.grey.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(15.0)),
               child: Column(children: [
-                SizedBox(height: 15.0),
-                Image.asset(img, fit: BoxFit.cover, height: 130.0),
-                SizedBox(height: 20.0),
+                SizedBox(height: SizeConfig.safeBlockVertical*2.5,),
+                Image.asset(img, fit: BoxFit.cover, height: SizeConfig.safeBlockVertical*15),
+                SizedBox(height: SizeConfig.safeBlockVertical*3,),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+                  padding:EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*5, right: SizeConfig.safeBlockHorizontal*4,),
                   child: Text(category,
                     style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
-                        fontSize: 24),),
+                        fontSize: SizeConfig.safeBlockHorizontal*6),),
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: SizeConfig.safeBlockHorizontal*7.5,),
                 InkWell(
                     onTap: () async {
                       try {
@@ -73,8 +76,8 @@ class _DeptPageState extends State<DeptPage> {
                       }
                     },
                     child: Container(
-                      height: 45.0,
-                      width: 180.0,
+                      height: SizeConfig.safeBlockVertical*6,
+                      width: SizeConfig.safeBlockHorizontal*43,
                       decoration: BoxDecoration(
                           color: Color(0xffe0e0e0).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(15.0)),
@@ -84,11 +87,11 @@ class _DeptPageState extends State<DeptPage> {
                           style: GoogleFonts.montserrat(
 
                               color: Colors.black,
-                              fontSize: 17),
+                              fontSize:SizeConfig.safeBlockHorizontal*4.1),
                         ),
                       ),
                     )),
-                SizedBox(height: 15.0),
+                SizedBox(height:  SizeConfig.safeBlockVertical*3),
                 InkWell(
                     onTap: () async {
                       try {
@@ -105,8 +108,8 @@ class _DeptPageState extends State<DeptPage> {
                       }
                     },
                     child: Container(
-                      height: 45.0,
-                      width: 180.0,
+                      height: SizeConfig.safeBlockVertical*6,
+                      width: SizeConfig.safeBlockHorizontal*43,
                       decoration: BoxDecoration(
                           color: Color(0xffe0e0e0).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(15.0)),
@@ -116,7 +119,7 @@ class _DeptPageState extends State<DeptPage> {
                           style: GoogleFonts.montserrat(
 
                               color: Colors.black,
-                              fontSize: 17),
+                              fontSize:SizeConfig.safeBlockHorizontal*4.1),
                         ),
                       ),
                     )),

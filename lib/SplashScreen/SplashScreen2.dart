@@ -2,9 +2,12 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
+import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'dart:io';
 import 'FactsScreen.dart';
 
@@ -18,7 +21,16 @@ class _SplashScreen2State extends State<SplashScreen2> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3500), () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      timer();
+
+    });
+  }
+  void timer()async{
+    Future.delayed(const Duration(milliseconds: 3500), () async{
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      Provider.of<DropDown>(context,listen: false).setAppInfo(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return LoginPage();
       }));

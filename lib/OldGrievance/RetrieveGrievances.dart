@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/OldGrievance//GrievanceDetails.dart';
-
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 final _firestore = Firestore.instance;
 
@@ -24,13 +24,16 @@ class _RetrieveGrievancesState extends State<RetrieveGrievances> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           widget.category,
           style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontSize: SizeConfig.safeBlockHorizontal * 4.2),
         ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
@@ -44,7 +47,7 @@ class _RetrieveGrievancesState extends State<RetrieveGrievances> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 20.0,
+            height: SizeConfig.safeBlockVertical * 6.5,
           ),
           GrievanceStream(category: widget.category, email: widget.email),
         ],
@@ -67,61 +70,82 @@ class GrievanceStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore
-            .collection(q)
-            .orderBy("Created", descending: true)
-            .snapshots(),
-        //the above function returns a stream of snapshots..each snapshot contains documents at different periods of time..the one snapshot with the mosr recent change
-        //is returned to the stream builder
-        // ignore: missing_return
-        builder: (context, snapshot) {
-          // snapshot is a list of documents present in the collection
-          //TODO: Handle snapshot.hasError conditions also here....
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+      stream: _firestore
+          .collection(q)
+          .orderBy("Created", descending: true)
+          .snapshots(),
+      //the above function returns a stream of snapshots..each snapshot contains documents at different periods of time..the one snapshot with the mosr recent change
+      //is returned to the stream builder
+      // ignore: missing_return
+      builder: (context, snapshot) {
+        // snapshot is a list of documents present in the collection
+        //TODO: Handle snapshot.hasError conditions also here....
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.indigo,
+            ),
+          );
+        }
+        List<GrievanceTiles> grievanceTiles = [];
+        final grievances = snapshot.data.documents;
+        if (grievances.length == 1) {
+          for (var grievance in grievances) {
+            return  Expanded(
+              child: GrievanceTiles(
+                grievance: grievance,
+                email: email,
+                left: SizeConfig.safeBlockHorizontal * 15,
               ),
             );
           }
-          final grievances = snapshot.data.documents;
-          List<GrievanceTiles> grievanceTiles = [];
+        } else {
           for (var grievance in grievances) {
             final grievanceTile = GrievanceTiles(
               grievance: grievance,
               email: email,
+              left:0,
             );
             grievanceTiles.add(grievanceTile);
           }
           return grievances.length == 0
               ? Padding(
-                  padding: const EdgeInsets.only(top: 280.0),
+                padding:EdgeInsets.only(top:SizeConfig.safeBlockVertical*37),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
                   child: Center(
                     child: Text(
                       'No Grievances Submitted....',
-                      style: TextStyle(fontSize: 24),
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontSize: SizeConfig.safeBlockHorizontal*5),
                     ),
                   ),
-                )
+                ),
+              )
               : Expanded(
                   child: ListView(
-                    physics: ScrollPhysics(
-                      parent: BouncingScrollPhysics()
-                    ),
+                    physics: ScrollPhysics(parent: BouncingScrollPhysics()),
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: grievanceTiles,
                   ),
                 );
-        });
+        }
+      },
+    );
   }
 }
+
 
 class GrievanceTiles extends StatelessWidget {
   final DocumentSnapshot grievance;
   String email;
+  double left;
 
-  GrievanceTiles({this.grievance, this.email});
+  GrievanceTiles({this.grievance, this.email,this.left});
   List<DocumentSnapshot> lis = [];
 
   void deleteRecordFromConstituencyCollec() async {
@@ -165,47 +189,48 @@ class GrievanceTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Padding(
-      padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
+      padding: EdgeInsets.only(top:SizeConfig.safeBlockVertical* 8.5,left:left),
       child: Container(
-          height: 100.0,
-          width: 250.0,
+          width: SizeConfig.safeBlockHorizontal*68,
           decoration: BoxDecoration(
               //color: Colors.grey.withOpacity(0.2),
-            color:Colors.white,
+              //color: Colors.grey,
               borderRadius: BorderRadius.circular(15.0)),
-          child: Column(children: [
-            SizedBox(height: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
             Container(
-              width: MediaQuery.of(context).size.width*0.2,
-              height: MediaQuery.of(context).size.width*0.2 ,
+              width: SizeConfig.safeBlockHorizontal*20,
+              height:SizeConfig.safeBlockVertical*13,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: grievance.data["Resolved"] == true
-                      ?AssetImage('assets/OldGrievances/up.png'):AssetImage('assets/OldGrievances/down.png'),
+                      ? AssetImage('assets/OldGrievances/up.png')
+                      : AssetImage('assets/OldGrievances/down.png'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+            SizedBox( height: SizeConfig.safeBlockVertical*2.5),
+            Flexible(
               child: Text(
                 grievance.data["Constituency"],
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 20),
+                    fontSize: SizeConfig.safeBlockHorizontal*5),
               ),
             ),
-            SizedBox(height: 10.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+                SizedBox( height: SizeConfig.safeBlockVertical*1.5),
+            Flexible(
               child: Text(
                 grievance.data["Resolved"] == true
                     ? '\n' +
-                        grievance.data['Category'] +
+                        grievance.data['Category'] +'\n'+
+                        grievance.data['RefId']+
                         '\n' +
                         grievance.data["Created"]
                             .toDate()
@@ -225,19 +250,19 @@ class GrievanceTiles extends StatelessWidget {
                 style: GoogleFonts.montserrat(
                     //fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 17),
+                    fontSize:SizeConfig.safeBlockHorizontal*4.2),
               ),
             ),
-            SizedBox(height: 30.0),
+                SizedBox( height: SizeConfig.safeBlockVertical*4.5),
             InkWell(
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            GrievanceDetails(grievance: grievance, email: email))),
+                        builder: (context) => GrievanceDetails(
+                            grievance: grievance, email: email))),
                 child: Container(
-                  height: 45.0,
-                  width: 180.0,
+                  height: SizeConfig.safeBlockVertical*6,
+                  width: SizeConfig.safeBlockHorizontal*43,
                   decoration: BoxDecoration(
                       color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
@@ -245,13 +270,11 @@ class GrievanceTiles extends StatelessWidget {
                     child: Text(
                       'View Details',
                       style: GoogleFonts.montserrat(
-
-                          color: Colors.black,
-                          fontSize: 16),
+                          color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*4.1),
                     ),
                   ),
                 )),
-            SizedBox(height: 15.0),
+                SizedBox( height: SizeConfig.safeBlockVertical*2.5),
             InkWell(
                 onTap: () {
                   showDialog(
@@ -263,15 +286,20 @@ class GrievanceTiles extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        title: new Text("Delete this Previous Record",
+                        title: new Text(
+                          "Delete this Previous Record",
                           style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),),
-                        content:
-                            new Text("Are you sure you want to delete it ?",
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),),
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                              fontSize: 18),
+                        ),
+                        content: new Text(
+                          "Are you sure you want to delete it ?",
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
                         actions: <Widget>[
                           // usually buttons at the bottom of the dialog
                           new FlatButton(
@@ -294,17 +322,18 @@ class GrievanceTiles extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 45.0,
-                  width: 180.0,
+                  height: SizeConfig.safeBlockVertical*6,
+                  width: SizeConfig.safeBlockHorizontal*43,
                   decoration: BoxDecoration(
-                     color: Color(0xffe0e0e0),
+                      color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Center(
                     child: Text(
                       'Delete',
                       style: GoogleFonts.montserrat(
-                          color: Colors.black,
-                          fontSize: 16,),
+                        color: Colors.black,
+                          fontSize:SizeConfig.safeBlockHorizontal*4.1,
+                      ),
                     ),
                   ),
                 )),

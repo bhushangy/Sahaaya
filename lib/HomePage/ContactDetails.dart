@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactDetails extends StatelessWidget {
-  int Num1, Num2;
-  String Office;
+  int num;
+  String mail;
 
-  ContactDetails({this.Num1,this.Num2,this.Office});
-  void _launchCaller(int num)async
+  ContactDetails({this.num,this.mail});
+  void _launchCaller()async
   {
     var url="tel:${num.toString()}";
     if (await canLaunch(url)) {
@@ -17,17 +18,20 @@ class ContactDetails extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
-  _launchURL(String url) async {
+  void _launchEmail()async
+  {
+    var url="mailto:$mail?subject=From Sahaaya App ";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height*0.52,
+      height: MediaQuery.of(context).size.height*0.42,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -67,7 +71,7 @@ class ContactDetails extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 30.0,left: 10),
             child: GestureDetector(
-              onTap: (){_launchCaller(Num1);},
+              onTap: _launchCaller,
               child: Container(
                 width: double.infinity,
                 height: 50.0,
@@ -83,7 +87,7 @@ class ContactDetails extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        Num1.toString(),
+                        num.toString(),
                         style: GoogleFonts.montserrat(
                           fontSize: 13.0,
                         ),
@@ -97,7 +101,7 @@ class ContactDetails extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 30.0,left: 10),
             child: GestureDetector(
-              onTap: (){_launchCaller(Num2);},
+              onTap: _launchEmail,
               child: Container(
                 width: double.infinity,
                 height: 50.0,
@@ -107,53 +111,19 @@ class ContactDetails extends StatelessWidget {
                     SizedBox(
                       width: 7,
                     ),
-                    Icon(Icons.phone,
+                    Icon(Icons.email,
                         size: 35.0, color: Colors.indigo),
                     SizedBox(
                       width: 15,
                     ),
                     Flexible(
                       child: Text(
-                        Num2.toString(),
+                        mail,
                         style: GoogleFonts.montserrat(
                           fontSize: 13.0,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0,left: 10),
-            child: GestureDetector(
-              onTap: (){_launchURL(Office);},
-              child: Container(
-                width: double.infinity,
-                height: 50.0,
-                color: Colors.white,
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 7,
-                    ),
-                    Icon(
-                      Icons.location_on,
-                      size: 35.0,
-                      color: Colors.indigo,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Flexible(
-                      child: Text(
-                        Office,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 13.0,
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),

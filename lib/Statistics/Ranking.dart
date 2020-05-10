@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 import 'package:voter_grievance_redressal/Statistics/RankingDetails.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 
@@ -10,13 +11,17 @@ final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
 
 class Ranking extends StatefulWidget {
+
   @override
   _RankingState createState() => _RankingState();
 }
 
 class _RankingState extends State<Ranking> {
+
+  int cnt = 0;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushReplacement(context,
@@ -43,7 +48,7 @@ class _RankingState extends State<Ranking> {
               SizedBox(
                 height: 20.0,
               ),
-              RankingStream(),
+              RankingStream(count:cnt),
             ],
           )),
     );
@@ -51,7 +56,8 @@ class _RankingState extends State<Ranking> {
 }
 
 class RankingStream extends StatelessWidget {
-  int count = 0;
+  int count;
+  RankingStream({this.count});
 
   @override
   Widget build(BuildContext context) {
