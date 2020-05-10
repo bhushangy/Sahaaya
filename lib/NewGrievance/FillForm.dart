@@ -651,7 +651,9 @@ class ConstiAndCateg extends StatelessWidget {
       child: TextFormField(
         enabled: false,
         initialValue: val,
-        // enabled: false,
+        style: GoogleFonts.montserrat(
+          fontWeight: FontWeight.normal,
+        ),
         decoration: InputDecoration(
           prefixIcon: icon,
           focusedBorder: OutlineInputBorder(

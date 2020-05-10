@@ -3,7 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
+import 'package:voter_grievance_redressal/Authentication/PostSignUp.dart';
+import 'package:voter_grievance_redressal/HomePage/About.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/HomePage/Feedback.dart';
+
+import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -69,21 +74,34 @@ class NavDrawer extends StatelessWidget {
             title: Text('Profile',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: 14),),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () {Navigator.push(context,
+                MaterialPageRoute(builder: (context) {
+                  return EditProfile();
+                }));},
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: 14),),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () {
+              Navigator.of(context).pop();
+              final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
+
+                  fontSize: 14),),
+              backgroundColor: Colors.indigo,
+              );
+            Scaffold.of(context).showSnackBar(snackBar);}
           ),
           ListTile(
             leading: Icon(Icons.border_color),
             title: Text('Feedback',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: 14),),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () {Navigator.push(context,
+                MaterialPageRoute(builder: (context) {
+                  return FeedbackSubmit();
+                }));},
           ),
 
           ListTile(
@@ -91,15 +109,24 @@ class NavDrawer extends StatelessWidget {
             title: Text('Help',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: 14),),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () {Navigator.of(context).pop();
+            final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
+                fontSize: 14),),
+              backgroundColor: Colors.indigo,
+            );
+            Scaffold.of(context).showSnackBar(snackBar);},
           ),
           ListTile(
             leading: Icon(Icons.people),
             title: Text('About',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: 14),),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: (){Navigator.push(context,
+                MaterialPageRoute(builder: (context) {
+                  return About();
+                }));},
           ),
+          SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

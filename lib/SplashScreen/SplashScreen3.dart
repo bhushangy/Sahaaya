@@ -2,6 +2,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
@@ -27,6 +28,8 @@ class _SplashScreen3State extends State<SplashScreen3> {
   void timer()async {
     Future.delayed(const Duration(milliseconds: 3500), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      Provider.of<DropDown>(context,listen: false).setAppInfo(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
       Provider.of<DropDown>(context,listen: false).setEmail(prefs.getString('email'));
       Provider.of<DropDown>(context,listen: false).setUserInfo(prefs.getString('name'),prefs.getString('phone'),prefs.getString('constituency'));
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {

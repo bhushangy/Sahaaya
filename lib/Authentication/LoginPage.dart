@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
@@ -335,6 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                                               email: email, password: password);
                                       if (user != null) {
                                         SharedPreferences prefs = await SharedPreferences.getInstance();
+
                                         prefs.setString('email', email);
                                         prefs.setInt('i', 1);
                                         doc = await databaseReference
@@ -344,6 +346,9 @@ class _LoginPageState extends State<LoginPage> {
                                         prefs.setString('name',doc.data["Name"]);
                                         prefs.setString('phone',doc.data["Phone"].toString());
                                         prefs.setString('constituency',doc.data["Constituency"]);
+                                        PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                                        Provider.of<DropDown>(context,listen: false).setAppInfo(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
+
                                         Provider.of<DropDown>(context,listen: false).setEmail(email);
                                         Provider.of<DropDown>(context,listen: false).setUserInfo(doc.data["Name"],doc.data["Phone"].toString(),doc.data["Constituency"]);
                                         Navigator.pushReplacement(context,
