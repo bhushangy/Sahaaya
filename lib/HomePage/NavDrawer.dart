@@ -22,20 +22,10 @@ class NavDrawer extends StatelessWidget {
           DrawerHeader(
             child: Column(
               children: <Widget>[
-//                RawMaterialButton(
-//                  onPressed: () {},
-//                  elevation: 2.0,
-//                  fillColor: Colors.white,
-//                  child: Icon(
-//                    Icons.person,
-//                    size: 60.0,
-//                  ),
-//                  padding: EdgeInsets.all(2.0),
-//                  shape: CircleBorder(),
-//                ),
+//
                 Container(
-                  height: 70,
-                  width: 70,
+                  height: SizeConfig.safeBlockVertical*10,
+                  width: SizeConfig.safeBlockVertical*10,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
                         50.0,
@@ -46,7 +36,7 @@ class NavDrawer extends StatelessWidget {
                           fit: BoxFit.fill)),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: SizeConfig.safeBlockVertical*1.5,
                 ),
                 Text(
                   Provider.of<DropDown>(context, listen: false).name ==
@@ -56,7 +46,7 @@ class NavDrawer extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
-                      fontSize: 23),
+                      fontSize: SizeConfig.blockSizeHorizontal*5.5),
                 ),
               ],
             ),
@@ -68,14 +58,14 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
-                fontSize: 14),),
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
-                fontSize: 14),),
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: () {Navigator.push(context,
                 MaterialPageRoute(builder: (context) {
                   return EditProfile();
@@ -85,12 +75,12 @@ class NavDrawer extends StatelessWidget {
               leading: Icon(Icons.settings),
               title: Text('Settings',style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w500,
-                  fontSize: 14),),
+                  fontSize: SizeConfig.safeBlockHorizontal*3.5),),
               onTap: () {
                 Navigator.of(context).pop();
                 final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
 
-                    fontSize: 14),),
+                    fontSize: SizeConfig.safeBlockHorizontal*3.5),),
                   backgroundColor: Colors.indigo,
                 );
                 Scaffold.of(context).showSnackBar(snackBar);}
@@ -99,7 +89,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.border_color),
             title: Text('Feedback',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
-                fontSize: 14),),
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: () {Navigator.push(context,
                 MaterialPageRoute(builder: (context) {
                   return FeedbackSubmit();
@@ -110,7 +100,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.help),
             title: Text('Help',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
-                fontSize: 14),),
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: () {Navigator.of(context).pop();
             final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
                 fontSize: 14),),
@@ -122,13 +112,13 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.people),
             title: Text('About',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
-                fontSize: 14),),
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: (){Navigator.push(context,
                 MaterialPageRoute(builder: (context) {
                   return About();
                 }));},
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.8,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -200,7 +190,7 @@ class NavDrawer extends StatelessWidget {
                     child: Text("Logout",textAlign: TextAlign.center,style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
-                        fontSize: 18),),
+                        fontSize: SizeConfig.safeBlockHorizontal*4.1),),
                   ),
                 ),
               ),

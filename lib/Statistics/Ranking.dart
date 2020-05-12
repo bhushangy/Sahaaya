@@ -46,7 +46,7 @@ class _RankingState extends State<Ranking> {
           body: Column(
             children: <Widget>[
               SizedBox(
-                height: 20.0,
+                height: SizeConfig.safeBlockVertical*4.2,
               ),
               RankingStream(count:cnt),
             ],
@@ -75,7 +75,7 @@ class RankingStream extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+                backgroundColor: Colors.indigo,
               ),
             );
           }
@@ -92,7 +92,7 @@ class RankingStream extends StatelessWidget {
           }
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(SizeConfig.safeBlockVertical*0.8),
               child: ListView(
                 physics: ScrollPhysics(
                   parent: BouncingScrollPhysics()
@@ -118,8 +118,8 @@ class RankingTile extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
       child: Container(
-        height: 100,
-          width: 260.0,
+          height: SizeConfig.safeBlockVertical*50,
+          width: SizeConfig.safeBlockHorizontal*62,
 //          decoration: BoxDecoration(
 //            //color: Colors.grey.withOpacity(0.2),
 //            color: Colors.white,
@@ -127,7 +127,7 @@ class RankingTile extends StatelessWidget {
 //            border: Border.all(color: Colors.grey, width: 0.4),
 //          ),
           child: Column(children: [
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.safeBlockVertical*2.5,),
             Container(
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.width * 0.2,
@@ -139,35 +139,35 @@ class RankingTile extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: SizeConfig.safeBlockVertical*3,),
             Flexible(
               child: Text(
                 rank.documentID,
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 20),
+                    fontSize: SizeConfig.safeBlockHorizontal*5),
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: SizeConfig.safeBlockVertical*3,),
             Text(
               'Total Complaints',
-              style: GoogleFonts.montserrat(fontSize: 16.0,),
+              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4,),
             ),
             Text(
               rank.data["totalcomp"].toString(),
-              style: GoogleFonts.montserrat(fontSize: 15.0,fontWeight: FontWeight.w600),
+              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4.5,fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height*0.02,
             ),
             Text(
               'Total Resolved',
-              style: GoogleFonts.montserrat(fontSize: 16.0,),
+              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4),
             ),
             Text(
               rank.data["totalr"].toString(),
-              style: GoogleFonts.montserrat(fontSize: 15.0,fontWeight: FontWeight.w600),
+              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4.5,fontWeight: FontWeight.w600),
             ),
             SizedBox(height: MediaQuery.of(context).size.height*0.05),
             InkWell(
@@ -178,8 +178,8 @@ class RankingTile extends StatelessWidget {
                               RankingDetails(constituency: rank, position: index,path:'assets/Ranking/$index.png')),
                     ),
                 child: Container(
-                  height: 45.0,
-                  width: 180.0,
+                  height: SizeConfig.safeBlockVertical*6,
+                  width: SizeConfig.safeBlockHorizontal*43,
                   decoration: BoxDecoration(
                       color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
@@ -187,7 +187,7 @@ class RankingTile extends StatelessWidget {
                     child: Text(
                       'View Details',
                       style: GoogleFonts.montserrat(
-                          color: Colors.black, fontSize: 17),
+                          color: Colors.black, fontSize: SizeConfig.safeBlockHorizontal*4.1),
                     ),
                   ),
                 )),

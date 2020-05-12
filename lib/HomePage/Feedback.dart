@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:voter_grievance_redressal/NewGrievance/FillForm.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 class FeedbackSubmit extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
           title: Text(
             'Feedback',
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+                fontWeight: FontWeight.w600, color: Colors.white, fontSize: SizeConfig.safeBlockHorizontal*4.5),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -123,23 +124,24 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
                 Column(
                   children: <Widget>[
                     SizedBox(
-                      height: 20.0,
+                      height: SizeConfig.safeBlockVertical*4,
                     ),
                     Row(
 
                       children: <Widget>[
-                        SizedBox(width: 10,),
+                        SizedBox(width: SizeConfig.safeBlockHorizontal*3,),
                         Text(
                           'Submit Feedback',
                           style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w600,  fontSize: 20),
+                              fontWeight: FontWeight.w600,  fontSize: SizeConfig.safeBlockHorizontal*5),
                         ),
                       ],
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: SizeConfig.safeBlockVertical*4,),
                     Container(
-                      padding:
-                      EdgeInsets.only( left: 20.0, right: 20.0),
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5,
+                          right: SizeConfig.safeBlockHorizontal * 5),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -174,12 +176,12 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
                               ),
                             ),
                             SizedBox(
-                              height: 70.0,
+                              height: SizeConfig.safeBlockVertical*8,
                             ),
                             FormButtons(
                               label: 'SUBMIT',
                               width: 0.93 * MediaQuery.of(context).size.width,
-                              height: 50,
+                              height: SizeConfig.safeBlockVertical*7,
                               onT: () async {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();

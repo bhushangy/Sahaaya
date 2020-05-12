@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/NewGrievance/FillForm.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  bool showSpinner=false;
+  bool showSpinner = false;
 //  String name,constituency;
 //  int phone;
   final _formKey = GlobalKey<FormState>();
@@ -22,44 +23,35 @@ class _EditProfileState extends State<EditProfile> {
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
 
-  void initState()
-  {
-
+  void initState() {
     super.initState();
-    if(Provider.of<DropDown>(context, listen: false)
-        .name==null)
-      myController1.text==" ";
+    if (Provider.of<DropDown>(context, listen: false).name == null)
+      myController1.text == " ";
     else
-      myController1.text=Provider.of<DropDown>(context, listen: false)
-          .name;
-    if(Provider.of<DropDown>(context, listen: false)
-        .phone==null)
-      myController2.text==" ";
+      myController1.text = Provider.of<DropDown>(context, listen: false).name;
+    if (Provider.of<DropDown>(context, listen: false).phone == null)
+      myController2.text == " ";
     else
-      myController2.text=Provider.of<DropDown>(context, listen: false)
-          .phone;
-    if(Provider.of<DropDown>(context, listen: false)
-        .constituency==null)
-      myController2.text==" ";
+      myController2.text = Provider.of<DropDown>(context, listen: false).phone;
+    if (Provider.of<DropDown>(context, listen: false).constituency == null)
+      myController2.text == " ";
     else
-      myController3.text=Provider.of<DropDown>(context, listen: false)
-          .constituency;
-
+      myController3.text =
+          Provider.of<DropDown>(context, listen: false).constituency;
   }
-  void dispose(){
+
+  void dispose() {
     super.dispose();
     myController1.dispose();
     myController2.dispose();
 
     myController3.dispose();
-
   }
 
-
   void _showDialog(
-      String a,
-      String b,
-      ) {
+    String a,
+    String b,
+  ) {
     // flutter defined function
     showDialog(
       context: context,
@@ -95,7 +87,8 @@ class _EditProfileState extends State<EditProfile> {
       },
     );
   }
-  Future<bool>dontgoback(){
+
+  Future<bool> dontgoback() {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -122,13 +115,13 @@ class _EditProfileState extends State<EditProfile> {
             new FlatButton(
               child: new Text(" YES"),
               onPressed: () {
-                Navigator.pop(context,true);
+                Navigator.pop(context, true);
               },
             ),
             new FlatButton(
               child: new Text(" NO"),
               onPressed: () {
-                Navigator.pop(context,false);
+                Navigator.pop(context, false);
               },
             ),
           ],
@@ -136,24 +129,23 @@ class _EditProfileState extends State<EditProfile> {
       },
     );
   }
+
   Future profileUpdate() async {
     try {
       await databaseReference
           .collection("UserInfo")
-          .document(Provider.of<DropDown>(context, listen: false)
-          .email)
+          .document(Provider.of<DropDown>(context, listen: false).email)
           .updateData({
-        'Name': Provider.of<DropDown>(context, listen: false)
-            .name,
-        'Phone': int.parse(Provider.of<DropDown>(context, listen: false)
-            .phone),
-        'Constituency':Provider.of<DropDown>(context, listen: false)
-            .constituency,
+        'Name': Provider.of<DropDown>(context, listen: false).name,
+        'Phone': int.parse(Provider.of<DropDown>(context, listen: false).phone),
+        'Constituency':
+            Provider.of<DropDown>(context, listen: false).constituency,
       });
     } catch (e) {
       print(e);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -163,7 +155,9 @@ class _EditProfileState extends State<EditProfile> {
             title: Text(
               'Update Profile',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  fontSize: SizeConfig.safeBlockHorizontal * 4.5),
             ),
             centerTitle: true,
             backgroundColor: Colors.indigo,
@@ -179,215 +173,193 @@ class _EditProfileState extends State<EditProfile> {
             color: Colors.indigo,
             child: SafeArea(
                 child: ListView(
+              children: <Widget>[
+                Column(
                   children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                50.0,
-                              ),
-                              color: Colors.white,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/HomePage/user.png'),
-                                  fit: BoxFit.fill)),
-                        ),
-                        SizedBox(
-                          height: 20,),
-                        Container(
-                          padding:
-                          EdgeInsets.only( left: 20.0, right: 20.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-initialValue: myController1.text,
-                                  enabled:true,
-
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  validator: (nam) {
-                                    if (nam.isEmpty) {
-                                      return 'Please enter your name.';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  cursorColor: Colors.indigo,
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.indigo),
-                                    ),
-                                    labelText: 'NAME',
-                                    labelStyle: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    myController1.text = value;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 33.0,
-                                ),
-                                TextFormField(
-                                  enabled:true,
-initialValue: myController2.text,
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  validator: (num) {
-                                    if (num.isEmpty) {
-                                      return 'Please enter 10 digit mobile number';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  keyboardType: TextInputType.phone,
-                                  onChanged: (value) {
-                                    myController2.text = (value);
-                                  },
-                                  cursorColor: Colors.indigo,
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.indigo),
-                                    ),
-                                    labelText: 'PHONE',
-                                    labelStyle: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 33.0,
-                                ),
-                                TextFormField(
-                                  enabled:true,
-initialValue: myController3.text,
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  validator: (add) {
-                                    if (add.isEmpty) {
-                                      return 'Please enter your constituency.';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                  onChanged: (value) {
-                                    myController3.text = value;
-                                  },
-                                  cursorColor: Colors.indigo,
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.indigo),
-                                    ),
-                                    labelText: 'CONSTITUENCY',
-                                    labelStyle: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical * 4,
+                    ),
+                    Container(
+                      height: SizeConfig.safeBlockVertical * 16,
+                      width: SizeConfig.safeBlockVertical * 16,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            50.0,
                           ),
-                        ),
-                        SizedBox(
-                          height: 65.0,
-                        ),
-                        FormButtons(
-                          label: 'SUBMIT',
-                          width: 0.93 * MediaQuery.of(context).size.width,
-                          height: 50,
-                          onT: () async {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-
-                              if (myController2.text
-                                  .length != 10) {
-                                _showDialog("Invalid Phone Number",
-                                    "Enter a valid 10 digit phone number.");
-                              } else {
-                                setState(() {
-                                  showSpinner = true;
-                                });
-                                try{
-                                  Provider.of<DropDown>(context, listen: false)
-                                      .constituency=myController3.text;
-                                  Provider.of<DropDown>(context, listen: false)
-                                      .name=myController1.text;
-                                  Provider.of<DropDown>(context, listen: false)
-                                      .phone=myController2.text;
-                                  await profileUpdate();
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('name',myController1.text);
-                                  prefs.setString('phone',myController2.text);
-                                  prefs.setString('constituency',myController3.text);
-
-                                  Navigator.pop(context,true);
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
-                                  _showDialog("Profile Update", "Profile Updated Successfully.");
-                                } catch (e) {
-                                  print(e);
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
+                          color: Colors.white,
+                          image: DecorationImage(
+                              image: AssetImage('assets/HomePage/user.png'),
+                              fit: BoxFit.fill)),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical * 4,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5,
+                          right: SizeConfig.safeBlockHorizontal * 5),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              initialValue: myController1.text,
+                              enabled: true,
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.normal,
+                                fontSize: SizeConfig.safeBlockHorizontal*4,
+                              ),
+                              validator: (nam) {
+                                if (nam.isEmpty) {
+                                  return 'Please enter your name.';
+                                } else {
+                                  return null;
                                 }
-                              }
-                            }else{
-                              _showDialog("Fields empty", "Please fill all fields.");
+                              },
+                              cursorColor: Colors.indigo,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.indigo),
+                                ),
+                                labelText: 'NAME',
+                                labelStyle: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                myController1.text = value;
+                              },
+                            ),
+                            SizedBox(
+                              height: SizeConfig.safeBlockVertical*4,
+                            ),
+                            TextFormField(
+                              initialValue: myController2.text,
+                              enabled: true,
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.normal,
+                                fontSize: SizeConfig.safeBlockHorizontal*4,
+                              ),
+                              validator: (nam) {
+                                if (nam.isEmpty) {
+                                  return 'Please enter 10 digit mobile number';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              keyboardType: TextInputType.phone,
+                              cursorColor: Colors.indigo,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.indigo),
+                                ),
+                                labelText: 'PHONE',
+                                labelStyle: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                myController2.text = value;
+                              },
+                            ),
+                            SizedBox(
+                              height: SizeConfig.safeBlockVertical*4,
+                            ),
+                            TextFormField(
+                              initialValue: myController3.text,
+                              enabled: true,
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.normal,
+                                fontSize: SizeConfig.safeBlockHorizontal*4,
+                              ),
+                              validator: (nam) {
+                                if (nam.isEmpty) {
+                                  return 'Please enter your constituency.';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              keyboardType: TextInputType.multiline,
+                              cursorColor: Colors.indigo,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.indigo),
+                                ),
+                                labelText: 'CONSTITUENCY',
+                                labelStyle: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                myController3.text = value;
+                              },
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical*9,
+                    ),
+                    FormButtons(
+                      label: 'SUBMIT',
+                      width: 0.93 * MediaQuery.of(context).size.width,
+                      height: SizeConfig.safeBlockVertical*7,
+                      onT: () async {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+
+                          if (myController2.text.length != 10) {
+                            _showDialog("Invalid Phone Number",
+                                "Enter a valid 10 digit phone number.");
+                          } else {
+                            setState(() {
+                              showSpinner = true;
+                            });
+                            try {
+                              Provider.of<DropDown>(context, listen: false)
+                                  .constituency = myController3.text;
+                              Provider.of<DropDown>(context, listen: false)
+                                  .name = myController1.text;
+                              Provider.of<DropDown>(context, listen: false)
+                                  .phone = myController2.text;
+                              await profileUpdate();
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString('name', myController1.text);
+                              prefs.setString('phone', myController2.text);
+                              prefs.setString(
+                                  'constituency', myController3.text);
+
+                              Navigator.pop(context, true);
+                              setState(() {
+                                showSpinner = false;
+                              });
+                              _showDialog("Profile Update",
+                                  "Profile Updated Successfully.");
+                            } catch (e) {
+                              print(e);
+                              setState(() {
+                                showSpinner = false;
+                              });
                             }
-                          },),
-                      ],
-                    )
+                          }
+                        } else {
+                          _showDialog(
+                              "Fields empty", "Please fill all fields.");
+                        }
+                      },
+                    ),
                   ],
-                )),
+                )
+              ],
+            )),
           ),
         ));
   }
 }
-class UserDetails extends StatelessWidget {
-  String val, label;
-  UserDetails({this.val, this.label});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          left: 0.022 * MediaQuery.of(context).size.width,
-          right: 0.022 * MediaQuery.of(context).size.width),
-      child: TextFormField(
-
-        enabled:true,
-        initialValue: val,
-        style: GoogleFonts.montserrat(
-          fontWeight: FontWeight.normal,
-        ),
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.indigo),
-          ),
-          labelText: label,
-          labelStyle: GoogleFonts.montserrat(
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
-          ),
-        ),
-      ),
-    );
-  }
-}

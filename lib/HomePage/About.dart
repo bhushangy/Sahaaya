@@ -5,10 +5,9 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:voter_grievance_redressal/HomePage/ContactDetails.dart';
-import 'package:get_version/get_version.dart';
-import 'package:flutter/services.dart';
-import 'package:package_info/package_info.dart';
+
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 class About extends StatefulWidget {
   @override
@@ -29,7 +28,7 @@ class _AboutState extends State<About> {
           title: Text(
             "Sahaaya",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
+                fontWeight: FontWeight.w600, color: Colors.white, fontSize: SizeConfig.safeBlockHorizontal*5),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -55,7 +54,7 @@ class _AboutState extends State<About> {
                     Text(
                       'Developers',
                       style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600,  fontSize: 20),
+                          fontWeight: FontWeight.w600,  fontSize: SizeConfig.safeBlockHorizontal*5),
                     ),
                   ],
                 ),
@@ -96,40 +95,42 @@ class _AboutState extends State<About> {
                     Text(
                       'About the App',
                       style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600,  fontSize: 20),
+                          fontWeight: FontWeight.w600,  fontSize: SizeConfig.safeBlockHorizontal*5),
                     ),
                   ],
                 ),
                 ListBody(
                   children: <Widget>[
                     new Container(
-                      height: 10.0,
+                      height: SizeConfig.safeBlockVertical*1,
                     ),
                     new ListTile(
                       leading: new Icon(Icons.info),
-                      title: Text('App Name',style: GoogleFonts.montserrat(),),
-                      subtitle: new Text(Provider.of<DropDown>(context, listen: false).a,style: GoogleFonts.montserrat(),),
+                      title: Text('App Name',style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*3.75),),
+                      subtitle: new Text(Provider.of<DropDown>(context, listen: false).a,style: GoogleFonts.montserrat(
+                          fontSize:SizeConfig.safeBlockHorizontal*3.4
+                      ),),
                     ),
 
                     new Divider(
-                      height: 20.0,
+                      height: SizeConfig.safeBlockVertical*3,
                     ),
                     new ListTile(
                       leading: new Icon(Icons.info),
-                      title:  Text('Version Number',style: GoogleFonts.montserrat(),),
-                      subtitle: new Text(Provider.of<DropDown>(context, listen: false).c,style: GoogleFonts.montserrat(),),
+                      title:  Text('Version Number',style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.75),),
+                      subtitle: new Text(Provider.of<DropDown>(context, listen: false).c,style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.4),),
                     ),
 
                     new Divider(
-                      height: 20.0,
+                      height: SizeConfig.safeBlockVertical*3,
                     ),
                     new ListTile(
                       leading: new Icon(Icons.info),
-                      title:  Text('Latest Update',style: GoogleFonts.montserrat(),),
-                      subtitle: new Text("10-05-2020",style: GoogleFonts.montserrat(),),
+                      title:  Text('Latest Update',style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.75),),
+                      subtitle: new Text("10-05-2020",style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.4),),
                     ),
                     new Divider(
-                      height: 20.0,
+                      height: SizeConfig.safeBlockVertical*3,
                     ),
                   ],
                 ),
@@ -177,20 +178,20 @@ class StatsCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 18.0),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.75,),
           Text(
             cat,
             style: GoogleFonts.montserrat(
-                fontSize: 19.0, color: txtColor, fontWeight: FontWeight.w500),
+                fontSize: SizeConfig.safeBlockHorizontal*4.5, color: txtColor, fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 15.0),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.5,),
           InkWell(
               onTap: () async{
                 _launchURL(url1);
               },
               child: Container(
-                height: 30.0,
-                width: 120.0,
+                height: SizeConfig.safeBlockVertical*4,
+                width: SizeConfig.safeBlockHorizontal*30,
                 decoration: BoxDecoration(
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(15.0)),
@@ -200,18 +201,18 @@ class StatsCard extends StatelessWidget {
                     style: GoogleFonts.montserrat(
 
                         color: Colors.white,
-                        fontSize: 17),
+                        fontSize: SizeConfig.safeBlockHorizontal*4.5),
                   ),
                 ),
               )),
-          SizedBox(height: 15.0),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.2),
           InkWell(
-              onTap: () {
+              onTap: () async{
                 _launchURL(url2);
               },
               child: Container(
-                height: 30.0,
-                width: 120.0,
+                height: SizeConfig.safeBlockVertical*4,
+                width: SizeConfig.safeBlockHorizontal*30,
                 decoration: BoxDecoration(
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(15.0)),
@@ -221,13 +222,13 @@ class StatsCard extends StatelessWidget {
                     style: GoogleFonts.montserrat(
 
                         color: Colors.white,
-                        fontSize: 17),
+                        fontSize: SizeConfig.safeBlockHorizontal*4.5),
                   ),
                 ),
               )),
-          SizedBox(height: 15.0),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.2),
           InkWell(
-              onTap: () {
+              onTap: () async{
                 showModalBottomSheet<dynamic>(
                   isScrollControlled: true,
                   backgroundColor: Color(0xFF757575),
@@ -237,8 +238,8 @@ class StatsCard extends StatelessWidget {
                 );
               },
               child: Container(
-                height: 30.0,
-                width: 120.0,
+                height: SizeConfig.safeBlockVertical*4,
+                width: SizeConfig.safeBlockHorizontal*30,
                 decoration: BoxDecoration(
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(15.0)),
@@ -248,11 +249,12 @@ class StatsCard extends StatelessWidget {
                     style: GoogleFonts.montserrat(
 
                         color: Colors.white,
-                        fontSize: 17),
+                        fontSize: SizeConfig.safeBlockHorizontal*4.5),
                   ),
                 ),
               )),
-          SizedBox(height: 15.0),
+          SizedBox(height: SizeConfig.safeBlockVertical*2.2),
+
         ],
       ),
     );

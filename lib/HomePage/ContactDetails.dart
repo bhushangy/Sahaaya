@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 class ContactDetails extends StatelessWidget {
   int num;
@@ -40,7 +41,7 @@ class ContactDetails extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(150, 20, 150, 20),
+            padding:  EdgeInsets.fromLTRB(SizeConfig.safeBlockVertical*20, SizeConfig.safeBlockHorizontal*5, SizeConfig.safeBlockVertical*20, SizeConfig.safeBlockHorizontal*5,),
             child: Container(
               height: MediaQuery.of(context).size.height*0.01,
               width: MediaQuery.of(context).size.width*0.2,
@@ -51,45 +52,45 @@ class ContactDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30.0,left: 10),
+            padding: EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*5,top:SizeConfig.safeBlockVertical*3 ),
             child: Container(
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: 15,
+                    width: SizeConfig.safeBlockHorizontal*4,
                   ),
                   Text('Contact',
                       style: GoogleFonts.montserrat(
                           color: Colors.black,
                           textStyle: TextStyle(fontWeight: FontWeight.normal),
-                          fontSize: 25,
+                          fontSize: SizeConfig.safeBlockHorizontal*6,
                           fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30.0,left: 10),
+            padding: EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*3,top:SizeConfig.safeBlockVertical*4 ),
             child: GestureDetector(
               onTap: _launchCaller,
               child: Container(
                 width: double.infinity,
-                height: 50.0,
+                height: SizeConfig.safeBlockVertical*7,
                 color: Colors.white,
                 child: Row(
                   children: <Widget>[
                     SizedBox(
-                      width: 7,
+                      width: SizeConfig.safeBlockHorizontal*4,
                     ),
                     Icon(Icons.phone, size: 35.0, color: Colors.indigo),
                     SizedBox(
-                      width: 15,
+                      width: SizeConfig.safeBlockHorizontal*3,
                     ),
                     Flexible(
                       child: Text(
                         num.toString(),
                         style: GoogleFonts.montserrat(
-                          fontSize: 13.0,
+                          fontSize: SizeConfig.safeBlockHorizontal*3.5,
                         ),
                       ),
                     ),
@@ -99,28 +100,27 @@ class ContactDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30.0,left: 10),
+            padding: EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*3,top:SizeConfig.safeBlockVertical*4 ),
             child: GestureDetector(
               onTap: _launchEmail,
               child: Container(
                 width: double.infinity,
-                height: 50.0,
+                height: SizeConfig.safeBlockVertical*7,
                 color: Colors.white,
                 child: Row(
                   children: <Widget>[
                     SizedBox(
-                      width: 7,
+                      width: SizeConfig.safeBlockHorizontal*4,
                     ),
-                    Icon(Icons.email,
-                        size: 35.0, color: Colors.indigo),
+                    Icon(Icons.email, size: 35.0, color: Colors.indigo),
                     SizedBox(
-                      width: 15,
+                      width: SizeConfig.safeBlockHorizontal*3,
                     ),
                     Flexible(
                       child: Text(
-                        mail,
+                        mail.toString(),
                         style: GoogleFonts.montserrat(
-                          fontSize: 13.0,
+                          fontSize: SizeConfig.safeBlockHorizontal*3.5,
                         ),
                       ),
                     ),
@@ -129,7 +129,6 @@ class ContactDetails extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );
