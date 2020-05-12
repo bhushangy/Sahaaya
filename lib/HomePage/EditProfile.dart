@@ -15,19 +15,46 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool showSpinner=false;
-  String name,constituency;
-  int phone;
+//  String name,constituency;
+//  int phone;
   final _formKey = GlobalKey<FormState>();
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+  final myController3 = TextEditingController();
+
   void initState()
   {
+
     super.initState();
-    name=Provider.of<DropDown>(context, listen: false)
-        .name;
-    phone=int.parse(Provider.of<DropDown>(context, listen: false)
-        .phone);
-    constituency=Provider.of<DropDown>(context, listen: false)
-        .constituency;
+    if(Provider.of<DropDown>(context, listen: false)
+        .name==null)
+      myController1.text==" ";
+    else
+      myController1.text=Provider.of<DropDown>(context, listen: false)
+          .name;
+    if(Provider.of<DropDown>(context, listen: false)
+        .phone==null)
+      myController2.text==" ";
+    else
+      myController2.text=Provider.of<DropDown>(context, listen: false)
+          .phone;
+    if(Provider.of<DropDown>(context, listen: false)
+        .constituency==null)
+      myController2.text==" ";
+    else
+      myController3.text=Provider.of<DropDown>(context, listen: false)
+          .constituency;
+
   }
+  void dispose(){
+    super.dispose();
+    myController1.dispose();
+    myController2.dispose();
+
+    myController3.dispose();
+
+  }
+
 
   void _showDialog(
       String a,
@@ -116,9 +143,12 @@ class _EditProfileState extends State<EditProfile> {
           .document(Provider.of<DropDown>(context, listen: false)
           .email)
           .updateData({
-        'Name': name,
-        'Phone': phone,
-        'Constituency':constituency,
+        'Name': Provider.of<DropDown>(context, listen: false)
+            .name,
+        'Phone': int.parse(Provider.of<DropDown>(context, listen: false)
+            .phone),
+        'Constituency':Provider.of<DropDown>(context, listen: false)
+            .constituency,
       });
     } catch (e) {
       print(e);
@@ -177,11 +207,9 @@ class _EditProfileState extends State<EditProfile> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
-
+initialValue: myController1.text,
                                   enabled:true,
-                                  initialValue: Provider.of<DropDown>(context, listen: false)
-                                      .name==null?"":Provider.of<DropDown>(context, listen: false)
-                                      .name,
+
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -204,7 +232,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ),
                                   onChanged: (value) {
-                                    name = value;
+                                    myController1.text = value;
                                   },
                                 ),
                                 SizedBox(
@@ -212,9 +240,7 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 TextFormField(
                                   enabled:true,
-                                  initialValue: Provider.of<DropDown>(context, listen: false)
-                                      .phone==null?"":Provider.of<DropDown>(context, listen: false)
-                                      .phone,
+initialValue: myController2.text,
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -227,7 +253,7 @@ class _EditProfileState extends State<EditProfile> {
                                   },
                                   keyboardType: TextInputType.phone,
                                   onChanged: (value) {
-                                    phone = int.parse(value);
+                                    myController2.text = (value);
                                   },
                                   cursorColor: Colors.indigo,
                                   decoration: InputDecoration(
@@ -246,9 +272,7 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 TextFormField(
                                   enabled:true,
-                                  initialValue: Provider.of<DropDown>(context, listen: false)
-                                      .constituency==null?"":Provider.of<DropDown>(context, listen: false)
-                                      .constituency,
+initialValue: myController3.text,
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -262,7 +286,7 @@ class _EditProfileState extends State<EditProfile> {
                                   keyboardType: TextInputType.multiline,
                                   maxLines: null,
                                   onChanged: (value) {
-                                    constituency = value;
+                                    myController3.text = value;
                                   },
                                   cursorColor: Colors.indigo,
                                   decoration: InputDecoration(
@@ -291,8 +315,7 @@ class _EditProfileState extends State<EditProfile> {
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
 
-                              if (phone
-                                  .toString()
+                              if (myController2.text
                                   .length != 10) {
                                 _showDialog("Invalid Phone Number",
                                     "Enter a valid 10 digit phone number.");
@@ -302,16 +325,16 @@ class _EditProfileState extends State<EditProfile> {
                                 });
                                 try{
                                   Provider.of<DropDown>(context, listen: false)
-                                      .constituency=constituency;
+                                      .constituency=myController3.text;
                                   Provider.of<DropDown>(context, listen: false)
-                                      .name=name;
+                                      .name=myController1.text;
                                   Provider.of<DropDown>(context, listen: false)
-                                      .phone=phone.toString();
+                                      .phone=myController2.text;
                                   await profileUpdate();
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('name',name);
-                                  prefs.setString('phone',phone.toString());
-                                  prefs.setString('constituency',constituency);
+                                  prefs.setString('name',myController1.text);
+                                  prefs.setString('phone',myController2.text);
+                                  prefs.setString('constituency',myController3.text);
 
                                   Navigator.pop(context,true);
                                   setState(() {

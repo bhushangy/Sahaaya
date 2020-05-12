@@ -211,7 +211,7 @@ class _SignupPageState extends State<SignupPage> {
                                       listen: false)
                                       .setEmail(email);
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('email', email);
+                                  prefs.setString('email', email);
                                   prefs.setString('name',null);
                                   prefs.setString('phone',null);
                                   prefs.setString('constituency',null);

@@ -346,7 +346,7 @@ Widget menuCard(BuildContext context, String announcemnet, String imgPath,String
       borderRadius: BorderRadius.circular(7.0),
       elevation: 0.0,
       child: Container(
-          height: MediaQuery.of(context).size.height*0.15,
+        height: MediaQuery.of(context).size.height*0.15,
         width: MediaQuery.of(context).size.width * 0.92,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7.0), color: Colors.white),

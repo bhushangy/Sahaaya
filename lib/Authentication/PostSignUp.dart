@@ -80,8 +80,8 @@ class _PostSignUpState extends State<PostSignUp> {
           content: Text(
             "Do you want to exit the app ?",
             style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
                 fontSize:SizeConfig.safeBlockHorizontal*4
             ),
           ),
@@ -131,37 +131,37 @@ class _PostSignUpState extends State<PostSignUp> {
                   Column(
                     children: <Widget>[
                       Container(
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0, SizeConfig.safeBlockVertical *6, SizeConfig.safeBlockHorizontal * 40, 0),
-                              child: Text(
-                                'Hello',
-                                style: GoogleFonts.montserrat(
-                                    fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0,SizeConfig.safeBlockVertical *15, 0, 0),
-                              child: Text(
-                                'there',
-                                style: GoogleFonts.montserrat(
-                                    fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal *53, SizeConfig.safeBlockVertical *15, 0, 0),
-                              child: Text(
-                                '.',
-                                style: GoogleFonts.montserrat(
-                                  fontSize:SizeConfig.safeBlockHorizontal*20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.indigo,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.fromLTRB(0, SizeConfig.safeBlockVertical *6, SizeConfig.safeBlockHorizontal * 40, 0),
+                                child: Text(
+                                  'Hello',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
+                              Container(
+                                padding: EdgeInsets.fromLTRB(0,SizeConfig.safeBlockVertical *15, 0, 0),
+                                child: Text(
+                                  'there',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal *53, SizeConfig.safeBlockVertical *15, 0, 0),
+                                child: Text(
+                                  '.',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize:SizeConfig.safeBlockHorizontal*20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.indigo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                       ),
                       SizedBox(
                         height: SizeConfig.safeBlockVertical *5,
