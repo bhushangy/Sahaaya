@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -215,13 +216,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Container(
-                height: MediaQuery.of(context).size.height*0.155,
-                child: ListView(
-                  physics: ScrollPhysics(parent: PageScrollPhysics()),
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
+              CarouselSlider(
+                  items: <Widget>[
                     menuCard(
                         context,
                         'Announcement',
@@ -230,12 +226,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                     menuCard(
                         context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
+
                   ],
+                  height: MediaQuery.of(context).size.height*0.155,
+                  viewportFraction: 1.0,
+                  autoPlay: true,
+                autoPlayInterval: Duration(seconds: 4),
+                autoPlayAnimationDuration: Duration(milliseconds: 1200),
+                autoPlayCurve: Curves.fastOutSlowIn,
                 ),
-              ),
               SizedBox(
                 height:MediaQuery.of(context).size.height*0.03,
               ),
+
               Padding(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.04,
