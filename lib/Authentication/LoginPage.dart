@@ -49,22 +49,19 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
           shape: RoundedRectangleBorder(
+
             borderRadius: BorderRadius.circular(10),
           ),
-          title: new Text(
-            a,
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),
-          ),
-          content: new Text(
-            b,
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.normal,
-                color: Colors.black,
-                fontSize:SizeConfig.safeBlockHorizontal*4
-            ),
-          ),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            fontSize:SizeConfig.safeBlockHorizontal*4,
+            color: Colors.black,
+          ),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -88,6 +85,9 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

@@ -283,6 +283,9 @@ class GrievanceTiles extends StatelessWidget {
                     builder: (BuildContext context) {
                       // return object of type Dialog
                       return AlertDialog(
+                        contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+                            SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -291,19 +294,24 @@ class GrievanceTiles extends StatelessWidget {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
-                              fontSize: 18),
+                              fontSize:SizeConfig.safeBlockHorizontal*5
+                          ),
                         ),
                         content: new Text(
                           "Are you sure you want to delete it ?",
                           style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
+                              fontSize:SizeConfig.safeBlockHorizontal*4
+
                           ),
                         ),
                         actions: <Widget>[
                           // usually buttons at the bottom of the dialog
                           new FlatButton(
-                            child: new Text(" YES"),
+                            child: new Text(" YES",style: TextStyle(
+                                fontSize:SizeConfig.safeBlockHorizontal*3.5
+                            ),),
                             onPressed: () {
                               deleteRecord();
                               deleteRecordFromConstituencyCollec();
@@ -311,7 +319,9 @@ class GrievanceTiles extends StatelessWidget {
                             },
                           ),
                           new FlatButton(
-                            child: new Text(" NO"),
+                            child: new Text(" NO",style: TextStyle(
+                                fontSize:SizeConfig.safeBlockHorizontal*3.5
+                            ),),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },

@@ -44,6 +44,9 @@ class _SignupPageState extends State<SignupPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

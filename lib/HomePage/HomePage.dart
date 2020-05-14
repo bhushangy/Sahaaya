@@ -40,42 +40,48 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
-
-  Future<bool> dontgoback() {
+  Future<bool>dontgoback(){
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
             "Exit",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),
+                fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),
           ),
           content: Text(
             "Do you want to exit the app ?",
             style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+                fontSize:SizeConfig.safeBlockHorizontal*4
             ),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(" YES"),
+              child: new Text(" YES",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
                 SystemNavigator.pop();
               },
             ),
             new FlatButton(
-              child: new Text(" NO"),
+              child: new Text(" NO",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
-                Navigator.pop(context, false);
+                Navigator.pop(context,false);
               },
             ),
           ],
