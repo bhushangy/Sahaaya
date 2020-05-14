@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -115,17 +117,24 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.filter_list,size: SizeConfig.safeBlockHorizontal*6.5),
-                            onPressed:  (){_scaffoldKey.currentState.openDrawer();},
-                            color: Colors.white,
+                          Container(
+                            child: IconButton(
+                              icon: Icon(Icons.filter_list,size: SizeConfig.safeBlockHorizontal*6.5),
+                              onPressed:  (){_scaffoldKey.currentState.openDrawer();},
+                              color: Colors.white,
+                            ),
                           ),
-                          Text(
-                            'Sahaaya',
-                            style: GoogleFonts.montserrat(
-                                fontSize: SizeConfig.safeBlockHorizontal*5.5,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                          Container(
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                'Sahaaya',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*5.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              ),
+                            ),
                           ),
                           IconButton(
                               onPressed: (){},
@@ -177,11 +186,13 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Center(
-                            child: Text(
-                              //'Lalo',
-                              Provider.of<DropDown>(context,listen: false).name == null?Provider.of<DropDown>(context,listen: false).email: Provider.of<DropDown>(context,listen: false).name,
-                              style: GoogleFonts.montserrat(
-                                  fontSize: SizeConfig.safeBlockHorizontal*5, fontWeight: FontWeight.w600),
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                Provider.of<DropDown>(context,listen: false).name == null?Provider.of<DropDown>(context,listen: false).email: Provider.of<DropDown>(context,listen: false).name,
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*5, fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ),
@@ -195,12 +206,14 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Center(
-                            child: Text(
-                              // 'Yalahanka',
-                              Provider.of<DropDown>(context,listen: false).constituency == null? "Bengaluru": Provider.of<DropDown>(context,listen: false).constituency,
-                              style: GoogleFonts.montserrat(
-                                  fontSize: SizeConfig.safeBlockHorizontal*3.9,
-                                  fontWeight: FontWeight.normal),
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                Provider.of<DropDown>(context,listen: false).constituency == null? "Bengaluru": Provider.of<DropDown>(context,listen: false).constituency,
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*3.9,
+                                    fontWeight: FontWeight.normal),
+                              ),
                             ),
                           ),
                         ),
@@ -211,7 +224,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Container(
-                height: MediaQuery.of(context).size.height*0.155,
+                height: MediaQuery.of(context).size.height*0.17,
                 child: ListView(
                   physics: ScrollPhysics(parent: PageScrollPhysics()),
                   scrollDirection: Axis.horizontal,
@@ -238,12 +251,13 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(7.0),
                   elevation: 0.0,
                   child: Container(
-                    height: MediaQuery.of(context).size.height*0.155,
+                    height: MediaQuery.of(context).size.height*0.17,
                     width: MediaQuery.of(context).size.width * 0.92,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7.0),
                         color: Colors.white),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(width: MediaQuery.of(context).size.width*0.03,),
                         Container(
@@ -308,23 +322,23 @@ class _HomePageState extends State<HomePage> {
                 height:MediaQuery.of(context).size.height*0.033,
               ),
               Container(
-                height: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.18,
                 child: ListView(
                   physics: ScrollPhysics(parent: PageScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     menuCard(
                         context,
-                        'How it works?',
+                        'How it works ?',
                         'assets/HomePage/howitworks.png',
                         'Swipe left to find out how to submit your grievance.'
                     ),
                     menuCard(
-                        context, 'How it works?', 'assets/HomePage/dropdown2.png','Select the constituency from the dropdown above.'),
+                        context, 'How it works ?', 'assets/HomePage/dropdown2.png','Select the constituency from the dropdown above.'),
                     menuCard(
-                        context, 'How it works?', 'assets/HomePage/tap.png','Tap on New Grievance button below and select Raise Issue.'),
+                        context, 'How it works ?', 'assets/HomePage/tap.png','Tap on New Grievance button below and select Raise Issue.'),
                     menuCard(
-                        context, 'How it works?', 'assets/HomePage/form.png','Fill the form with proper details and taop on Submit.'),
+                        context, 'How it works ?', 'assets/HomePage/form.png','Fill the form with proper details and taop on Submit.'),
                   ],
                 ),
               ),
@@ -351,6 +365,7 @@ Widget menuCard(BuildContext context, String announcemnet, String imgPath,String
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7.0), color: Colors.white),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(width: MediaQuery.of(context).size.width*0.03,),
             Container(
@@ -367,11 +382,15 @@ Widget menuCard(BuildContext context, String announcemnet, String imgPath,String
               children: <Widget>[
                 SizedBox(height: MediaQuery.of(context).size.height*0.02),
                 Container(
+                  width: SizeConfig.safeBlockHorizontal*32,
                   child: Center(
-                    child: Text(
-                      announcemnet,
-                      style: GoogleFonts.montserrat(
-                          fontSize: SizeConfig.safeBlockHorizontal*4.1, fontWeight: FontWeight.w600),
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        announcemnet,
+                        style: GoogleFonts.montserrat(
+                            fontSize: SizeConfig.safeBlockHorizontal*4.2, fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +79,7 @@ class FactPages extends StatelessWidget {
         ),
         Flexible(
           child: Container(
-            width:SizeConfig.safeBlockHorizontal*60,
+            width:SizeConfig.safeBlockHorizontal*75,
             child: Text(
               '$txt',
               textAlign: TextAlign.center,
@@ -88,7 +89,7 @@ class FactPages extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height:  SizeConfig.safeBlockVertical*10,
+          height: SizeConfig.safeBlockVertical*9,
         ),
         index == 2
             ? Column(
@@ -107,12 +108,16 @@ class FactPages extends StatelessWidget {
                         shadowColor: Colors.black38,
                         elevation: 10.0,
                         child: Center(
-                          child: Text(
-                            'Get Started',
-                            style: GoogleFonts.montserrat(
-                              fontSize:SizeConfig.safeBlockHorizontal*4 ,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                          child: FittedBox(
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
+                            child: Text(
+                              'Get Started',
+                              style: GoogleFonts.montserrat(
+                                fontSize:SizeConfig.safeBlockHorizontal*4 ,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

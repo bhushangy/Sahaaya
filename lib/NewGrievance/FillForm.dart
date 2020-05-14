@@ -337,13 +337,14 @@ class _FillFormState extends State<FillForm> {
           }
         },
         child: Scaffold(
+         // backgroundColor: Color(0xFFC5CAE9),
           appBar: AppBar(
             title: Text(
               'New Grievance',
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
-                  fontSize: SizeConfig.safeBlockHorizontal * 4.2),
+                  fontSize: SizeConfig.safeBlockHorizontal * 4.5),
             ),
             centerTitle: true,
             backgroundColor: Colors.indigo,
@@ -355,8 +356,8 @@ class _FillFormState extends State<FillForm> {
             ),
           ),
           body: ModalProgressHUD(
+            color:Colors.indigo,
             inAsyncCall: showSpinner,
-            color: Colors.indigo,
             child: SafeArea(
                 child: ListView(
               physics: ScrollPhysics(parent: BouncingScrollPhysics()),
@@ -417,6 +418,7 @@ class _FillFormState extends State<FillForm> {
                                 labelStyle: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
+                                  fontSize:SizeConfig.safeBlockHorizontal*4,
                                 ),
                               ),
                             ),
@@ -432,7 +434,7 @@ class _FillFormState extends State<FillForm> {
                         'UPLOAD IMAGES',
                         style: GoogleFonts.montserrat(
                           fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.safeBlockVertical * 2.2,
+                          fontSize:SizeConfig.safeBlockHorizontal*4.1,
                           color: Colors.grey,
                         ),
                       ),
@@ -529,7 +531,7 @@ class _FillFormState extends State<FillForm> {
                         'SET LOCATION',
                         style: GoogleFonts.montserrat(
                           fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.safeBlockVertical * 2.2,
+                          fontSize:SizeConfig.safeBlockHorizontal*4.1,
                           color: Colors.grey,
                         ),
                       ),
@@ -670,6 +672,7 @@ class ConstiAndCateg extends StatelessWidget {
           labelStyle: GoogleFonts.montserrat(
             fontWeight: FontWeight.bold,
             color: Colors.grey,
+            fontSize:SizeConfig.safeBlockHorizontal*4,
           ),
         ),
       ),

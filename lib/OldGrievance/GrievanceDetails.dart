@@ -155,7 +155,7 @@ void dispose(){
           title: Text(
             'Your Grievance',
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, color: Colors.white,fontSize:SizeConfig.safeBlockHorizontal*4.2),
+                fontWeight: FontWeight.w600, color: Colors.white,fontSize:SizeConfig.safeBlockHorizontal*4.5),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -276,7 +276,7 @@ void dispose(){
                           SizeConfig.safeBlockHorizontal * 2),
                       child: CheckboxListTile(
                         title: Text('Is this grievance addressed?',style:TextStyle(
-                             color: Colors.black,fontSize:SizeConfig.safeBlockHorizontal*4.1),),
+                             color: Colors.black,fontSize:SizeConfig.safeBlockHorizontal*4.5),),
                         value: isResolved,
                         onChanged: (bool value) async {
                           setState(() {

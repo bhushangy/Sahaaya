@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -93,29 +94,33 @@ class _SignupPageState extends State<SignupPage> {
                     child: Stack(
                       children: <Widget>[
                         Container(
+                          width: SizeConfig.safeBlockHorizontal*93,
                           padding: EdgeInsets.fromLTRB(0, SizeConfig.safeBlockVertical *9, SizeConfig.safeBlockHorizontal * 47, 0),
-                          child: Text(
-                            'Sign',
-                            style: GoogleFonts.montserrat(
-                              fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600,),
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              'Sign',
+                              style: GoogleFonts.montserrat(
+                                fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600,),
+                            ),
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 17,SizeConfig.safeBlockVertical *20.2, 0, 0),
-                          child: Text(
-                            'Up',
-                            style: GoogleFonts.montserrat(
-                                fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 38, SizeConfig.safeBlockVertical * 23.2 ,0, 0),
-                          child: Text(
-                            '.',
-                            style: GoogleFonts.montserrat(
-                              fontSize:SizeConfig.safeBlockHorizontal*20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.indigo,
+                          width: SizeConfig.safeBlockHorizontal*49,
+                          padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 17,SizeConfig.safeBlockVertical *21.5, 0, 0),
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: RichText(
+                              text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text:'Up', style: GoogleFonts.montserrat(
+                                        fontSize:SizeConfig.safeBlockHorizontal*20,
+                                        fontWeight: FontWeight.w600,color: Colors.black),),
+                                    TextSpan(text:'.',style: GoogleFonts.montserrat(
+                                        fontSize:SizeConfig.safeBlockHorizontal*20,
+                                        fontWeight: FontWeight.w600,color: Colors.indigo),),
+                                  ]
+                              ),
                             ),
                           ),
                         ),
@@ -183,7 +188,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                         ),
                         SizedBox(
-                          height: SizeConfig.safeBlockVertical * 11,
+                          height: SizeConfig.safeBlockVertical * 12,
                         ),
                         Container(
                           height: SizeConfig.safeBlockVertical * 7,
@@ -260,12 +265,15 @@ class _SignupPageState extends State<SignupPage> {
                               shadowColor: Colors.indigo,
                               elevation: 5.0,
                               child: Center(
-                                child: Text(
-                                  'REGISTER',
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize:SizeConfig.safeBlockHorizontal*4,
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'REGISTER',
+                                    style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize:SizeConfig.safeBlockHorizontal*4,
+                                    ),
                                   ),
                                 ),
                               ),

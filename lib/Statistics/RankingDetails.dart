@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -9,8 +10,8 @@ import 'ContactDetails.dart';
 // ignore: must_be_immutable
 class RankingDetails extends StatefulWidget {
   final DocumentSnapshot constituency;
-  String position,path;
-  RankingDetails({this.constituency, this.position,this.path});
+  String position;
+  RankingDetails({this.constituency, this.position});
 
   @override
   _RankingDetailsState createState() => _RankingDetailsState();
@@ -25,7 +26,7 @@ class _RankingDetailsState extends State<RankingDetails> {
         title: Text(
           widget.constituency.documentID,
           style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600, color: Colors.white, fontSize: SizeConfig.safeBlockHorizontal*4),
+              fontWeight: FontWeight.w600, color: Colors.white, fontSize: SizeConfig.safeBlockHorizontal*4.1),
         ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
@@ -110,7 +111,6 @@ class _RankingDetailsState extends State<RankingDetails> {
                   child: Row(
                     children: <Widget>[
                       SizedBox(width:  SizeConfig.safeBlockHorizontal*5),
-
                       Expanded(
                         flex: 1,
                         child: Padding(
@@ -120,56 +120,68 @@ class _RankingDetailsState extends State<RankingDetails> {
                             width: MediaQuery.of(context).size.height * 0.18,
                             decoration: BoxDecoration(
                                 color: Colors.white, shape: BoxShape.circle),
-                            child: Image.asset(widget.path,
-                                height: MediaQuery.of(context).size.height * 0.06,
-                                width: MediaQuery.of(context).size.height * 0.06),
+                            child:  FittedBox(
+                              alignment: Alignment.center,
+                              fit: BoxFit.contain,
+                              child: Text(
+                                widget.position.toString(),
+                                style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                    ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.035,
-                            ),
-                            Text(
-                              'Rank',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: SizeConfig.safeBlockHorizontal*4.75,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              widget.position.toString(),
-                              style: GoogleFonts.montserrat(
-                                  fontSize:SizeConfig.safeBlockHorizontal*4.2, color: Colors.black),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.01,
-                            ),
-                            Text(
-                              'Score',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: SizeConfig.safeBlockHorizontal*4.75,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              (widget.constituency.data["ratio"] * 10)
-                                          .toString()
-                                          .length >
-                                      5
-                                  ? widget.constituency.data["ratio"]
-                                      .toString()
-                                      .substring(0, 5)
-                                  : widget.constituency.data["ratio"]
-                                      .toString(),
-                              style: GoogleFonts.montserrat(
-                                  fontSize: SizeConfig.safeBlockHorizontal*4.2, color: Colors.black),
-                            ),
-                          ],
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.022,
+                              ),
+                              Text(
+                                'Rank',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*4.2,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+
+                              Text(
+                                widget.position.toString(),
+                                style: GoogleFonts.montserrat(
+                                    fontSize:SizeConfig.safeBlockHorizontal*4.2, color: Colors.black),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.01,
+                              ),
+                              Text(
+                                'Score',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*4.2,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                (widget.constituency.data["ratio"] * 10)
+                                            .toString()
+                                            .length >
+                                        5
+                                    ? widget.constituency.data["ratio"]
+                                        .toString()
+                                        .substring(0, 5)
+                                    : widget.constituency.data["ratio"]
+                                        .toString(),
+                                style: GoogleFonts.montserrat(
+                                    fontSize: SizeConfig.safeBlockHorizontal*4.2, color: Colors.black),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -254,48 +266,66 @@ class StatsCard extends StatelessWidget {
 //          border: Border.all(color: Colors.grey, width: 0.4),
 //          borderRadius: BorderRadius.circular(15.0),
 //        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.height * 0.09,
-              decoration:
-                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: Center(
-                child: Image.asset(
-                  imgPath,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.height * 0.09,
+                decoration:
+                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: Center(
+                  child: Image.asset(
+                    imgPath,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: SizeConfig.safeBlockVertical*2,
-            ),
-            Text(
-              cat,
-              style: GoogleFonts.montserrat(
-                  fontSize: SizeConfig.safeBlockHorizontal*4.5, color: txtColor, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: SizeConfig.safeBlockVertical*2,
-            ),
-            Text(
-              'Pending',
-              style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*4, color: txtColor),
-            ),
-            Text(
-              nr.toString(),
-              style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.75, color: txtColor),
-            ),
-            Text(
-              'Resolved',
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4, color: txtColor),
-            ),
-            Text(
-              r.toString(),
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*3.75, color: txtColor),
-            ),
-          ],
+              SizedBox(
+                height: SizeConfig.safeBlockVertical*2,
+              ),
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  cat,
+                  style: GoogleFonts.montserrat(
+                      fontSize: SizeConfig.safeBlockHorizontal*4.5, color: txtColor, fontWeight: FontWeight.w500),
+                ),
+              ),
+              SizedBox(
+                height: SizeConfig.safeBlockVertical*2,
+              ),
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  'Pending',
+                  style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*4, color: txtColor),
+                ),
+              ),
+              FittedBox(
+                fit:BoxFit.contain,
+                child: Text(
+                  nr.toString(),
+                  style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.75, color: txtColor),
+                ),
+              ),
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  'Resolved',
+                  style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4, color: txtColor),
+                ),
+              ),
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  r.toString(),
+                  style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*3.75, color: txtColor),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -348,19 +378,31 @@ class ContactTabs extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: SizeConfig.safeBlockHorizontal*5),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        rep,
-                        style: GoogleFonts.montserrat(
-                            fontSize: SizeConfig.safeBlockHorizontal*4.4, fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        pos + ' - ' + ward,
-                        style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*3),
-                      ),
-                    ],
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.67,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        FittedBox(
+                          fit:BoxFit.contain,
+                          child: Text(
+                            rep,
+                            style: GoogleFonts.montserrat(
+                                fontSize: SizeConfig.safeBlockHorizontal*4.4, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.0,
+                        ),
+                        Flexible(
+                          child: Text(
+                            pos + ' - ' + ward,
+                            style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*3),
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

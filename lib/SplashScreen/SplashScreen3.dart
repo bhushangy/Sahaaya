@@ -8,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 import 'dart:io';
 import 'FactsScreen.dart';
-
 
 class SplashScreen3 extends StatefulWidget {
   @override
@@ -21,17 +21,26 @@ class _SplashScreen3State extends State<SplashScreen3> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       timer();
     });
   }
-  void timer()async {
-    Future.delayed(const Duration(milliseconds: 3500), () async {
+
+  void timer() async {
+    Future.delayed(const Duration(milliseconds: 1500), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      Provider.of<DropDown>(context,listen: false).setAppInfo(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
-      Provider.of<DropDown>(context,listen: false).setEmail(prefs.getString('email'));
-      Provider.of<DropDown>(context,listen: false).setUserInfo(prefs.getString('name'),prefs.getString('phone'),prefs.getString('constituency'));
+      Provider.of<DropDown>(context, listen: false).setAppInfo(
+          packageInfo.appName,
+          packageInfo.packageName,
+          packageInfo.version,
+          packageInfo.buildNumber);
+      Provider.of<DropDown>(context, listen: false)
+          .setEmail(prefs.getString('email'));
+      Provider.of<DropDown>(context, listen: false).setUserInfo(
+          prefs.getString('name'),
+          prefs.getString('phone'),
+          prefs.getString('constituency'));
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return BottomNavBar();
       }));
@@ -40,22 +49,28 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.indigo,
       statusBarIconBrightness: Brightness.light,
     ));
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Container(
-            child: Center(
-              child: Text('Sahaaya'),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width,
+              child: FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                ),
+              ),),
           Container(
+            alignment: Alignment.bottomCenter,
             child: CircularProgressIndicator(),
           )
         ],

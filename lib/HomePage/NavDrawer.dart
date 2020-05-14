@@ -12,6 +12,13 @@ import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 class NavDrawer extends StatelessWidget {
+  var snackbar = SnackBar(
+      behavior:SnackBarBehavior.floating ,
+      content: Text("Feature to be added soon.",style: GoogleFonts.montserrat(
+           color: Colors.white),
+      ),
+      duration: Duration(seconds: 1),
+      elevation: 10.0);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -22,7 +29,6 @@ class NavDrawer extends StatelessWidget {
           DrawerHeader(
             child: Column(
               children: <Widget>[
-//
                 Container(
                   height: SizeConfig.safeBlockVertical*10,
                   width: SizeConfig.safeBlockVertical*10,
@@ -38,15 +44,18 @@ class NavDrawer extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.safeBlockVertical*1.5,
                 ),
-                Text(
-                  Provider.of<DropDown>(context, listen: false).name ==
-                      null
-                      ? "Hello, "+Provider.of<DropDown>(context, listen: false).email.split('@')[0]
-                      : "Hello, "+Provider.of<DropDown>(context, listen: false).name.split(' ')[0] ,
-                  style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: SizeConfig.blockSizeHorizontal*5.5),
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    Provider.of<DropDown>(context, listen: false).name ==
+                        null
+                        ? "Hello, "+Provider.of<DropDown>(context, listen: false).email.split('@')[0]
+                        : "Hello, "+Provider.of<DropDown>(context, listen: false).name.split(' ')[0] ,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: SizeConfig.blockSizeHorizontal*5.5),
+                  ),
                 ),
               ],
             ),
@@ -78,12 +87,7 @@ class NavDrawer extends StatelessWidget {
                   fontSize: SizeConfig.safeBlockHorizontal*3.5),),
               onTap: () {
                 Navigator.of(context).pop();
-                final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
-
-                    fontSize: SizeConfig.safeBlockHorizontal*3.5),),
-                  backgroundColor: Colors.indigo,
-                );
-                Scaffold.of(context).showSnackBar(snackBar);}
+                Scaffold.of(context).showSnackBar(snackbar);}
           ),
           ListTile(
             leading: Icon(Icons.border_color),
@@ -102,11 +106,7 @@ class NavDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontSize: SizeConfig.safeBlockHorizontal*3.5),),
             onTap: () {Navigator.of(context).pop();
-            final snackBar = SnackBar(content: Text('Feature to be added soon !!',style: GoogleFonts.montserrat(
-                fontSize: 14),),
-              backgroundColor: Colors.indigo,
-            );
-            Scaffold.of(context).showSnackBar(snackBar);},
+            Scaffold.of(context).showSnackBar(snackbar);},
           ),
           ListTile(
             leading: Icon(Icons.people),
@@ -118,84 +118,147 @@ class NavDrawer extends StatelessWidget {
                   return About();
                 }));},
           ),
-          SizedBox(height: SizeConfig.safeBlockVertical*2.8,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      // return object of type Dialog
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        title: Text(
-                          "Logout",
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                              fontSize: 18),
-                        ),
-                        content: Text(
-                          "Do You want to Log Out ?",
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black,
-                          ),
-                        ),
-                        actions: <Widget>[
-                          // usually buttons at the bottom of the dialog
-                          new FlatButton(
-                            child: new Text(" YES"),
-                            onPressed: () async {
-                              SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                              prefs.remove('email');
-                              prefs.remove('name');
-                              prefs.remove('phone');
-                              prefs.remove('constituency');
-                              Provider.of<DropDown>(context, listen: false)
-                                  .setEmail(' ');
-                              Provider.of<DropDown>(context, listen: false)
-                                  .setUserInfo(' ', ' ', ' ');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext ctx) => LoginPage()));
-                            },
-                          ),
-                          new FlatButton(
-                            child: new Text(" NO"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout',style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500,
+                fontSize: SizeConfig.safeBlockHorizontal*3.5),),
+            onTap: (){
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    title: Text(
+                      "Logout",
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 18),
+                    ),
+                    content: Text(
+                      "Do You want to Log Out ?",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
+                    ),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      new FlatButton(
+                        child: new Text(" YES"),
+                        onPressed: () async {
+                          SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                          prefs.remove('email');
+                          prefs.remove('name');
+                          prefs.remove('phone');
+                          prefs.remove('constituency');
+                          Provider.of<DropDown>(context, listen: false)
+                              .setEmail(' ');
+                          Provider.of<DropDown>(context, listen: false)
+                              .setUserInfo(' ', ' ', ' ');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext ctx) => LoginPage()));
+                        },
+                      ),
+                      new FlatButton(
+                        child: new Text(" NO"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
                   );
                 },
-                child: Container(
-                  width: MediaQuery.of(context).size.width*0.4,
-                  height: MediaQuery.of(context).size.height*0.05,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.indigo),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Logout",textAlign: TextAlign.center,style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        fontSize: SizeConfig.safeBlockHorizontal*4.1),),
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           ),
+//
+//          SizedBox(height: SizeConfig.safeBlockVertical*2.8,),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: <Widget>[
+//              GestureDetector(
+//                onTap: () {
+//                  showDialog(
+//                    context: context,
+//                    barrierDismissible: false,
+//                    builder: (BuildContext context) {
+//                      // return object of type Dialog
+//                      return AlertDialog(
+//                        shape: RoundedRectangleBorder(
+//                          borderRadius: BorderRadius.circular(10),
+//                        ),
+//                        title: Text(
+//                          "Logout",
+//                          style: GoogleFonts.montserrat(
+//                              fontWeight: FontWeight.w500,
+//                              color: Colors.black,
+//                              fontSize: 18),
+//                        ),
+//                        content: Text(
+//                          "Do You want to Log Out ?",
+//                          style: GoogleFonts.montserrat(
+//                            fontWeight: FontWeight.normal,
+//                            color: Colors.black,
+//                          ),
+//                        ),
+//                        actions: <Widget>[
+//                          // usually buttons at the bottom of the dialog
+//                          new FlatButton(
+//                            child: new Text(" YES"),
+//                            onPressed: () async {
+//                              SharedPreferences prefs =
+//                              await SharedPreferences.getInstance();
+//                              prefs.remove('email');
+//                              prefs.remove('name');
+//                              prefs.remove('phone');
+//                              prefs.remove('constituency');
+//                              Provider.of<DropDown>(context, listen: false)
+//                                  .setEmail(' ');
+//                              Provider.of<DropDown>(context, listen: false)
+//                                  .setUserInfo(' ', ' ', ' ');
+//                              Navigator.pushReplacement(
+//                                  context,
+//                                  MaterialPageRoute(
+//                                      builder: (BuildContext ctx) => LoginPage()));
+//                            },
+//                          ),
+//                          new FlatButton(
+//                            child: new Text(" NO"),
+//                            onPressed: () {
+//                              Navigator.of(context).pop();
+//                            },
+//                          ),
+//                        ],
+//                      );
+//                    },
+//                  );
+//                },
+//                child: Container(
+//                  width: MediaQuery.of(context).size.width*0.4,
+//                  height: MediaQuery.of(context).size.height*0.05,
+//                  decoration: BoxDecoration(
+//                      borderRadius: BorderRadius.circular(20),
+//                      color: Colors.indigo),
+//                  child: Padding(
+//                    padding: const EdgeInsets.all(8.0),
+//                    child: Text("Logout",textAlign: TextAlign.center,style: GoogleFonts.montserrat(
+//                        fontWeight: FontWeight.w500,
+//                        color: Colors.white,
+//                        fontSize: SizeConfig.safeBlockHorizontal*4.1),),
+//                  ),
+//                ),
+//              ),
+//            ],
+//          ),
         ],
       ),
     );

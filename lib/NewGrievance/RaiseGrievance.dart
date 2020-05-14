@@ -37,19 +37,21 @@ class _RaiseGrievanceState extends State<RaiseGrievance> with SingleTickerProvid
       child: Scaffold(
         backgroundColor: Colors.white,
           appBar:  AppBar(
-            title: Text('Raise A New Grievance',style:GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                fontSize:SizeConfig.safeBlockHorizontal*4.2),),
+            title: Text(
+              'Select Category',
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  fontSize: SizeConfig.safeBlockHorizontal * 4.2),
+            ),
             centerTitle: true,
             backgroundColor: Colors.indigo,
             elevation: 10.0,
-            shape:RoundedRectangleBorder(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(15),
               ),
             ),
-
           ),
           body: ListView(
             children: <Widget>[

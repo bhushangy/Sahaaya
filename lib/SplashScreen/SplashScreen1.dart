@@ -24,7 +24,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
     });
   }
   void timer()async{
-    Future.delayed(const Duration(milliseconds: 3500), () async{
+    Future.delayed(const Duration(milliseconds: 3000), () async{
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       Provider.of<DropDown>(context,listen: false).setAppInfo(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
 
@@ -43,7 +43,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
     ));
     return  Scaffold(
       backgroundColor: Colors.white,
-      body: FlareActor("assets/Sahaaya.flr", alignment: Alignment.center,
+      body: FlareActor("assets/SplashScreen/SplashScreen1.flr", alignment: Alignment.center,
           fit: BoxFit.contain,
           animation: "Splash"),
     );

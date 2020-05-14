@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/OldGrievance//RetrieveGrievances.dart';
 import 'package:voter_grievance_redressal/NewGrievance//FillForm.dart';
@@ -53,11 +54,18 @@ class _DeptPageState extends State<DeptPage> {
                 SizedBox(height: SizeConfig.safeBlockVertical*3,),
                 Padding(
                   padding:EdgeInsets.only(left:SizeConfig.safeBlockHorizontal*5, right: SizeConfig.safeBlockHorizontal*4,),
-                  child: Text(category,
-                    style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: SizeConfig.safeBlockHorizontal*6),),
+                  child: Container(
+                    height: SizeConfig.safeBlockVertical*6,
+                    width: SizeConfig.safeBlockHorizontal*55,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(category,
+                        style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: SizeConfig.safeBlockHorizontal*1),),
+                    ),
+                  ),
                 ),
                 SizedBox(height: SizeConfig.safeBlockHorizontal*7.5,),
                 InkWell(
@@ -82,12 +90,15 @@ class _DeptPageState extends State<DeptPage> {
                           color: Color(0xffe0e0e0).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
-                        child: Text(
-                          'Raise Issue',
-                          style: GoogleFonts.montserrat(
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            'Raise Issue',
+                            style: GoogleFonts.montserrat(
 
-                              color: Colors.black,
-                              fontSize:SizeConfig.safeBlockHorizontal*4.1),
+                                color: Colors.black,
+                                fontSize:SizeConfig.safeBlockHorizontal*4.1),
+                          ),
                         ),
                       ),
                     )),
@@ -114,12 +125,15 @@ class _DeptPageState extends State<DeptPage> {
                           color: Color(0xffe0e0e0).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
-                        child: Text(
-                          'Previous Issues',
-                          style: GoogleFonts.montserrat(
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            'Previous Issues',
+                            style: GoogleFonts.montserrat(
 
-                              color: Colors.black,
-                              fontSize:SizeConfig.safeBlockHorizontal*4.1),
+                                color: Colors.black,
+                                fontSize:SizeConfig.safeBlockHorizontal*4.1),
+                          ),
                         ),
                       ),
                     )),

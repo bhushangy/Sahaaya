@@ -118,7 +118,6 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: SafeArea(
-
             child: ListView(
               children: <Widget>[
                 Column(
@@ -127,7 +126,6 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
                       height: SizeConfig.safeBlockVertical*4,
                     ),
                     Row(
-
                       children: <Widget>[
                         SizedBox(width: SizeConfig.safeBlockHorizontal*3,),
                         Text(

@@ -11,13 +11,11 @@ final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
 
 class Ranking extends StatefulWidget {
-
   @override
   _RankingState createState() => _RankingState();
 }
 
 class _RankingState extends State<Ranking> {
-
   int cnt = 0;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,11 @@ class _RankingState extends State<Ranking> {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('Ranking'),
+            title: Text(
+              'Ranking',
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w600, color: Colors.white,fontSize:SizeConfig.safeBlockHorizontal*4.5),
+            ),
             centerTitle: true,
             backgroundColor: Colors.indigo,
             elevation: 10.0,
@@ -46,9 +48,9 @@ class _RankingState extends State<Ranking> {
           body: Column(
             children: <Widget>[
               SizedBox(
-                height: SizeConfig.safeBlockVertical*4.2,
+                height: SizeConfig.safeBlockVertical * 4.2,
               ),
-              RankingStream(count:cnt),
+              RankingStream(count: cnt),
             ],
           )),
     );
@@ -82,21 +84,19 @@ class RankingStream extends StatelessWidget {
           final ranks = snapshot.data.documents;
           List<RankingTile> rankingTiles = [];
           //HashMap hm = new HashMap<int, DocumentSnapshot>();
-          for (var rank in ranks) {
+          for (int i = 0; i < ranks.length; i++) {
             count++;
             final rankingTile = RankingTile(
-              rank: rank,
-              index: count.toString(),
+              rank: ranks[i],
+              index: i + 1,
             );
             rankingTiles.add(rankingTile);
           }
           return Expanded(
             child: Padding(
-              padding: EdgeInsets.all(SizeConfig.safeBlockVertical*0.8),
+              padding: EdgeInsets.all(SizeConfig.safeBlockVertical * 0.8),
               child: ListView(
-                physics: ScrollPhysics(
-                  parent: BouncingScrollPhysics()
-                ),
+                physics: ScrollPhysics(parent: BouncingScrollPhysics()),
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: rankingTiles,
@@ -109,17 +109,17 @@ class RankingStream extends StatelessWidget {
 
 class RankingTile extends StatelessWidget {
   final DocumentSnapshot rank;
-  String index;
+  int index;
 
   RankingTile({this.rank, this.index});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,left: MediaQuery.of(context).size.width*0.03),
       child: Container(
-          height: SizeConfig.safeBlockVertical*50,
-          width: SizeConfig.safeBlockHorizontal*62,
+          height: SizeConfig.safeBlockVertical * 50,
+          width: SizeConfig.safeBlockHorizontal * 65,
 //          decoration: BoxDecoration(
 //            //color: Colors.grey.withOpacity(0.2),
 //            color: Colors.white,
@@ -127,67 +127,100 @@ class RankingTile extends StatelessWidget {
 //            border: Border.all(color: Colors.grey, width: 0.4),
 //          ),
           child: Column(children: [
-            SizedBox(height: SizeConfig.safeBlockVertical*2.5,),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 2.5,
+            ),
             Container(
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(
+                color: Colors.white,
                 shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/Ranking/$index.png'),
-                  fit: BoxFit.cover,
+              ),
+              child: FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                child: Text(
+                  index.toString(),
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                     ),
                 ),
               ),
             ),
-            SizedBox(height: SizeConfig.safeBlockVertical*3,),
-            Flexible(
-              child: Text(
-                rank.documentID,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: SizeConfig.safeBlockHorizontal*5),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 4.5,
+            ),
+            Container(
+             height: SizeConfig.safeBlockVertical*3.5,
+              width: SizeConfig.safeBlockHorizontal * 63,
+              child: FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                child: Text(
+                  rank.documentID,
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontSize: SizeConfig.safeBlockHorizontal * 5),
+                ),
               ),
             ),
-            SizedBox(height: SizeConfig.safeBlockVertical*3,),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 3,
+            ),
             Text(
               'Total Complaints',
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4,),
+              style: GoogleFonts.montserrat(
+                fontSize: SizeConfig.safeBlockHorizontal * 4,
+              ),
             ),
             Text(
               rank.data["totalcomp"].toString(),
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4.5,fontWeight: FontWeight.w600),
+              style: GoogleFonts.montserrat(
+                  fontSize: SizeConfig.safeBlockHorizontal * 4.5,
+                  fontWeight: FontWeight.w600),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height*0.02,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             Text(
               'Total Resolved',
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4),
+              style: GoogleFonts.montserrat(
+                  fontSize: SizeConfig.safeBlockHorizontal * 4),
             ),
             Text(
               rank.data["totalr"].toString(),
-              style: GoogleFonts.montserrat(fontSize: SizeConfig.safeBlockHorizontal*4.5,fontWeight: FontWeight.w600),
+              style: GoogleFonts.montserrat(
+                  fontSize: SizeConfig.safeBlockHorizontal * 4.5,
+                  fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*0.05),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             InkWell(
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              RankingDetails(constituency: rank, position: index,path:'assets/Ranking/$index.png')),
+                          builder: (context) => RankingDetails(
+                              constituency: rank,
+                              position: index.toString(),
+                            )),
                     ),
                 child: Container(
-                  height: SizeConfig.safeBlockVertical*6,
-                  width: SizeConfig.safeBlockHorizontal*43,
+                  height: SizeConfig.safeBlockVertical * 6,
+                  width: SizeConfig.safeBlockHorizontal * 43,
                   decoration: BoxDecoration(
                       color: Color(0xffe0e0e0),
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Center(
-                    child: Text(
-                      'View Details',
-                      style: GoogleFonts.montserrat(
-                          color: Colors.black, fontSize: SizeConfig.safeBlockHorizontal*4.1),
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'View Details',
+                        style: GoogleFonts.montserrat(
+                            color: Colors.black,
+                            fontSize: SizeConfig.safeBlockHorizontal * 4.1),
+                      ),
                     ),
                   ),
                 )),

@@ -33,7 +33,7 @@ class _RetrieveGrievancesState extends State<RetrieveGrievances> {
           style: GoogleFonts.montserrat(
               fontWeight: FontWeight.w600,
               color: Colors.white,
-              fontSize: SizeConfig.safeBlockHorizontal * 4.2),
+              fontSize: SizeConfig.safeBlockHorizontal * 4.5),
         ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
@@ -115,12 +115,16 @@ class GrievanceStream extends StatelessWidget {
                   width: double.infinity,
                   alignment: Alignment.center,
                   child: Center(
-                    child: Text(
-                      'No Grievances Submitted....',
-                      style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: SizeConfig.safeBlockHorizontal*5),
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'No Grievances Submitted....',
+                        style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: SizeConfig.safeBlockHorizontal*5),
+                      ),
                     ),
                   ),
                 ),
@@ -215,13 +219,18 @@ class GrievanceTiles extends StatelessWidget {
               ),
             ),
             SizedBox( height: SizeConfig.safeBlockVertical*2.5),
-            Flexible(
-              child: Text(
-                grievance.data["Constituency"],
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: SizeConfig.safeBlockHorizontal*5),
+            Container(
+              height: SizeConfig.safeBlockVertical*3.5,
+              width: SizeConfig.safeBlockHorizontal*63,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  grievance.data["Constituency"],
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontSize: SizeConfig.safeBlockHorizontal*5),
+                ),
               ),
             ),
                 SizedBox( height: SizeConfig.safeBlockVertical*1.5),

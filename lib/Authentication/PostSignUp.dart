@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -134,32 +135,37 @@ class _PostSignUpState extends State<PostSignUp> {
                           child: Stack(
                             children: <Widget>[
                               Container(
+                                width: SizeConfig.safeBlockHorizontal*93,
                                 padding: EdgeInsets.fromLTRB(0, SizeConfig.safeBlockVertical *6, SizeConfig.safeBlockHorizontal * 40, 0),
-                                child: Text(
-                                  'Hello',
-                                  style: GoogleFonts.montserrat(
-                                      fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0,SizeConfig.safeBlockVertical *15, 0, 0),
-                                child: Text(
-                                  'there',
-                                  style: GoogleFonts.montserrat(
-                                      fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal *53, SizeConfig.safeBlockVertical *15, 0, 0),
-                                child: Text(
-                                  '.',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize:SizeConfig.safeBlockHorizontal*20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.indigo,
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'Hello',
+                                    style: GoogleFonts.montserrat(
+                                        fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),
+                              Container(
+                                width: SizeConfig.safeBlockHorizontal*60,
+                                padding: EdgeInsets.fromLTRB(0,SizeConfig.safeBlockVertical *16, 0, 0),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: RichText(
+                                    text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(text:'there', style: GoogleFonts.montserrat(
+                                              fontSize:SizeConfig.safeBlockHorizontal*20,
+                                              fontWeight: FontWeight.w600,color: Colors.black),),
+                                          TextSpan(text:'.',style: GoogleFonts.montserrat(
+                                              fontSize:SizeConfig.safeBlockHorizontal*20,
+                                              fontWeight: FontWeight.w600,color: Colors.indigo),),
+                                        ]
+                                    ),
+                                  )
+                                ),
+                              ),
+
                             ],
                           )
                       ),
@@ -293,12 +299,15 @@ class _PostSignUpState extends State<PostSignUp> {
                                     shadowColor: Colors.indigo,
                                     elevation: 5.0,
                                     child: Center(
-                                      child: Text(
-                                        'DONE',
-                                        style: GoogleFonts.montserrat(
-                                          fontSize:SizeConfig.safeBlockHorizontal*4,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                      child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: Text(
+                                          'DONE',
+                                          style: GoogleFonts.montserrat(
+                                            fontSize:SizeConfig.safeBlockHorizontal*4,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
