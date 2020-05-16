@@ -116,10 +116,10 @@ class RankingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,left: MediaQuery.of(context).size.width*0.03),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,left: MediaQuery.of(context).size.width*0.02),
       child: Container(
           height: SizeConfig.safeBlockVertical * 50,
-          width: SizeConfig.safeBlockHorizontal * 65,
+          width: SizeConfig.safeBlockHorizontal * 62,
 //          decoration: BoxDecoration(
 //            //color: Colors.grey.withOpacity(0.2),
 //            color: Colors.white,
@@ -154,7 +154,7 @@ class RankingTile extends StatelessWidget {
             ),
             Container(
              height: SizeConfig.safeBlockVertical*3.5,
-              width: SizeConfig.safeBlockHorizontal * 63,
+              width: SizeConfig.safeBlockHorizontal * 61,
               child: FittedBox(
                 alignment: Alignment.center,
                 fit: BoxFit.contain,

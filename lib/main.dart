@@ -18,6 +18,7 @@ Future<void> main() async {
       create: (context) => DropDown(),
       child: MaterialApp(
         theme: ThemeData(
+          accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,
         ),
         debugShowCheckedModeBanner: false,
@@ -29,6 +30,7 @@ Future<void> main() async {
       create: (context) => DropDown(),
       child: MaterialApp(
         theme: ThemeData(
+          accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,
         ),
         debugShowCheckedModeBanner: false,
@@ -40,6 +42,7 @@ Future<void> main() async {
       create: (context) => DropDown(),
       child: MaterialApp(
         theme: ThemeData(
+          accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,
         ),
         debugShowCheckedModeBanner: false,

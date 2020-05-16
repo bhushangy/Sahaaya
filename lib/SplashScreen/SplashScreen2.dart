@@ -49,17 +49,20 @@ class _SplashScreen2State extends State<SplashScreen2> {
     ));
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: FittedBox(
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              child: Image.asset(
-                'assets/images/logo.png',
-                  height:  MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-              ),),
+        body: SafeArea(
+          child: Container(
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                    height:  MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                ),),
+          ),
         ));
   }
 }

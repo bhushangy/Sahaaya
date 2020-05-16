@@ -82,8 +82,10 @@ class GrievanceStream extends StatelessWidget {
         //TODO: Handle snapshot.hasError conditions also here....
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.indigo,
+            child: Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(
+              ),
             ),
           );
         }

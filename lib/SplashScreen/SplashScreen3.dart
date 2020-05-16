@@ -61,17 +61,21 @@ class _SplashScreen3State extends State<SplashScreen3> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Container(
-              width: MediaQuery.of(context).size.width,
-              child: FittedBox(
-                alignment: Alignment.center,
-                fit: BoxFit.contain,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                ),
-              ),),
+            width: MediaQuery.of(context).size.width*0.8,
+            height: MediaQuery.of(context).size.height*0.5,
+            child: FittedBox(
+              alignment: Alignment.center,
+              fit: BoxFit.contain,
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: MediaQuery.of(context).size.width*0.8,
+                height: MediaQuery.of(context).size.height*0.5,
+              ),
+            ),),
           Container(
             alignment: Alignment.bottomCenter,
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+            ),
           )
         ],
       ),

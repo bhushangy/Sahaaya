@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
   void _showDialog(
       String a,
       String b,
+
       ) {
     // flutter defined function
     showDialog(
@@ -53,7 +54,6 @@ class _LoginPageState extends State<LoginPage> {
           contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
               SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
           shape: RoundedRectangleBorder(
-
             borderRadius: BorderRadius.circular(10),
           ),
           title: new Text(a,style: GoogleFonts.montserrat(
@@ -263,8 +263,6 @@ class _LoginPageState extends State<LoginPage> {
                               child: InkWell(
                                 onTap: () async {
 
-
-
                                     setState(() {
                                       showSpinner = true;
                                     });
@@ -333,11 +331,18 @@ class _LoginPageState extends State<LoginPage> {
                               height: SizeConfig.safeBlockVertical * 7,
                               child: InkWell(
                                 onTap: () async {
-                                  if (email == null || password == null ||
-                                      email == '' || password == '')
+                                  if (email== null || password == null)
+                                    {
+                                      _showDialog("Fields empty",
+                                          "Please fill all fields.");
+
+                                    }
+                                  else if( email.trim() == '' || password.trim() == ''){
                                     _showDialog("Fields empty",
                                         "Please fill all fields.");
-                                  else {
+
+                                  }
+                                  else{
                                     setState(() {
                                       showSpinner = true;
                                     });

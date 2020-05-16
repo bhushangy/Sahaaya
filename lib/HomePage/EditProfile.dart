@@ -331,18 +331,18 @@ class _EditProfileState extends State<EditProfile> {
                             });
                             try {
                               Provider.of<DropDown>(context, listen: false)
-                                  .constituency = myController3.text;
+                                  .constituency = myController3.text.trim();
                               Provider.of<DropDown>(context, listen: false)
-                                  .name = myController1.text;
+                                  .name = myController1.text.trim();
                               Provider.of<DropDown>(context, listen: false)
-                                  .phone = myController2.text;
+                                  .phone = myController2.text.trim();
                               await profileUpdate();
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
-                              prefs.setString('name', myController1.text);
-                              prefs.setString('phone', myController2.text);
+                              prefs.setString('name', myController1.text.trim());
+                              prefs.setString('phone', myController2.text.trim());
                               prefs.setString(
-                                  'constituency', myController3.text);
+                                  'constituency', myController3.text.trim());
 
                               Navigator.pop(context, true);
                               setState(() {

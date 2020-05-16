@@ -201,23 +201,6 @@ class _HomePageState extends State<HomePage> {
                 autoPlayAnimationDuration: Duration(milliseconds: 1200),
                 autoPlayCurve: Curves.fastOutSlowIn,
               ),
-//              Container(
-//                height: MediaQuery.of(context).size.height*0.17,
-//                child: ListView(
-//                  physics: ScrollPhysics(parent: PageScrollPhysics()),
-//                  scrollDirection: Axis.horizontal,
-//                  children: <Widget>[
-//                    menuCard(
-//                        context,
-//                        'Announcement',
-//                        'assets/HomePage/announcement.png',
-//                        'BWSSB to lay out new pipelines in North Bengaluru.'
-//                    ),
-//                    menuCard(
-//                        context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
-//                  ],
-//                ),
-//              ),
               SizedBox(
                 height:MediaQuery.of(context).size.height*0.03,
               ),

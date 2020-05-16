@@ -74,8 +74,8 @@ class _FillFormState extends State<FillForm> {
       doc = await databaseReference
           .collection("Statistics")
           .document(Provider.of<DropDown>(context, listen: false)
-              .consti
-              .toUpperCase())
+          .consti
+          .toUpperCase())
           .get();
 
       nres = doc.data[widget.category.toLowerCase() + 'nr'];
@@ -86,8 +86,8 @@ class _FillFormState extends State<FillForm> {
       await databaseReference
           .collection("Statistics")
           .document(Provider.of<DropDown>(context, listen: false)
-              .consti
-              .toUpperCase())
+          .consti
+          .toUpperCase())
           .updateData({
         widget.category.toLowerCase() + 'nr': nres,
         'totalcomp': totalc
@@ -103,9 +103,9 @@ class _FillFormState extends State<FillForm> {
       bool flag;
       ob.whichlat == null || ob.whichlong == null ? flag = false : flag = true;
       Refid = Provider.of<DropDown>(context, listen: false)
-              .consti
-              .toUpperCase()
-              .substring(0, 3) +
+          .consti
+          .toUpperCase()
+          .substring(0, 3) +
           widget.category +
           r.nextInt(10000).toString();
       await databaseReference
@@ -115,7 +115,7 @@ class _FillFormState extends State<FillForm> {
           .document() // by default it goes to bbmp document...but this can be changed
           .setData({
         'Constituency':
-            Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
+        Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
         'Description': description,
         'Image1': _uploadedFileURL1,
@@ -131,14 +131,14 @@ class _FillFormState extends State<FillForm> {
       await databaseReference
           .collection("Constituencies")
           .document(Provider.of<DropDown>(context, listen: false)
-              .consti
-              .toUpperCase())
+          .consti
+          .toUpperCase())
           .collection(widget.category.toUpperCase() + "Complaints")
           .document()
           .setData({
         'email': widget.email,
         'Constituency':
-            Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
+        Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
         'Description': description,
         'Image1': _uploadedFileURL1,
@@ -350,7 +350,7 @@ class _FillFormState extends State<FillForm> {
           }
         },
         child: Scaffold(
-         // backgroundColor: Color(0xFFC5CAE9),
+          // backgroundColor: Color(0xFFC5CAE9),
           appBar: AppBar(
             title: Text(
               'New Grievance',
@@ -373,199 +373,199 @@ class _FillFormState extends State<FillForm> {
             inAsyncCall: showSpinner,
             child: SafeArea(
                 child: ListView(
-              physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-              children: <Widget>[
-                Column(
+                  physics: ScrollPhysics(parent: BouncingScrollPhysics()),
                   children: <Widget>[
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 6,
-                    ),
-                    ConstiAndCateg(
-                        val: Provider.of<DropDown>(context, listen: false)
-                            .consti
-                            .toUpperCase(),
-                        label: 'CONSTITUENCY',
-                        icon: Icon(Icons.location_on)),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 4.5,
-                    ),
-                    ConstiAndCateg(
-                        val: widget.category.toUpperCase(),
-                        label: 'CATEGORY',
-                        icon: Icon(Icons.playlist_add_check)),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 4.5,
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(
-                                left:  SizeConfig.safeBlockHorizontal * 2,
-                                right:
-                                     SizeConfig.safeBlockHorizontal * 2),
-                            child: TextFormField(
-                              validator: (description) {
-                                if (description.isEmpty) {
-                                  return 'Please provide a brief description of your grievance.';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              onChanged: (value) {
-                                description = value;
-                              },
-                              cursorColor: Colors.indigo,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.description,
-                                  color: Colors.grey,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.indigo),
-                                ),
-                                labelText: 'DESCRIPTION',
-                                labelStyle: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                  fontSize:SizeConfig.safeBlockHorizontal*4,
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 6,
+                        ),
+                        ConstiAndCateg(
+                            val: Provider.of<DropDown>(context, listen: false)
+                                .consti
+                                .toUpperCase(),
+                            label: 'CONSTITUENCY',
+                            icon: Icon(Icons.location_on)),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 4.5,
+                        ),
+                        ConstiAndCateg(
+                            val: widget.category.toUpperCase(),
+                            label: 'CATEGORY',
+                            icon: Icon(Icons.playlist_add_check)),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 4.5,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left:  SizeConfig.safeBlockHorizontal * 2,
+                                    right:
+                                    SizeConfig.safeBlockHorizontal * 2),
+                                child: TextFormField(
+                                  validator: (description) {
+                                    if (description.isEmpty) {
+                                      return 'Please provide a brief description of your grievance.';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                  onChanged: (value) {
+                                    description = value;
+                                  },
+                                  cursorColor: Colors.indigo,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.description,
+                                      color: Colors.grey,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.indigo),
+                                    ),
+                                    labelText: 'DESCRIPTION',
+                                    labelStyle: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize:SizeConfig.safeBlockHorizontal*4,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 6,
-                    ),
-                    Container(
-                      child: Text(
-                        'UPLOAD IMAGES',
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.bold,
-                          fontSize:SizeConfig.safeBlockHorizontal*4.1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 6,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            getImage();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 1.75, color: Colors.grey),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                            ),
-                            child: image1 == null
-                                ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
-                                : Image.file(
-                                    image1,
-                                    fit: BoxFit.fill,
-                                  ),
-                            height:SizeConfig.safeBlockVertical * 24.5,
-                            width:SizeConfig.safeBlockHorizontal * 40,
+                            ],
                           ),
                         ),
                         SizedBox(
-                          width: SizeConfig.safeBlockHorizontal * 3,
+                          height: SizeConfig.safeBlockVertical * 6,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            getImage2();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border:
-                              Border.all(width: 1.75, color: Colors.grey),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(5.0)),
+                        Container(
+                          child: Text(
+                            'UPLOAD IMAGES',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize:SizeConfig.safeBlockHorizontal*4.1,
+                              color: Colors.grey,
                             ),
-                            child: image2 == null
-                                ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7)
-                                : Image.file(
-                              image2,
-                              fit: BoxFit.fill,
-                            ),
-                            height:SizeConfig.safeBlockVertical * 24.5,
-                            width:SizeConfig.safeBlockHorizontal * 40,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 7,
-                    ),
-                    FormButtons(
-                      label: 'UPLOAD',
-                      width: SizeConfig.safeBlockHorizontal * 36,
-                      height: SizeConfig.safeBlockVertical * 5.9,
-                      onT: () async {
-                        if (image1 == null && image2 == null) {
-                          _showDialog("No images selected",
-                              "Please select atleast one image to upload.");
-                        } else {
-                          setState(() {
-                            showSpinner = true;
-                          });
-                          try {
-                            i++;
-                            await uploadFile(image1, image2);
-                            _showDialog("Upload Successful",
-                                "Selected images uploaded successfully.");
-                          } catch (e) {
-                            print(e);
-                          }
-
-                          setState(() {
-                            i++;
-                            showSpinner = false;
-                          });
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 6,
-                    ),
-                    Container(
-                      child: Text(
-                        'SET LOCATION',
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.bold,
-                          fontSize:SizeConfig.safeBlockHorizontal*4.1,
-                          color: Colors.grey,
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 6,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical * 6,
-                    ),
-                    Container(
-                      width: 92 *  SizeConfig.safeBlockHorizontal,
-                      height:  SizeConfig.safeBlockVertical * 33,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.75, color: Colors.grey),
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: (Provider.of<DropDown>(context, listen: false)
-                                      .whichLong ==
-                                  null &&
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                getImage();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border:
+                                  Border.all(width: 1.75, color: Colors.grey),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                child: image1 == null
+                                    ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
+                                    : Image.file(
+                                  image1,
+                                  fit: BoxFit.fill,
+                                ),
+                                height:SizeConfig.safeBlockVertical * 24.5,
+                                width:SizeConfig.safeBlockHorizontal * 40,
+                              ),
+                            ),
+                            SizedBox(
+                              width: SizeConfig.safeBlockHorizontal * 3,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                getImage2();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border:
+                                  Border.all(width: 1.75, color: Colors.grey),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                child: image2 == null
+                                    ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7)
+                                    : Image.file(
+                                  image2,
+                                  fit: BoxFit.fill,
+                                ),
+                                height:SizeConfig.safeBlockVertical * 24.5,
+                                width:SizeConfig.safeBlockHorizontal * 40,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 7,
+                        ),
+                        FormButtons(
+                          label: 'UPLOAD',
+                          width: SizeConfig.safeBlockHorizontal * 36,
+                          height: SizeConfig.safeBlockVertical * 5.9,
+                          onT: () async {
+                            if (image1 == null && image2 == null) {
+                              _showDialog("No images selected",
+                                  "Please select atleast one image to upload.");
+                            } else {
+                              setState(() {
+                                showSpinner = true;
+                              });
+                              try {
+                                i++;
+                                await uploadFile(image1, image2);
+                                _showDialog("Upload Successful",
+                                    "Selected images uploaded successfully.");
+                              } catch (e) {
+                                print(e);
+                              }
+
+                              setState(() {
+                                i++;
+                                showSpinner = false;
+                              });
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 6,
+                        ),
+                        Container(
+                          child: Text(
+                            'SET LOCATION',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize:SizeConfig.safeBlockHorizontal*4.1,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 6,
+                        ),
+                        Container(
+                          width: 92 *  SizeConfig.safeBlockHorizontal,
+                          height:  SizeConfig.safeBlockVertical * 33,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.75, color: Colors.grey),
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: (Provider.of<DropDown>(context, listen: false)
+                              .whichLong ==
+                              null &&
                               Provider.of<DropDown>(context, listen: false)
-                                      .whichLong ==
+                                  .whichLong ==
                                   null)
-                          ? FlatButton(
+                              ? FlatButton(
                               child: Icon(
                                 Icons.location_on,
                                 size:SizeConfig.safeBlockHorizontal* 15,
@@ -576,81 +576,86 @@ class _FillFormState extends State<FillForm> {
                                 });
                                 await Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return DragMarkerMap();
-                                }));
+                                      return DragMarkerMap();
+                                    }));
                                 setState(() {
                                   showSpinner = false;
                                 });
                               })
-                          : GoogleMap(
-                              onMapCreated: _onMapCreated,
-                              myLocationEnabled: true,
-                              initialCameraPosition: CameraPosition(
-                                target: LatLng(DragMarkerMap().whichlat,
-                                    DragMarkerMap().whichlong),
-                                zoom: 11.0,
-                              ),
-                              mapType: _currentMapType,
-                              markers: _markers,
-                              gestureRecognizers:
-                                  <Factory<OneSequenceGestureRecognizer>>[
-                                new Factory<OneSequenceGestureRecognizer>(
-                                  () => new EagerGestureRecognizer(),
-                                ),
-                              ].toSet(),
+                              : GoogleMap(
+                            onMapCreated: _onMapCreated,
+                            myLocationEnabled: true,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(DragMarkerMap().whichlat,
+                                  DragMarkerMap().whichlong),
+                              zoom: 11.0,
                             ),
-                    ),
-                    SizedBox(
-                      height:SizeConfig.safeBlockVertical * 9,
-                    ),
-                    FormButtons(
-                      label: 'SUBMIT',
-                      width: SizeConfig.safeBlockHorizontal * 90,
-                      height: SizeConfig.safeBlockVertical * 7,
-                      onT: () async {
-                        print(i);
-                        if (DragMarkerMap().whichlat == null ||
-                            DragMarkerMap().whichlong == null)
-                          _showDialog("Location Not Selected",
-                              "Please mark the location");
-                        else if ((image1 != null && i == 0) ||
-                            (image2 != null && i == 0)) {
-                          _showDialog("Image(s) Not Uploaded",
-                              "Please upload the image(s)");
-                        } else {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
+                            mapType: _currentMapType,
+                            markers: _markers,
+                            gestureRecognizers:
+                            <Factory<OneSequenceGestureRecognizer>>[
+                              new Factory<OneSequenceGestureRecognizer>(
+                                    () => new EagerGestureRecognizer(),
+                              ),
+                            ].toSet(),
+                          ),
+                        ),
+                        SizedBox(
+                          height:SizeConfig.safeBlockVertical * 9,
+                        ),
+                        FormButtons(
+                          label: 'SUBMIT',
+                          width: SizeConfig.safeBlockHorizontal * 90,
+                          height: SizeConfig.safeBlockVertical * 7,
+                          onT: () async {
+                            print(i);
+                            if (description.trim() == '' || description == null){
+                              _showDialog("Description empty!",
+                                  "Please grive a brief description of your grievance.");
+                            }else if(DragMarkerMap().whichlat == null ||
+                                DragMarkerMap().whichlong == null){
 
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            showSpinner = true;
-                            await createRecord();
-                            await statsUpdate();
-                            setState(() {
-                              showSpinner = false;
-                            });
+                              _showDialog("Location Not Selected",
+                                  "Please mark the location");
+                            }
+                            else if ((image1 != null && i == 0) ||
+                                (image2 != null && i == 0)) {
+                              _showDialog("Image(s) Not Uploaded",
+                                  "Please upload the image(s)");
+                            } else {
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
 
-                            Navigator.pop(context);
-                            _showDialog("Grievance Status",
-                                "Grievance Submitted Successfully");
-                            Provider.of<DropDown>(context, listen: false)
-                                .map(null, null);
-                          } else {
-                            print('description empty!!!');
-                            _showDialog("Description Empty",
-                                "Please grive a brief description of your grievance.");
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height:SizeConfig.safeBlockVertical * 6,
+                                setState(() {
+                                  showSpinner = true;
+                                });
+                                showSpinner = true;
+                                await createRecord();
+                                await statsUpdate();
+                                setState(() {
+                                  showSpinner = false;
+                                });
+
+                                Navigator.pop(context);
+                                _showDialog("Grievance Status",
+                                    "Grievance Submitted Successfully");
+                                Provider.of<DropDown>(context, listen: false)
+                                    .map(null, null);
+                              } else {
+                                print('description empty!!!');
+                                _showDialog("Description Empty",
+                                    "Please grive a brief description of your grievance.");
+                              }
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height:SizeConfig.safeBlockVertical * 6,
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            )),
+                )),
           ),
         ),
       ),
@@ -667,9 +672,9 @@ class ConstiAndCateg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        left:  SizeConfig.safeBlockHorizontal * 2,
-        right:
-        SizeConfig.safeBlockHorizontal * 2),
+          left:  SizeConfig.safeBlockHorizontal * 2,
+          right:
+          SizeConfig.safeBlockHorizontal * 2),
       child: TextFormField(
         enabled: false,
         initialValue: val,

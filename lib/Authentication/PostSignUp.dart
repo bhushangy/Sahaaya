@@ -11,7 +11,6 @@ import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
-
 class PostSignUp extends StatefulWidget {
   String email;
   PostSignUp({this.email});
@@ -28,36 +27,47 @@ class _PostSignUpState extends State<PostSignUp> {
   bool showSpinner = false;
 
   void _showDialog(
-      String a,
-      String b,
-      ) {
+    String a,
+    String b,
+  ) {
     // flutter defined function
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 6.2,
+              SizeConfig.safeBlockHorizontal * 2,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 2),
           shape: RoundedRectangleBorder(
-
             borderRadius: BorderRadius.circular(10),
           ),
-          title: new Text(a,style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),),
-          content: new Text(b,style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.normal,
-            fontSize:SizeConfig.safeBlockHorizontal*4,
-            color: Colors.black,
-          ),),
+          title: new Text(
+            a,
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontSize: SizeConfig.safeBlockHorizontal * 5),
+          ),
+          content: new Text(
+            b,
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.normal,
+              fontSize: SizeConfig.safeBlockHorizontal * 4,
+              color: Colors.black,
+            ),
+          ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(" OK",style: TextStyle(
-                  fontSize: SizeConfig.safeBlockHorizontal*3.5
-              ),),
+              child: new Text(
+                " OK",
+                style:
+                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -67,50 +77,56 @@ class _PostSignUpState extends State<PostSignUp> {
       },
     );
   }
-  Future<bool>dontgoback(){
+
+  Future<bool> dontgoback() {
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
-
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 6.2,
+              SizeConfig.safeBlockHorizontal * 2,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
             "Exit",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500, color: Colors.black,
-                fontSize:SizeConfig.safeBlockHorizontal*5
-            ),
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontSize: SizeConfig.safeBlockHorizontal * 5),
           ),
           content: Text(
             "Do you want to exit the app ?",
             style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
-                fontSize:SizeConfig.safeBlockHorizontal*4
-            ),
+                fontSize: SizeConfig.safeBlockHorizontal * 4),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(" YES",style: TextStyle(
-                  fontSize:SizeConfig.safeBlockHorizontal*3.5
-              ),),
+              child: new Text(
+                " YES",
+                style:
+                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
+              ),
               onPressed: () {
                 SystemNavigator.pop();
               },
             ),
             new FlatButton(
-              child: new Text(" NO",style: TextStyle(
-                  fontSize:SizeConfig.safeBlockHorizontal*3.5
-              ),),
+              child: new Text(
+                " NO",
+                style:
+                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
+              ),
               onPressed: () {
-                Navigator.pop(context,false);
+                Navigator.pop(context, false);
               },
             ),
           ],
@@ -142,62 +158,80 @@ class _PostSignUpState extends State<PostSignUp> {
                     children: <Widget>[
                       Container(
                           child: Stack(
-                            children: <Widget>[
-                              Container(
-                                width: SizeConfig.safeBlockHorizontal*93,
-                                padding: EdgeInsets.fromLTRB(0, SizeConfig.safeBlockVertical *6, SizeConfig.safeBlockHorizontal * 40, 0),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: Text(
-                                    'Hello',
-                                    style: GoogleFonts.montserrat(
-                                        fontSize:SizeConfig.safeBlockHorizontal*20, fontWeight: FontWeight.w600),
-                                  ),
-                                ),
+                        children: <Widget>[
+                          Container(
+                            width: SizeConfig.safeBlockHorizontal * 93,
+                            padding: EdgeInsets.fromLTRB(
+                                0,
+                                SizeConfig.safeBlockVertical * 6,
+                                SizeConfig.safeBlockHorizontal * 40,
+                                0),
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                'Hello',
+                                style: GoogleFonts.montserrat(
+                                    fontSize:
+                                        SizeConfig.safeBlockHorizontal * 20,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              Container(
-                                width: SizeConfig.safeBlockHorizontal*60,
-                                padding: EdgeInsets.fromLTRB(0,SizeConfig.safeBlockVertical *16, 0, 0),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        children: <TextSpan>[
-                                          TextSpan(text:'there', style: GoogleFonts.montserrat(
-                                              fontSize:SizeConfig.safeBlockHorizontal*20,
-                                              fontWeight: FontWeight.w600,color: Colors.black),),
-                                          TextSpan(text:'.',style: GoogleFonts.montserrat(
-                                              fontSize:SizeConfig.safeBlockHorizontal*20,
-                                              fontWeight: FontWeight.w600,color: Colors.indigo),),
-                                        ]
+                            ),
+                          ),
+                          Container(
+                            width: SizeConfig.safeBlockHorizontal * 60,
+                            padding: EdgeInsets.fromLTRB(
+                                0, SizeConfig.safeBlockVertical * 16, 0, 0),
+                            child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: RichText(
+                                  text: TextSpan(children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'there',
+                                      style: GoogleFonts.montserrat(
+                                          fontSize:
+                                              SizeConfig.safeBlockHorizontal *
+                                                  20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
                                     ),
-                                  )
-                                ),
-                              ),
-
-                            ],
-                          )
-                      ),
+                                    TextSpan(
+                                      text: '.',
+                                      style: GoogleFonts.montserrat(
+                                          fontSize:
+                                              SizeConfig.safeBlockHorizontal *
+                                                  20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.indigo),
+                                    ),
+                                  ]),
+                                )),
+                          ),
+                        ],
+                      )),
                       SizedBox(
-                        height: SizeConfig.safeBlockVertical *5,
+                        height: SizeConfig.safeBlockVertical * 5,
                       ),
                       Container(
-                        padding:
-                        EdgeInsets.only(top: SizeConfig.safeBlockVertical *4, left:SizeConfig.safeBlockHorizontal *5, right: SizeConfig.safeBlockHorizontal *5),
+                        padding: EdgeInsets.only(
+                            top: SizeConfig.safeBlockVertical * 4,
+                            left: SizeConfig.safeBlockHorizontal * 5,
+                            right: SizeConfig.safeBlockHorizontal * 5),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              TextFormField(
+                              TextField(
                                 cursorColor: Colors.indigo,
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.indigo),
+                                    borderSide:
+                                        BorderSide(color: Colors.indigo),
                                   ),
                                   labelText: 'NAME',
                                   labelStyle: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.bold,
-                                    fontSize:SizeConfig.safeBlockHorizontal*4,
+                                    fontSize:
+                                        SizeConfig.safeBlockHorizontal * 4,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -206,9 +240,9 @@ class _PostSignUpState extends State<PostSignUp> {
                                 },
                               ),
                               SizedBox(
-                                height: SizeConfig.safeBlockVertical *5,
+                                height: SizeConfig.safeBlockVertical * 5,
                               ),
-                              TextFormField(
+                              TextField(
                                 keyboardType: TextInputType.phone,
                                 onChanged: (value) {
                                   phone = int.parse(value);
@@ -216,12 +250,14 @@ class _PostSignUpState extends State<PostSignUp> {
                                 cursorColor: Colors.indigo,
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.indigo),
+                                    borderSide:
+                                        BorderSide(color: Colors.indigo),
                                   ),
                                   labelText: 'PHONE',
                                   labelStyle: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.bold,
-                                    fontSize:SizeConfig.safeBlockHorizontal*4,
+                                    fontSize:
+                                        SizeConfig.safeBlockHorizontal * 4,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -229,7 +265,7 @@ class _PostSignUpState extends State<PostSignUp> {
                               SizedBox(
                                 height: SizeConfig.safeBlockVertical * 5,
                               ),
-                              TextFormField(
+                              TextField(
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
                                 onChanged: (value) {
@@ -238,12 +274,14 @@ class _PostSignUpState extends State<PostSignUp> {
                                 cursorColor: Colors.indigo,
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.indigo),
+                                    borderSide:
+                                        BorderSide(color: Colors.indigo),
                                   ),
                                   labelText: 'CONSTITUENCY',
                                   labelStyle: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.bold,
-                                    fontSize:SizeConfig.safeBlockHorizontal*4,
+                                    fontSize:
+                                        SizeConfig.safeBlockHorizontal * 4,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -255,14 +293,20 @@ class _PostSignUpState extends State<PostSignUp> {
                                 height: SizeConfig.safeBlockVertical * 7,
                                 child: InkWell(
                                   onTap: () async {
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
-                                      if(name==null||constituency==null||phone==null)
-                                        _showDialog("Fields empty", "Please fill all fields.");
-                                     else{
-                                      if (phone
-                                          .toString()
-                                          .length != 10) {
+                                    if (name == null ||
+                                        constituency == null ||
+                                        phone == null ){
+                                      _showDialog("Fields empty",
+                                          "Please fill all fields.");
+
+                                    }
+                                    else if( name.trim() == '' || constituency.trim() == ''){
+                                      _showDialog("Fields empty",
+                                          "Please fill all fields.");
+
+                                    }
+                                    else {
+                                      if (phone.toString().length != 10) {
                                         _showDialog("Invalid Phone Number",
                                             "Enter a valid 10 digit phone number.");
                                       } else {
@@ -274,21 +318,29 @@ class _PostSignUpState extends State<PostSignUp> {
                                               .collection("UserInfo")
                                               .document(widget.email)
                                               .updateData({
-                                            'Name': name,
+                                            'Name': name.trim(),
                                             'Phone': phone,
-                                            'Constituency': constituency,
+                                            'Constituency': constituency.trim(),
                                           });
-                                          SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          prefs.setString('name',name);
-                                          prefs.setString('phone',phone.toString());
-                                          prefs.setString('constituency',constituency);
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          prefs.setString('name', name.trim());
+                                          prefs.setString(
+                                              'phone', phone.toString().trim());
+                                          prefs.setString(
+                                              'constituency', constituency.trim());
                                           Provider.of<DropDown>(context,
-                                              listen: false)
-                                              .setUserInfo(name, phone.toString(), constituency);
+                                                  listen: false)
+                                              .setUserInfo(
+                                                  name.trim(),
+                                                  phone.toString().trim(),
+                                                  constituency.trim());
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => BottomNavBar()),
+                                                builder: (context) =>
+                                                    BottomNavBar()),
                                           );
                                           setState(() {
                                             showSpinner = false;
@@ -299,9 +351,7 @@ class _PostSignUpState extends State<PostSignUp> {
                                             showSpinner = false;
                                           });
                                         }
-                                      }}
-                                    }else{
-                                      _showDialog("Fields empty", "Please fill all fields.");
+                                      }
                                     }
                                   },
                                   child: Material(
@@ -315,7 +365,9 @@ class _PostSignUpState extends State<PostSignUp> {
                                         child: Text(
                                           'DONE',
                                           style: GoogleFonts.montserrat(
-                                            fontSize:SizeConfig.safeBlockHorizontal*4,
+                                            fontSize:
+                                                SizeConfig.safeBlockHorizontal *
+                                                    4,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),
@@ -332,7 +384,7 @@ class _PostSignUpState extends State<PostSignUp> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).viewInsets.bottom/2,
+                    height: MediaQuery.of(context).viewInsets.bottom / 2,
                   ),
                   SizedBox(
                     height: SizeConfig.safeBlockVertical * 3,
