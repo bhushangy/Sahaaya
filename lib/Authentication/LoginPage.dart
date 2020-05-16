@@ -26,8 +26,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool showPassword;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String email;
-  String password;
+  String email='';
+  String password='';
   bool showSpinner = false;
   DocumentSnapshot doc;
 
@@ -50,8 +50,8 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
           shape: RoundedRectangleBorder(
 
             borderRadius: BorderRadius.circular(10),
@@ -85,8 +85,8 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -262,10 +262,9 @@ class _LoginPageState extends State<LoginPage> {
                                   left: SizeConfig.safeBlockHorizontal * 56),
                               child: InkWell(
                                 onTap: () async {
-                                  if (email == "" || email == null)
-                                    _showDialog("Email Invalid",
-                                        "Email cannot be empty. Enter your email.");
-                                  else {
+
+
+
                                     setState(() {
                                       showSpinner = true;
                                     });
@@ -294,9 +293,23 @@ class _LoginPageState extends State<LoginPage> {
                                                 "Email is in Invalid format. Please Retry.");
                                           }
                                           break;
+                                        case "":
+                                          {
+                                            _showDialog("Fields empty", "Please fill all fields.");
+
+                                          }
+                                          break;
+
+
+                                        default:
+                                          {
+                                            _showDialog("Fields empty", "Please fill all fields.");
+
+                                          }
                                       }
                                     }
-                                  }
+
+
                                 },
                                 child: FittedBox(
                                   fit: BoxFit.contain,
@@ -320,83 +333,94 @@ class _LoginPageState extends State<LoginPage> {
                               height: SizeConfig.safeBlockVertical * 7,
                               child: InkWell(
                                 onTap: () async {
-                                  setState(() {
-                                    showSpinner = true;
-                                  });
-                                  try {
-                                    final user =
-                                        await _auth.signInWithEmailAndPassword(
-                                            email: email, password: password);
-                                    if (user != null) {
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      prefs.setString('email', email);
-                                      prefs.setInt('i', 1);
-                                      doc = await databaseReference
-                                          .collection("UserInfo")
-                                          .document(email)
-                                          .get();
-                                      prefs.setString('name', doc.data["Name"]);
-                                      prefs.setString('phone',
-                                          doc.data["Phone"].toString());
-                                      prefs.setString('constituency',
-                                          doc.data["Constituency"]);
-                                      Provider.of<DropDown>(context,
-                                              listen: false)
-                                          .setEmail(email);
-                                      Provider.of<DropDown>(context,
-                                              listen: false)
-                                          .setUserInfo(
-                                              doc.data["Name"],
-                                              doc.data["Phone"].toString(),
-                                              doc.data["Constituency"]);
-                                      PackageInfo packageInfo =
-                                          await PackageInfo.fromPlatform();
-                                      Provider.of<DropDown>(context,
-                                              listen: false)
-                                          .setAppInfo(
-                                              packageInfo.appName,
-                                              packageInfo.packageName,
-                                              packageInfo.version,
-                                              packageInfo.buildNumber);
+                                  if (email == null || password == null ||
+                                      email == '' || password == '')
+                                    _showDialog("Fields empty",
+                                        "Please fill all fields.");
+                                  else {
+                                    setState(() {
+                                      showSpinner = true;
+                                    });
+                                    try {
+                                      final user =
+                                      await _auth.signInWithEmailAndPassword(
+                                          email: email, password: password);
+                                      if (user != null) {
+                                        SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                        prefs.setString('email', email);
+                                        prefs.setInt('i', 1);
+                                        doc = await databaseReference
+                                            .collection("UserInfo")
+                                            .document(email)
+                                            .get();
+                                        prefs.setString(
+                                            'name', doc.data["Name"]);
+                                        prefs.setString('phone',
+                                            doc.data["Phone"].toString());
+                                        prefs.setString('constituency',
+                                            doc.data["Constituency"]);
+                                        Provider.of<DropDown>(context,
+                                            listen: false)
+                                            .setEmail(email);
+                                        Provider.of<DropDown>(context,
+                                            listen: false)
+                                            .setUserInfo(
+                                            doc.data["Name"],
+                                            doc.data["Phone"].toString(),
+                                            doc.data["Constituency"]);
+                                        PackageInfo packageInfo =
+                                        await PackageInfo.fromPlatform();
+                                        Provider.of<DropDown>(context,
+                                            listen: false)
+                                            .setAppInfo(
+                                            packageInfo.appName,
+                                            packageInfo.packageName,
+                                            packageInfo.version,
+                                            packageInfo.buildNumber);
 
-                                      Navigator.pushReplacement(context,
+                                        Navigator.pushReplacement(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                                  return BottomNavBar();
+                                                }));
+                                      }
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    } on PlatformException catch (e) {
+                                      print(e);
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                      //raise alert here and clear text fields
+                                      Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
-                                        return BottomNavBar();
-                                      }));
-                                    }
-                                    setState(() {
-                                      showSpinner = false;
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                    setState(() {
-                                      showSpinner = false;
-                                    });
-                                    //raise alert here and clear text fields
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return LoginPage();
-                                    }));
-                                    switch (e.code) {
-                                      case "ERROR_USER_NOT_FOUND":
-                                        {
-                                          _showDialog("Invalid User",
-                                              "Email does not exist. Please Sign Up.");
-                                        }
-                                        break;
-                                      case "ERROR_INVALID_EMAIL":
-                                        {
-                                          _showDialog("Invalid Email",
-                                              "Email is in Invalid format. Please Retry.");
-                                        }
-                                        break;
-                                      case "ERROR_WRONG_PASSWORD":
-                                        {
-                                          _showDialog("Invalid Password",
-                                              "Please enter the correct password. Use forgot password option if necessary.");
-                                        }
-                                        break;
+                                            return LoginPage();
+                                          }));
+                                      switch (e.code) {
+                                        case "ERROR_USER_NOT_FOUND":
+                                          {
+                                            _showDialog("Invalid User",
+                                                "Email does not exist. Please Sign Up.");
+                                          }
+                                          break;
+                                        case "ERROR_INVALID_EMAIL":
+                                          {
+                                            _showDialog("Invalid Email",
+                                                "Email is in Invalid format. Please Retry.");
+                                          }
+                                          break;
+                                        case "ERROR_WRONG_PASSWORD":
+                                          {
+                                            _showDialog("Invalid Password",
+                                                "Please enter the correct password. Use forgot password option if necessary.");
+                                          }break;
+                                        default:  _showDialog("Fields empty",
+                                            "Please fill all fields.");
+
+
+                                      }
                                     }
                                   }
                                 },

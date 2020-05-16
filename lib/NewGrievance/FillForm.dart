@@ -233,8 +233,8 @@ class _FillFormState extends State<FillForm> {
 
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
           shape: RoundedRectangleBorder(
 
             borderRadius: BorderRadius.circular(10),
@@ -286,8 +286,8 @@ class _FillFormState extends State<FillForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
 
 
           shape: RoundedRectangleBorder(
@@ -484,7 +484,7 @@ class _FillFormState extends State<FillForm> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            getImage();
+                            getImage2();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -493,10 +493,10 @@ class _FillFormState extends State<FillForm> {
                               borderRadius:
                               BorderRadius.all(Radius.circular(5.0)),
                             ),
-                            child: image1 == null
+                            child: image2 == null
                                 ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7)
                                 : Image.file(
-                              image1,
+                              image2,
                               fit: BoxFit.fill,
                             ),
                             height:SizeConfig.safeBlockVertical * 24.5,

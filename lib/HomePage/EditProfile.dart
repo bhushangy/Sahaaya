@@ -60,8 +60,8 @@ class _EditProfileState extends State<EditProfile> {
 
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+            contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+                SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
           shape: RoundedRectangleBorder(
 
             borderRadius: BorderRadius.circular(10),
@@ -95,8 +95,8 @@ class _EditProfileState extends State<EditProfile> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

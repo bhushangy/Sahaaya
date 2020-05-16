@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +46,8 @@ class _SignupPageState extends State<SignupPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
-              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -197,7 +198,10 @@ class _SignupPageState extends State<SignupPage> {
                           height: SizeConfig.safeBlockVertical * 7,
                           child: InkWell(
                             onTap: () async {
-                              setState(() {
+                              if(email==null || password==null || email=='' || password=='')
+    _showDialog("Fields empty", "Please fill all fields.");
+else{
+    setState(() {
                                 showSpinner = true;
                               });
 
@@ -234,7 +238,7 @@ class _SignupPageState extends State<SignupPage> {
                                 setState(() {
                                   showSpinner = false;
                                 });
-                              } catch (e) {
+                              } on PlatformException catch (e) {
                                 print(e);
                                 setState(() {
                                   showSpinner = false;
@@ -259,8 +263,9 @@ class _SignupPageState extends State<SignupPage> {
 
                                     }break;
 
+
                                 }
-                              }
+                              }}
                             },
                             child: Material(
                               color: Colors.indigo,
