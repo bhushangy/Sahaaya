@@ -47,8 +47,9 @@ class NavDrawer extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.contain,
                   child: Text(
-                    Provider.of<DropDown>(context, listen: false).name ==
-                        null
+                      (Provider.of<DropDown>(context, listen: false).name ==
+                        null || Provider.of<DropDown>(context, listen: false).name ==
+                          '')
                         ? "Hello, "+Provider.of<DropDown>(context, listen: false).email.split('@')[0]
                         : "Hello, "+Provider.of<DropDown>(context, listen: false).name.split(' ')[0] ,
                     style: GoogleFonts.montserrat(

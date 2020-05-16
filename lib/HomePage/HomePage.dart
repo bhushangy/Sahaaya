@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async => false,
       child: Scaffold(
         key: _scaffoldKey,
         drawer: NavDrawer(),
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                             child: FittedBox(
                               fit: BoxFit.contain,
                               child: Text(
-                                Provider.of<DropDown>(context,listen: false).name == null?Provider.of<DropDown>(context,listen: false).email: Provider.of<DropDown>(context,listen: false).name,
+                                  (Provider.of<DropDown>(context,listen: false).name == null || Provider.of<DropDown>(context,listen: false).name == '')?Provider.of<DropDown>(context,listen: false).email: Provider.of<DropDown>(context,listen: false).name,
                                 style: GoogleFonts.montserrat(
                                     fontSize: SizeConfig.safeBlockHorizontal*5, fontWeight: FontWeight.w600),
                               ),
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                             child: FittedBox(
                               fit: BoxFit.contain,
                               child: Text(
-                                Provider.of<DropDown>(context,listen: false).constituency == null? "Bengaluru": Provider.of<DropDown>(context,listen: false).constituency,
+                                  (Provider.of<DropDown>(context,listen: false).constituency == null ||Provider.of<DropDown>(context,listen: false).constituency == '')? "Bengaluru": Provider.of<DropDown>(context,listen: false).constituency,
                                 style: GoogleFonts.montserrat(
                                     fontSize: SizeConfig.safeBlockHorizontal*3.9,
                                     fontWeight: FontWeight.normal),
