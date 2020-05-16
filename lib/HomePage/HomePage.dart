@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,40 +45,48 @@ class _HomePageState extends State<HomePage> {
 
 
 
-  Future<bool> dontgoback() {
+  Future<bool>dontgoback(){
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
             "Exit",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500, color: Colors.black, fontSize: 18),
+                fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),
           ),
           content: Text(
             "Do you want to exit the app ?",
             style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+                fontSize:SizeConfig.safeBlockHorizontal*4
             ),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(" YES"),
+              child: new Text(" YES",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
                 SystemNavigator.pop();
               },
             ),
             new FlatButton(
-              child: new Text(" NO"),
+              child: new Text(" NO",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
-                Navigator.pop(context, false);
+                Navigator.pop(context,false);
               },
             ),
           ],
@@ -85,6 +94,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,23 +233,42 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Container(
+              CarouselSlider(
+                items: <Widget>[
+                  menuCard(
+                      context,
+                      'Announcement',
+                      'assets/HomePage/announcement.png',
+                      'BWSSB to lay out new pipelines in North Bengaluru.'
+                  ),
+                  menuCard(
+                      context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
+
+                ],
                 height: MediaQuery.of(context).size.height*0.17,
-                child: ListView(
-                  physics: ScrollPhysics(parent: PageScrollPhysics()),
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    menuCard(
-                        context,
-                        'Announcement',
-                        'assets/HomePage/announcement.png',
-                        'BWSSB to lay out new pipelines in North Bengaluru.'
-                    ),
-                    menuCard(
-                        context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
-                  ],
-                ),
+                viewportFraction: 1.0,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 4),
+                autoPlayAnimationDuration: Duration(milliseconds: 1200),
+                autoPlayCurve: Curves.fastOutSlowIn,
               ),
+//              Container(
+//                height: MediaQuery.of(context).size.height*0.17,
+//                child: ListView(
+//                  physics: ScrollPhysics(parent: PageScrollPhysics()),
+//                  scrollDirection: Axis.horizontal,
+//                  children: <Widget>[
+//                    menuCard(
+//                        context,
+//                        'Announcement',
+//                        'assets/HomePage/announcement.png',
+//                        'BWSSB to lay out new pipelines in North Bengaluru.'
+//                    ),
+//                    menuCard(
+//                        context, 'Announcement', 'assets/HomePage/announcement.png','New version of the Sahaaya App is now available in play store.'),
+//                  ],
+//                ),
+//              ),
               SizedBox(
                 height:MediaQuery.of(context).size.height*0.03,
               ),

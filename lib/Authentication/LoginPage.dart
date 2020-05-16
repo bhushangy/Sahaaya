@@ -40,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _showDialog(
-    String a,
-    String b,
-  ) {
+      String a,
+      String b,
+      ) {
     // flutter defined function
     showDialog(
       context: context,
@@ -50,31 +50,25 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
           shape: RoundedRectangleBorder(
+
             borderRadius: BorderRadius.circular(10),
           ),
-          title: new Text(
-            a,
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-                fontSize: SizeConfig.safeBlockHorizontal * 5),
-          ),
-          content: new Text(
-            b,
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.normal,
-                color: Colors.black,
-                fontSize: SizeConfig.safeBlockHorizontal * 4),
-          ),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            fontSize:SizeConfig.safeBlockHorizontal*4,
+            color: Colors.black,
+          ),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(
-                " OK",
-                style:
-                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
-              ),
+              child: new Text(" OK",style: TextStyle(
+                  fontSize: SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -84,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-
   Future<bool> dontgoback() {
     return showDialog(
       context: context,
@@ -92,41 +85,39 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
             "Exit",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-                fontSize: SizeConfig.safeBlockHorizontal * 5),
+                fontWeight: FontWeight.w500, color: Colors.black,fontSize:SizeConfig.safeBlockHorizontal*5),
           ),
           content: Text(
             "Do you want to exit the app ?",
             style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
-                fontSize: SizeConfig.safeBlockHorizontal * 4),
+                fontSize:SizeConfig.safeBlockHorizontal*4
+            ),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text(
-                " YES",
-                style:
-                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
-              ),
+              child: new Text(" YES",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
                 SystemNavigator.pop();
               },
             ),
             new FlatButton(
-              child: new Text(
-                " NO",
-                style:
-                    TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 3.5),
-              ),
+              child: new Text(" NO",style: TextStyle(
+                  fontSize:SizeConfig.safeBlockHorizontal*3.5
+              ),),
               onPressed: () {
                 Navigator.pop(context, false);
               },

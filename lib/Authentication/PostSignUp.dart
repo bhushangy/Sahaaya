@@ -36,9 +36,13 @@ class _PostSignUpState extends State<PostSignUp> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
           shape: RoundedRectangleBorder(
+
             borderRadius: BorderRadius.circular(10),
           ),
           title: new Text(a,style: GoogleFonts.montserrat(
@@ -70,13 +74,18 @@ class _PostSignUpState extends State<PostSignUp> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
             "Exit",
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),
+                fontWeight: FontWeight.w500, color: Colors.black,
+                fontSize:SizeConfig.safeBlockHorizontal*5
+            ),
           ),
           content: Text(
             "Do you want to exit the app ?",

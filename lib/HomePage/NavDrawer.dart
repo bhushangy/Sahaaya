@@ -123,13 +123,16 @@ class NavDrawer extends StatelessWidget {
             title: Text('Logout',style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w500,
                 fontSize: SizeConfig.safeBlockHorizontal*3.5),),
-            onTap: (){
+            onTap: () {
               showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   // return object of type Dialog
                   return AlertDialog(
+                    contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+                        SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -138,19 +141,24 @@ class NavDrawer extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
-                          fontSize: 18),
+                          fontSize:SizeConfig.safeBlockHorizontal*5
+                      ),
                     ),
                     content: Text(
                       "Do You want to Log Out ?",
                       style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontSize:SizeConfig.safeBlockHorizontal*4
+
                       ),
                     ),
                     actions: <Widget>[
                       // usually buttons at the bottom of the dialog
                       new FlatButton(
-                        child: new Text(" YES"),
+                        child: new Text(" YES",style: TextStyle(
+                            fontSize:SizeConfig.safeBlockHorizontal*3.5
+                        ),),
                         onPressed: () async {
                           SharedPreferences prefs =
                           await SharedPreferences.getInstance();
@@ -169,7 +177,9 @@ class NavDrawer extends StatelessWidget {
                         },
                       ),
                       new FlatButton(
-                        child: new Text(" NO"),
+                        child: new Text(" NO",style: TextStyle(
+                            fontSize:SizeConfig.safeBlockHorizontal*3.5
+                        ),),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },

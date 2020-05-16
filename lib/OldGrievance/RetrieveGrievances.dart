@@ -284,52 +284,62 @@ class GrievanceTiles extends StatelessWidget {
                   ),
                 )),
                 SizedBox( height: SizeConfig.safeBlockVertical*2.5),
-            InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      // return object of type Dialog
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        title: new Text(
-                          "Delete this Previous Record",
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                              fontSize: 18),
-                        ),
-                        content: new Text(
-                          "Are you sure you want to delete it ?",
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black,
-                          ),
-                        ),
-                        actions: <Widget>[
-                          // usually buttons at the bottom of the dialog
-                          new FlatButton(
-                            child: new Text(" YES"),
-                            onPressed: () {
-                              deleteRecord();
-                              deleteRecordFromConstituencyCollec();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          new FlatButton(
-                            child: new Text(" NO"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
+                InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4,
+                                SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*4),
+
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            title: new Text(
+                              "Delete this Previous Record",
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontSize:SizeConfig.safeBlockHorizontal*5
+                              ),
+                            ),
+                            content: new Text(
+                              "Are you sure you want to delete it ?",
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontSize:SizeConfig.safeBlockHorizontal*4
+
+                              ),
+                            ),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text(" YES",style: TextStyle(
+                                    fontSize:SizeConfig.safeBlockHorizontal*3.5
+                                ),),
+                                onPressed: () {
+                                  deleteRecord();
+                                  deleteRecordFromConstituencyCollec();
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              new FlatButton(
+                                child: new Text(" NO",style: TextStyle(
+                                    fontSize:SizeConfig.safeBlockHorizontal*3.5
+                                ),),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
-                  );
-                },
                 child: Container(
                   height: SizeConfig.safeBlockVertical*6,
                   width: SizeConfig.safeBlockHorizontal*43,

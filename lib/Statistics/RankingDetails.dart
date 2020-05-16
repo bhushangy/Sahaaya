@@ -267,7 +267,7 @@ class StatsCard extends StatelessWidget {
 //          borderRadius: BorderRadius.circular(15.0),
 //        ),
         child: FittedBox(
-          fit: BoxFit.contain,
+          fit: BoxFit.scaleDown,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
