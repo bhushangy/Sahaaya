@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,63 @@ class RankingDetails extends StatefulWidget {
 }
 
 class _RankingDetailsState extends State<RankingDetails> {
+  @override
+  void initState() {
+    super.initState();
+    getConnectivityStatus();
+  }
+
+  void _showDialog(
+      String a,
+      String b,
+      ) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+
+        // return object of type Dialog
+        return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: new Text(a,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),),
+          content: new Text(b,style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            fontSize:SizeConfig.safeBlockHorizontal*4,
+            color: Colors.black,
+          ),),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(" OK",style: TextStyle(
+                  fontSize: SizeConfig.safeBlockHorizontal*3.5
+              ),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

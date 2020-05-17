@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +27,12 @@ class _PostSignUpState extends State<PostSignUp> {
   int phone;
   String constituency;
   bool showSpinner = false;
+
+  void initState(){
+    super.initState();
+    getConnectivityStatus();
+  }
+
 
   void _showDialog(
     String a,
@@ -77,7 +85,16 @@ class _PostSignUpState extends State<PostSignUp> {
       },
     );
   }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
+  }
   Future<bool> dontgoback() {
     return showDialog(
       context: context,
@@ -295,17 +312,14 @@ class _PostSignUpState extends State<PostSignUp> {
                                   onTap: () async {
                                     if (name == null ||
                                         constituency == null ||
-                                        phone == null ){
+                                        phone == null) {
                                       _showDialog("Fields empty",
                                           "Please fill all fields.");
-
-                                    }
-                                    else if( name.trim() == '' || constituency.trim() == ''){
+                                    } else if (name.trim() == '' ||
+                                        constituency.trim() == '') {
                                       _showDialog("Fields empty",
                                           "Please fill all fields.");
-
-                                    }
-                                    else {
+                                    } else {
                                       if (phone.toString().length != 10) {
                                         _showDialog("Invalid Phone Number",
                                             "Enter a valid 10 digit phone number.");
@@ -328,8 +342,8 @@ class _PostSignUpState extends State<PostSignUp> {
                                           prefs.setString('name', name.trim());
                                           prefs.setString(
                                               'phone', phone.toString().trim());
-                                          prefs.setString(
-                                              'constituency', constituency.trim());
+                                          prefs.setString('constituency',
+                                              constituency.trim());
                                           Provider.of<DropDown>(context,
                                                   listen: false)
                                               .setUserInfo(

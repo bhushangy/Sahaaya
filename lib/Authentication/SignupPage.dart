@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication//PostSignUp.dart';
-import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -34,13 +34,13 @@ class _SignupPageState extends State<SignupPage> {
       email = '';
       password = '';
     });
+    getConnectivityStatus();
   }
 
   void _showDialog(
     String a,
     String b,
   ) {
-    // flutter defined function
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -86,6 +86,16 @@ class _SignupPageState extends State<SignupPage> {
         );
       },
     );
+  }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -350,8 +360,6 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
           ),
-
-
     );
   }
 }

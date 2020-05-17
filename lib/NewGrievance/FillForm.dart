@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,6 +66,7 @@ class _FillFormState extends State<FillForm> {
     super.initState();
     DragMarkerMap().whichlong = null;
     DragMarkerMap().whichlat = null;
+    getConnectivityStatus();
   }
 
   void dispose() {
@@ -119,7 +121,7 @@ class _FillFormState extends State<FillForm> {
         'Constituency':
         Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
-        'Description': description,
+        'Description': description.trim(),
         'Image1': _uploadedFileURL1,
         'Image2': _uploadedFileURL2,
         'Created': FieldValue.serverTimestamp(),
@@ -142,7 +144,7 @@ class _FillFormState extends State<FillForm> {
         'Constituency':
         Provider.of<DropDown>(context, listen: false).consti.toUpperCase(),
         'Category': widget.category,
-        'Description': description,
+        'Description': description.trim(),
         'Image1': _uploadedFileURL1,
         'Image2': _uploadedFileURL2,
         'Created': FieldValue.serverTimestamp(),
@@ -283,6 +285,16 @@ class _FillFormState extends State<FillForm> {
         );
       },
     );
+  }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
   }
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -491,48 +503,34 @@ class _FillFormState extends State<FillForm> {
                                 child: image1 == null
                                     ?
 //                                Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
-                                Column(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: SizeConfig.safeBlockVertical*8,
-                                    ),
+                                    Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          GestureDetector(
+                                            onTap: getImage3,
+                                            child: Container(
+                                                height: SizeConfig.safeBlockVertical*5,
+                                                width: SizeConfig.safeBlockHorizontal*10,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                    borderRadius: BorderRadius.circular(15.0)),
+                                                child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*6,)),
+                                          ),
+                                          GestureDetector(
+                                            onTap: getImage,
+                                            child: Container(
+                                                height: SizeConfig.safeBlockVertical*5,
+                                                width: SizeConfig.safeBlockHorizontal*10,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                    borderRadius: BorderRadius.circular(15.0)),
+                                                child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*6,)),
+                                          ),
 
-
-                                    Row(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: SizeConfig.safeBlockHorizontal*1.5,
-                                        ),
-                                        GestureDetector(
-                                          onTap: getImage3,
-                                          child: Container(
-                                              height: SizeConfig.safeBlockVertical*8,
-                                              width: SizeConfig.safeBlockHorizontal*16,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
-                                                  borderRadius: BorderRadius.circular(15.0)),
-                                              child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*9,)),
-                                        ),
-                                        SizedBox(
-                                          width: SizeConfig.safeBlockHorizontal*4,
-                                        ),
-                                        GestureDetector(
-                                          onTap: getImage,
-                                          child: Container(
-                                              height: SizeConfig.safeBlockVertical*8,
-                                              width: SizeConfig.safeBlockHorizontal*16,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
-                                                  borderRadius: BorderRadius.circular(15.0)),
-                                              child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*9,)),
-                                        ),
-
-                                      ],
-                                    ),
-
-
-                                  ],
-                                )
+                                        ],
+                                      ),
+                                    )
                                     : Image.file(
                                   image1,
                                   fit: BoxFit.fill,
@@ -554,49 +552,34 @@ class _FillFormState extends State<FillForm> {
                               child: image2 == null
                                   ?
 //                                Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
-                              Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: SizeConfig.safeBlockVertical*8,
-                                  ),
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          onTap: getImage4,
+                                          child: Container(
+                                              height: SizeConfig.safeBlockVertical*5,
+                                              width: SizeConfig.safeBlockHorizontal*10,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                  borderRadius: BorderRadius.circular(15.0)),
+                                              child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*6,)),
+                                        ),
+                                        GestureDetector(
+                                          onTap: getImage2,
+                                          child: Container(
+                                              height: SizeConfig.safeBlockVertical*5,
+                                              width: SizeConfig.safeBlockHorizontal*10,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                  borderRadius: BorderRadius.circular(15.0)),
+                                              child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*6,)),
+                                        ),
 
-
-                                  Row(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: SizeConfig.safeBlockHorizontal*1.5,
-                                      ),
-                                      GestureDetector(
-                                        onTap: getImage4,
-                                        child: Container(
-                                            height: SizeConfig.safeBlockVertical*8,
-                                            width: SizeConfig.safeBlockHorizontal*16,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xffe0e0e0).withOpacity(0.8),
-                                                borderRadius: BorderRadius.circular(15.0)),
-                                            child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*9,)),
-                                      ),
-                                      SizedBox(
-                                        width: SizeConfig.safeBlockHorizontal*4,
-                                      ),
-                                      GestureDetector(
-                                        onTap: getImage2,
-                                        child: Container(
-                                            height: SizeConfig.safeBlockVertical*8,
-                                            width: SizeConfig.safeBlockHorizontal*16,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xffe0e0e0).withOpacity(0.8),
-                                                borderRadius: BorderRadius.circular(15.0)),
-                                            child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*9,)),
-                                      ),
-
-                                    ],
-                                  ),
-
-
-                                ],
-                              )
-                                  : Image.file(
+                                      ],
+                                    ),
+                                  ) : Image.file(
                                 image2,
                                 fit: BoxFit.fill,
                               ),
@@ -712,7 +695,11 @@ class _FillFormState extends State<FillForm> {
                             if (description == '' || description == null){
                               _showDialog("Description empty!",
                                   "Please grive a brief description of your grievance.");
-                            }else if(DragMarkerMap().whichlat == null ||
+                            }else if(description.trim() == ''){
+                              _showDialog("Description empty!",
+                                  "Please grive a brief description of your grievance.");
+                            }
+                            else if(DragMarkerMap().whichlat == null ||
                                 DragMarkerMap().whichlong == null){
 
                               _showDialog("Location Not Selected",
@@ -745,7 +732,7 @@ class _FillFormState extends State<FillForm> {
 
                                 Navigator.pop(context);
                                 _showDialog("Grievance Status",
-                                    "Grievance Submitted Successfully");
+                                    "Grievance Submitted successfully with Reference Id : $Refid");
                                 Provider.of<DropDown>(context, listen: false)
                                     .map(null, null);
                               } else {

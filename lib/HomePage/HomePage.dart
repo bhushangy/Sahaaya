@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   static List<String> constituency = [
     'Yalahanka',
     'Malleshwaram',
-    'Vidyaranyapura'
+    'Vidyaranyapura',
   ];
 
   void initState(){

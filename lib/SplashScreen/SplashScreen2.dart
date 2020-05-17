@@ -4,8 +4,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
-
-import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 
 

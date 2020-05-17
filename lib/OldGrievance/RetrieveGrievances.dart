@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -69,6 +71,60 @@ class GrievanceStream extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    void _showDialog(
+        String a,
+        String b,
+        BuildContext context,
+        ) {
+      // flutter defined function
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+
+          // return object of type Dialog
+          return AlertDialog(
+            contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+                SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
+            shape: RoundedRectangleBorder(
+
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: new Text(a,style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500, color: Colors.black, fontSize:SizeConfig.safeBlockHorizontal*5),),
+            content: new Text(b,style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.normal,
+              fontSize:SizeConfig.safeBlockHorizontal*4,
+              color: Colors.black,
+            ),),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text(" OK",style: TextStyle(
+                    fontSize: SizeConfig.safeBlockHorizontal*3.5
+                ),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    Future<bool>  getConnectivityStatus()async{
+      try {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        }
+      } on SocketException catch (_) {
+        _showDialog("No Internet!", "Please check your internet connection.",context);
+        return false;
+      }
+    }
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collection(q)
@@ -80,14 +136,16 @@ class GrievanceStream extends StatelessWidget {
       builder: (context, snapshot) {
         // snapshot is a list of documents present in the collection
         //TODO: Handle snapshot.hasError conditions also here....
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting || getConnectivityStatus() == false) {
           return Center(
             child: Container(
-              alignment: Alignment.center,
               child: CircularProgressIndicator(
               ),
             ),
           );
+        }
+        if(snapshot.hasError) {
+          _showDialog("No internet!","Please check your internet connectivity.",context);
         }
         List<GrievanceTiles> grievanceTiles = [];
         final grievances = snapshot.data.documents;
@@ -251,7 +309,8 @@ class GrievanceTiles extends StatelessWidget {
                         'Resolved'
                     : '\n' +
                         grievance.data['Category'] +
-                        '\n' +
+                        '\n' + grievance.data['RefId']+
+                    '\n' +
                         grievance.data["Created"]
                             .toDate()
                             .toString()

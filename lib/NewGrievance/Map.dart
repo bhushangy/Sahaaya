@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -35,7 +36,10 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   Position pos;
   Position _currentPosition;
   int i=0;
-
+  void initState(){
+    super.initState();
+    getConnectivityStatus();
+  }
   void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
     CameraPosition newPos = CameraPosition(
@@ -105,6 +109,16 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
     }).catchError((e) {
       print(e);
     });
+  }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
   }
   void _showDialog(
       String a,

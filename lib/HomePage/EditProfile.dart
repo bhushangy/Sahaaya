@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,13 +39,14 @@ class _EditProfileState extends State<EditProfile> {
     else
       myController3.text =
           Provider.of<DropDown>(context, listen: false).constituency;
+
+    getConnectivityStatus();
   }
 
   void dispose() {
     super.dispose();
     myController1.dispose();
     myController2.dispose();
-
     myController3.dispose();
   }
 
@@ -59,8 +62,8 @@ class _EditProfileState extends State<EditProfile> {
 
         // return object of type Dialog
         return AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
-                SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
+          contentPadding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal*6.2,SizeConfig.safeBlockHorizontal*2,
+              SizeConfig.safeBlockHorizontal*4,SizeConfig.safeBlockHorizontal*2),
           shape: RoundedRectangleBorder(
 
             borderRadius: BorderRadius.circular(10),
@@ -87,6 +90,18 @@ class _EditProfileState extends State<EditProfile> {
       },
     );
   }
+  void  getConnectivityStatus()async{
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+      }
+    } on SocketException catch (_) {
+      _showDialog("No Internet!", "Please check your internet connection.");
+    }
+  }
+
+
   Future<bool>dontgoback(){
     return showDialog(
       context: context,

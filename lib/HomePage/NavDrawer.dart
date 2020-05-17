@@ -6,7 +6,6 @@ import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
 import 'package:voter_grievance_redressal/HomePage/About.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/HomePage/Feedback.dart';
-
 import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -26,7 +25,6 @@ class NavDrawer extends StatelessWidget {
     SizeConfig().init(context);
     return Drawer(
       child: SafeArea(
-
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
