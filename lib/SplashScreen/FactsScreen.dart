@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
@@ -27,11 +28,29 @@ class _FactsScreenState extends State<FactsScreen> {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: PageView(
-        controller: _controller,
-        scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
+//      body: PageView(
+//        controller: _controller,
+//        scrollDirection: Axis.horizontal,
+//        physics: BouncingScrollPhysics(),
+//        children: <Widget>[
+//          FactPages(
+//              index: 0,
+//              img: 'angry.png',
+//              txt:
+//                  'Have issues in your neighborhood that needs an ear ?'),
+//          FactPages(
+//              index: 1,
+//              img: 'report.png',
+//              txt:
+//                  'Report it here using the Sahaaya app to the concerned authority.'),
+//          FactPages(
+//              index: 2,
+//              img: 'ranking.png',
+//              txt: 'See where your constituency stands.'),
+//        ],
+//      ),
+        body: CarouselSlider(
+          items: <Widget>[
           FactPages(
               index: 0,
               img: 'angry.png',
@@ -46,8 +65,16 @@ class _FactsScreenState extends State<FactsScreen> {
               index: 2,
               img: 'ranking.png',
               txt: 'See where your constituency stands.'),
-        ],
-      ),
+          ],
+          height: MediaQuery.of(context).size.height,
+          viewportFraction: 1.0,
+          autoPlay: true,
+          autoPlayInterval: Duration(seconds: 4),
+          autoPlayAnimationDuration: Duration(milliseconds: 1200),
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enableInfiniteScroll: false,
+        ),
+
     );
   }
 }
