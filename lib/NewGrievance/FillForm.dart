@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,6 @@ class FillForm extends StatefulWidget {
 
 class _FillFormState extends State<FillForm> {
   File image1, image2;
-  final _auth = FirebaseAuth.instance;
   String description;
   final _formKey = GlobalKey<FormState>();
   String _uploadedFileURL1 = '';
@@ -57,6 +57,8 @@ class _FillFormState extends State<FillForm> {
   var res, nres, totalc;
   int phone;
   int i = 0;
+  int j=0;
+  int k=0;
 
   @override
   void initState() {
@@ -174,6 +176,22 @@ class _FillFormState extends State<FillForm> {
       print('_image2: $image2');
     });
   }
+  Future getImage3() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image1 = image;
+      print('_image1: $image1');
+    });
+  }
+  Future getImage4() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image2 = image;
+      print('_image2: $image2');
+    });
+  }
 
   Future uploadFile(File image1, File image2) async {
     StorageReference storageReference;
@@ -184,7 +202,8 @@ class _FillFormState extends State<FillForm> {
     });
     try {
 
-      if (image1 != null) {
+      if (image1 != null && j==0) {
+        j++;
         i++;
         storageReference = FirebaseStorage.instance
             .ref()
@@ -204,7 +223,8 @@ class _FillFormState extends State<FillForm> {
     }
 
     try {
-      if (image2 != null) {
+      if (image2 != null && k==0) {
+        k++;
         i++;
         storageReference = FirebaseStorage.instance
             .ref()
@@ -461,11 +481,7 @@ class _FillFormState extends State<FillForm> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                getImage();
-                              },
-                              child: Container(
+                            Container(
                                 decoration: BoxDecoration(
                                   border:
                                   Border.all(width: 1.75, color: Colors.grey),
@@ -473,7 +489,50 @@ class _FillFormState extends State<FillForm> {
                                   BorderRadius.all(Radius.circular(5.0)),
                                 ),
                                 child: image1 == null
-                                    ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
+                                    ?
+//                                Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
+                                Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: SizeConfig.safeBlockVertical*8,
+                                    ),
+
+
+                                    Row(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: SizeConfig.safeBlockHorizontal*1.5,
+                                        ),
+                                        GestureDetector(
+                                          onTap: getImage3,
+                                          child: Container(
+                                              height: SizeConfig.safeBlockVertical*8,
+                                              width: SizeConfig.safeBlockHorizontal*16,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                  borderRadius: BorderRadius.circular(15.0)),
+                                              child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*9,)),
+                                        ),
+                                        SizedBox(
+                                          width: SizeConfig.safeBlockHorizontal*4,
+                                        ),
+                                        GestureDetector(
+                                          onTap: getImage,
+                                          child: Container(
+                                              height: SizeConfig.safeBlockVertical*8,
+                                              width: SizeConfig.safeBlockHorizontal*16,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                  borderRadius: BorderRadius.circular(15.0)),
+                                              child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*9,)),
+                                        ),
+
+                                      ],
+                                    ),
+
+
+                                  ],
+                                )
                                     : Image.file(
                                   image1,
                                   fit: BoxFit.fill,
@@ -481,30 +540,68 @@ class _FillFormState extends State<FillForm> {
                                 height:SizeConfig.safeBlockVertical * 24.5,
                                 width:SizeConfig.safeBlockHorizontal * 40,
                               ),
-                            ),
+
                             SizedBox(
                               width: SizeConfig.safeBlockHorizontal * 3,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                getImage2();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border:
-                                  Border.all(width: 1.75, color: Colors.grey),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                                ),
-                                child: image2 == null
-                                    ? Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7)
-                                    : Image.file(
-                                  image2,
-                                  fit: BoxFit.fill,
-                                ),
-                                height:SizeConfig.safeBlockVertical * 24.5,
-                                width:SizeConfig.safeBlockHorizontal * 40,
+                            Container(
+                              decoration: BoxDecoration(
+                                border:
+                                Border.all(width: 1.75, color: Colors.grey),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
                               ),
+                              child: image2 == null
+                                  ?
+//                                Icon(Icons.insert_photo,size:SizeConfig.safeBlockHorizontal*7,)
+                              Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: SizeConfig.safeBlockVertical*8,
+                                  ),
+
+
+                                  Row(
+                                    children: <Widget>[
+                                      SizedBox(
+                                        width: SizeConfig.safeBlockHorizontal*1.5,
+                                      ),
+                                      GestureDetector(
+                                        onTap: getImage4,
+                                        child: Container(
+                                            height: SizeConfig.safeBlockVertical*8,
+                                            width: SizeConfig.safeBlockHorizontal*16,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                borderRadius: BorderRadius.circular(15.0)),
+                                            child: Icon(FontAwesomeIcons.camera,size:SizeConfig.safeBlockHorizontal*9,)),
+                                      ),
+                                      SizedBox(
+                                        width: SizeConfig.safeBlockHorizontal*4,
+                                      ),
+                                      GestureDetector(
+                                        onTap: getImage2,
+                                        child: Container(
+                                            height: SizeConfig.safeBlockVertical*8,
+                                            width: SizeConfig.safeBlockHorizontal*16,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffe0e0e0).withOpacity(0.8),
+                                                borderRadius: BorderRadius.circular(15.0)),
+                                            child: Icon(FontAwesomeIcons.file,size:SizeConfig.safeBlockHorizontal*9,)),
+                                      ),
+
+                                    ],
+                                  ),
+
+
+                                ],
+                              )
+                                  : Image.file(
+                                image2,
+                                fit: BoxFit.fill,
+                              ),
+                              height:SizeConfig.safeBlockVertical * 24.5,
+                              width:SizeConfig.safeBlockHorizontal * 40,
                             ),
                           ],
                         ),

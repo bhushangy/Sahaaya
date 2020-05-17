@@ -1,15 +1,11 @@
-import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+
 import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
-import 'package:voter_grievance_redressal/Authentication/SignupPage.dart';
-import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 

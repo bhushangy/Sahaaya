@@ -10,7 +10,6 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
-import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 

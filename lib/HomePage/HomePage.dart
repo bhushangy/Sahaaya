@@ -5,11 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 import 'NavDrawer.dart';
@@ -30,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   String name,consti;
   bool expanded = false;
-  final _auth = FirebaseAuth.instance;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   static List<String> constituency = [
@@ -299,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                     menuCard(
                         context, 'How it works ?', 'assets/HomePage/tap.png','Tap on New Grievance button below and select Raise Issue.'),
                     menuCard(
-                        context, 'How it works ?', 'assets/HomePage/form.png','Fill the form with proper details and taop on Submit.'),
+                        context, 'How it works ?', 'assets/HomePage/form.png','Fill the form with proper details and tap on Submit.'),
                   ],
                 ),
               ),

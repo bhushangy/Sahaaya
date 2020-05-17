@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voter_grievance_redressal/Authentication/SignupPage.dart';
 import 'package:voter_grievance_redressal/NewGrievance/RaiseGrievance.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 import 'package:voter_grievance_redressal/Statistics/Ranking.dart';
 import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 FirebaseUser loggedInUser;
 class BottomNavBar extends StatefulWidget {

@@ -33,44 +33,8 @@ class _DragMarkerMapState extends State<DragMarkerMap> {
   MapType _currentMapType = MapType.normal;
   static double lat,long;
   Position pos;
-  Widget _child;
   Position _currentPosition;
   int i=0;
-
-//void initState(){
-//  _getCurrentLocation();
-//
-//  super.initState();
-//}
-  //this above method will position a marker when map is opened in the beginning
-
-
-  void _onAddMarkerButtonPressed() {
-    setState(() {
-      _markers.clear();
-
-      _markers.add(Marker(
-        onDragEnd: ((value){
-          lat =value.latitude;
-          long=value.longitude;
-          Provider.of<DropDown>(context,listen: false).map(lat,long);
-
-
-
-        }),
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        draggable: true,
-        position: _lastMapPosition,
-        infoWindow: InfoWindow(
-          title: 'Marker',
-          //snippet: 'Custom Place',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-
-    });
-  }
 
   void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;

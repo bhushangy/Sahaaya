@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
-import 'package:voter_grievance_redressal/Authentication/PostSignUp.dart';
 import 'package:voter_grievance_redressal/HomePage/About.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/HomePage/Feedback.dart';
@@ -191,85 +190,6 @@ class NavDrawer extends StatelessWidget {
               );
             },
           ),
-//
-//          SizedBox(height: SizeConfig.safeBlockVertical*2.8,),
-//          Row(
-//            mainAxisAlignment: MainAxisAlignment.center,
-//            children: <Widget>[
-//              GestureDetector(
-//                onTap: () {
-//                  showDialog(
-//                    context: context,
-//                    barrierDismissible: false,
-//                    builder: (BuildContext context) {
-//                      // return object of type Dialog
-//                      return AlertDialog(
-//                        shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(10),
-//                        ),
-//                        title: Text(
-//                          "Logout",
-//                          style: GoogleFonts.montserrat(
-//                              fontWeight: FontWeight.w500,
-//                              color: Colors.black,
-//                              fontSize: 18),
-//                        ),
-//                        content: Text(
-//                          "Do You want to Log Out ?",
-//                          style: GoogleFonts.montserrat(
-//                            fontWeight: FontWeight.normal,
-//                            color: Colors.black,
-//                          ),
-//                        ),
-//                        actions: <Widget>[
-//                          // usually buttons at the bottom of the dialog
-//                          new FlatButton(
-//                            child: new Text(" YES"),
-//                            onPressed: () async {
-//                              SharedPreferences prefs =
-//                              await SharedPreferences.getInstance();
-//                              prefs.remove('email');
-//                              prefs.remove('name');
-//                              prefs.remove('phone');
-//                              prefs.remove('constituency');
-//                              Provider.of<DropDown>(context, listen: false)
-//                                  .setEmail(' ');
-//                              Provider.of<DropDown>(context, listen: false)
-//                                  .setUserInfo(' ', ' ', ' ');
-//                              Navigator.pushReplacement(
-//                                  context,
-//                                  MaterialPageRoute(
-//                                      builder: (BuildContext ctx) => LoginPage()));
-//                            },
-//                          ),
-//                          new FlatButton(
-//                            child: new Text(" NO"),
-//                            onPressed: () {
-//                              Navigator.of(context).pop();
-//                            },
-//                          ),
-//                        ],
-//                      );
-//                    },
-//                  );
-//                },
-//                child: Container(
-//                  width: MediaQuery.of(context).size.width*0.4,
-//                  height: MediaQuery.of(context).size.height*0.05,
-//                  decoration: BoxDecoration(
-//                      borderRadius: BorderRadius.circular(20),
-//                      color: Colors.indigo),
-//                  child: Padding(
-//                    padding: const EdgeInsets.all(8.0),
-//                    child: Text("Logout",textAlign: TextAlign.center,style: GoogleFonts.montserrat(
-//                        fontWeight: FontWeight.w500,
-//                        color: Colors.white,
-//                        fontSize: SizeConfig.safeBlockHorizontal*4.1),),
-//                  ),
-//                ),
-//              ),
-//            ],
-//          ),
         ],
       ),
     );

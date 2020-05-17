@@ -409,35 +409,3 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-//                onPressed: () async {
-//                  setState(() {
-//                    showSpinner = true;
-//                  });
-//                  try {
-//                    final newUser = await _auth.createUserWithEmailAndPassword(
-//                        email: email, password: password);
-//                    if (newUser != null) {
-//                      //createCollection();
-//                      Navigator.push(context, MaterialPageRoute(
-//                          builder: (context){
-//                            return home();
-//                          }
-//                      ));
-//
-//                    }
-//                    setState(() {
-//                      showSpinner = false;
-//                    });
-//                  } catch (e) {
-//                    setState(() {
-//                      showSpinner = false;
-//                    });
-//                    print(e);
-//                    //raise alert here
-////                    Navigator.push(context, MaterialPageRoute(
-////                        builder: (context){
-////                          return RegistrationScreen();
-////                        }
-////                    ));
-//                  }
-//                },

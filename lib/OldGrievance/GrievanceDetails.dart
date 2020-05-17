@@ -32,9 +32,7 @@ class _GrievanceDetailsState extends State<GrievanceDetails> {
       content: Text("Status Updated"),
       duration: Duration(seconds: 1),
       elevation: 10.0);
-  final _firestore = Firestore.instance;
   FirebaseUser loggedInUser;
-  final _auth = FirebaseAuth.instance;
   String description;
   String img1, img2;
   String dat;

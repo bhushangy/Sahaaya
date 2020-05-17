@@ -1,16 +1,13 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
+
 import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
-import 'dart:io';
-import 'FactsScreen.dart';
+
 
 class SplashScreen2 extends StatefulWidget {
   @override
