@@ -179,11 +179,13 @@ class _FillFormState extends State<FillForm> {
     StorageReference storageReference;
     StorageUploadTask uploadTask;
     setState(() {
-      i++;
+
       print(i);
     });
     try {
+
       if (image1 != null) {
+        i++;
         storageReference = FirebaseStorage.instance
             .ref()
             .child('images/${Path.basename(image1.path)}}');
@@ -203,6 +205,7 @@ class _FillFormState extends State<FillForm> {
 
     try {
       if (image2 != null) {
+        i++;
         storageReference = FirebaseStorage.instance
             .ref()
             .child('images/${Path.basename(image2.path)}}');
@@ -521,7 +524,7 @@ class _FillFormState extends State<FillForm> {
                                 showSpinner = true;
                               });
                               try {
-                                i++;
+
                                 await uploadFile(image1, image2);
                                 _showDialog("Upload Successful",
                                     "Selected images uploaded successfully.");
@@ -530,7 +533,7 @@ class _FillFormState extends State<FillForm> {
                               }
 
                               setState(() {
-                                i++;
+
                                 showSpinner = false;
                               });
                             }
@@ -609,7 +612,7 @@ class _FillFormState extends State<FillForm> {
                           height: SizeConfig.safeBlockVertical * 7,
                           onT: () async {
                             print(i);
-                            if (description.trim() == '' || description == null){
+                            if (description == '' || description == null){
                               _showDialog("Description empty!",
                                   "Please grive a brief description of your grievance.");
                             }else if(DragMarkerMap().whichlat == null ||
@@ -622,7 +625,14 @@ class _FillFormState extends State<FillForm> {
                                 (image2 != null && i == 0)) {
                               _showDialog("Image(s) Not Uploaded",
                                   "Please upload the image(s)");
-                            } else {
+
+                            }
+                            else if (image1 != null && image2 !=null && i<2){
+                              _showDialog("Image(s) Not Uploaded",
+                                  "Please upload the image(s)");
+
+                            }
+                            else {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
 
