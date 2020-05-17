@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:voter_grievance_redressal/Authentication//LoginPage.dart';
+import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
+import 'package:voter_grievance_redressal/Authentication/SignupPage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -98,7 +99,7 @@ class FactPages extends StatelessWidget {
                     width: SizeConfig.safeBlockHorizontal*60,
                     height:SizeConfig.safeBlockVertical*7,
                     child: InkWell(
-                      onTap: () =>  Navigator.push(context,
+                      onTap: () =>  Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                             return LoginPage();
                           })),

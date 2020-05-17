@@ -132,8 +132,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return SafeArea(
-      child: WillPopScope(
-        onWillPop: dontgoback,
+
         child: GestureDetector(
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
@@ -291,17 +290,10 @@ class _LoginPageState extends State<LoginPage> {
                                                 "Email is in Invalid format. Please Retry.");
                                           }
                                           break;
-                                        case "":
-                                          {
-                                            _showDialog("Fields empty", "Please fill all fields.");
-
-                                          }
-                                          break;
-
 
                                         default:
                                           {
-                                            _showDialog("Fields empty", "Please fill all fields.");
+                                            _showDialog("Email Invalid", "Email cannot be empty.");
 
                                           }
                                       }
@@ -399,7 +391,7 @@ class _LoginPageState extends State<LoginPage> {
                                         showSpinner = false;
                                       });
                                       //raise alert here and clear text fields
-                                      Navigator.push(context,
+                                      Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) {
                                             return LoginPage();
                                           }));
@@ -407,7 +399,7 @@ class _LoginPageState extends State<LoginPage> {
                                         case "ERROR_USER_NOT_FOUND":
                                           {
                                             _showDialog("Invalid User",
-                                                "Email does not exist. Please Sign Up.");
+                                                "Email does not exist. Please Register.");
                                           }
                                           break;
                                         case "ERROR_INVALID_EMAIL":
@@ -475,7 +467,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SignupPage()),
@@ -509,7 +501,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
+
     );
   }
 }
