@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
+import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
 import 'package:voter_grievance_redressal/SplashScreen/SplashScreen1.dart';
 import 'package:voter_grievance_redressal/SplashScreen/SplashScreen2.dart';
 import 'package:voter_grievance_redressal/SplashScreen/SplashScreen3.dart';
@@ -17,6 +19,10 @@ Future<void> main() async {
     runApp(ChangeNotifierProvider(
       create: (context) => DropDown(),
       child: MaterialApp(
+        routes: {
+          '/login':(context) => LoginPage(),
+          '/home' :(context) => HomePage(),
+        },
         theme: ThemeData(
           accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,
@@ -29,6 +35,10 @@ Future<void> main() async {
     runApp(ChangeNotifierProvider(
       create: (context) => DropDown(),
       child: MaterialApp(
+        routes: {
+          '/login':(context) => LoginPage(),
+          '/home' :(context) => HomePage(),
+        },
         theme: ThemeData(
           accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,
@@ -41,6 +51,10 @@ Future<void> main() async {
     runApp(ChangeNotifierProvider(
       create: (context) => DropDown(),
       child: MaterialApp(
+        routes: {
+          '/login':(context) => LoginPage(),
+          '/home' :(context) => HomePage(),
+        },
         theme: ThemeData(
           accentColor: Colors.indigo,
           textSelectionHandleColor: Colors.indigo,

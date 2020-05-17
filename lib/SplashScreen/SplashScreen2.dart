@@ -32,9 +32,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
           packageInfo.version,
           packageInfo.buildNumber);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return LoginPage();
-      }));
+      Navigator.pushReplacementNamed(context,'/login');
     });
   }
 

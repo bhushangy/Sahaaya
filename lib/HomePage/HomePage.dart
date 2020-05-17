@@ -45,7 +45,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async{
+        if(_scaffoldKey.currentState.isDrawerOpen){
+          Navigator.of(context).pop();
+          return false;
+        }
+        return true;
+      },
       child: Scaffold(
         key: _scaffoldKey,
         drawer: NavDrawer(),
