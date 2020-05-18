@@ -102,30 +102,32 @@ class _FactsScreenState extends State<FactsScreen> {
 //              txt: 'See where your constituency stands.'),
 //        ],
 //      ),
-        body: CarouselSlider(
-          items: <Widget>[
-          FactPages(
-              index: 0,
-              img: 'angry.png',
-              txt:
-                  'Have issues in your neighborhood that needs an ear ?'),
-          FactPages(
-              index: 1,
-              img: 'report.png',
-              txt:
-                  'Report it here using the Sahaaya app to the concerned authority.'),
-          FactPages(
-              index: 2,
-              img: 'ranking.png',
-              txt: 'See where your constituency stands.'),
-          ],
-          height: MediaQuery.of(context).size.height,
-          viewportFraction: 1.0,
-          autoPlay: true,
-          autoPlayInterval: Duration(seconds: 4),
-          autoPlayAnimationDuration: Duration(milliseconds: 1200),
-          autoPlayCurve: Curves.fastOutSlowIn,
-          enableInfiniteScroll: false,
+        body: SafeArea(
+          child: CarouselSlider(
+            items: <Widget>[
+            FactPages(
+                index: 0,
+                img: 'angry.png',
+                txt:
+                    'Have issues in your neighborhood that needs an ear ?'),
+            FactPages(
+                index: 1,
+                img: 'report.png',
+                txt:
+                    'Report it here using the Sahaaya app to the concerned authority.'),
+            FactPages(
+                index: 2,
+                img: 'ranking.png',
+                txt: 'See where your constituency stands.'),
+            ],
+            height: MediaQuery.of(context).size.height,
+            viewportFraction: 1.0,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 4),
+            autoPlayAnimationDuration: Duration(milliseconds: 1200),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enableInfiniteScroll: false,
+          ),
         ),
 
     );

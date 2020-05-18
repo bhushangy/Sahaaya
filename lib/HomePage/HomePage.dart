@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
     'Yalahanka',
     'Malleshwaram',
     'Vidyaranyapura',
+    'Jayanagara',
+    'Yeshvanthapura'
   ];
 
   void initState(){

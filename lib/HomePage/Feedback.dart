@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:voter_grievance_redressal/NewGrievance/FillForm.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -15,6 +16,15 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
   bool showSpinner=false;
   String feedback;
   final _formKey = GlobalKey<FormState>();
+  void _launchEmail()async
+  {
+    var url="mailto:sahaayaapp@gmail.com?subject=Feedback - Sahaaya App&body=$feedback ";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   void _showDialog(
       String a,
@@ -196,17 +206,17 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
                                   _formKey.currentState.save();
 
 
+
                                   setState(() {
                                     showSpinner = true;
                                   });
                                   try{
-
+                                    _launchEmail();
 
                                     Navigator.pop(context,true);
                                     setState(() {
                                       showSpinner = false;
                                     });
-                                    _showDialog("Feedback Submission", "Feedback Submitted Successfully.");
                                   } catch (e) {
                                     print(e);
                                     setState(() {

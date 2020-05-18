@@ -20,7 +20,7 @@ class ContactDetails extends StatelessWidget {
   }
   void _launchEmail()async
   {
-    var url="mailto:$mail?subject=From Sahaaya App ";
+    var url="mailto:$mail?subject=From Sahaaya App&body=hello ";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
