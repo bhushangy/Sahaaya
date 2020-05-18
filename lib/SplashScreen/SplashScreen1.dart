@@ -40,6 +40,10 @@ class _SplashScreen1State extends State<SplashScreen1> {
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
     ));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return  Scaffold(
       backgroundColor: Colors.white,
       body: FlareActor("assets/SplashScreen/SplashScreen1.flr", alignment: Alignment.center,

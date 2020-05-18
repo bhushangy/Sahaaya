@@ -40,6 +40,10 @@ class _SplashScreen2State extends State<SplashScreen2> {
       statusBarColor: Colors.indigo,
       statusBarIconBrightness: Brightness.light,
     ));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(

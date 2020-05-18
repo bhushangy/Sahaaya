@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
@@ -78,6 +79,10 @@ class _FactsScreenState extends State<FactsScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
