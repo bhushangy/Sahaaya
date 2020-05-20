@@ -28,6 +28,7 @@ dependencies:
   shared_preferences:
   url_launcher:
   package_info:
+  firebase_messaging:
 
 
 

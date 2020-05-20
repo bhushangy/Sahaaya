@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -22,13 +26,14 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
 
   String name,consti;
   bool expanded = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+  StreamSubscription iosSubscription;
   static List<String> constituency = [
     'Yalahanka',
     'Malleshwaram',
@@ -36,9 +41,79 @@ class _HomePageState extends State<HomePage> {
     'Jayanagara',
     'Yeshvanthapura'
   ];
+   final snackbar = SnackBar(
+      behavior:SnackBarBehavior.floating ,
+      content: Text("Scores Updated.",style: GoogleFonts.montserrat(
+          color: Colors.white),
+      ),
+      duration: Duration(seconds: 1),
+      elevation: 10.0);
 
   void initState(){
     super.initState();
+    if (Platform.isIOS) {
+      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+        print(data);
+        _saveDeviceToken();
+      });
+
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    } else {
+      _saveDeviceToken();
+    }
+
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        Scaffold.of(context).showSnackBar(snackbar);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        Scaffold.of(context).showSnackBar(snackbar);
+
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        Scaffold.of(context).showSnackBar(snackbar);
+
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    if (iosSubscription != null) iosSubscription.cancel();
+    super.dispose();
+  }
+
+  _saveDeviceToken() async {
+    // Get the current user
+    String uid = Provider.of<DropDown>(context,listen: false).email;
+    // FirebaseUser user = await _auth.currentUser();
+
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens = _db
+          .collection('UserInfo')
+          .document(uid)
+          .collection('tokens')
+          .document(fcmToken);
+
+      await tokens.setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(), // optional
+        'platform': Platform.operatingSystem // optional
+      });
+    }
+  }
+
+  /// Subscribe the user to a topic
+  _subscribeToTopic() async {
+    // Subscribe the user to a topic
+    _fcm.subscribeToTopic('puppies');
   }
 
 
