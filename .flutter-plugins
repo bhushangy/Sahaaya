@@ -5,6 +5,7 @@ firebase_auth=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org
 firebase_auth_web=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.1.2/
 firebase_core=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.4+3/
 firebase_core_web=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/
+firebase_messaging=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-6.0.15/
 firebase_storage=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.5/
 flutter_plugin_android_lifecycle=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.7/
 geolocator=/home/bhushan/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.0/
