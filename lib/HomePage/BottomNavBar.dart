@@ -44,10 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ]);
     return Scaffold(
           body: children[_currentIndex],
-          bottomNavigationBar: Container(
-            width: double.infinity,
-            height: SizeConfig.safeBlockVertical*7.5,
-            child: BottomNavigationBar(
+          bottomNavigationBar:BottomNavigationBar(
               backgroundColor: Colors.white,
 
               type: BottomNavigationBarType.fixed,
@@ -96,7 +93,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ],
               selectedItemColor: Colors.indigo,
             ),
-          ),
+
         );
 
 

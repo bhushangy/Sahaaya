@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
+import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
 
