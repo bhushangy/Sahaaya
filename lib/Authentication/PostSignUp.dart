@@ -10,6 +10,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
+import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/SizeConfig/SizeConfig.dart';
 
@@ -350,12 +351,9 @@ class _PostSignUpState extends State<PostSignUp> {
                                                   name.trim(),
                                                   phone.toString().trim(),
                                                   constituency.trim());
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BottomNavBar()),
-                                          );
+                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                                              builder: (context) => BottomNavBar()
+                                          ), ModalRoute.withName("/"));
                                           setState(() {
                                             showSpinner = false;
                                           });
