@@ -126,7 +126,7 @@ class _AboutState extends State<About> {
                     new ListTile(
                       leading: new Icon(Icons.info),
                       title:  Text('Latest Update',style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.75),),
-                      subtitle: new Text("10-05-2020",style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.4),),
+                      subtitle: new Text("24-05-2020",style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.4),),
                     ),
                     new Divider(
                       height: SizeConfig.safeBlockVertical*3,
