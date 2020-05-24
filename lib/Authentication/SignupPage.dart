@@ -26,6 +26,9 @@ class _SignupPageState extends State<SignupPage> {
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   final databaseReference = Firestore.instance;
+  FirebaseUser newUser;
+  int i=0;
+
 
   void initState() {
     super.initState();
@@ -235,13 +238,16 @@ class _SignupPageState extends State<SignupPage> {
                               },
                             ),
                             SizedBox(
-                              height: SizeConfig.safeBlockVertical * 12,
+                              height: SizeConfig.safeBlockVertical * 8,
                             ),
                             Container(
                               height: SizeConfig.safeBlockVertical * 7,
                               child: InkWell(
                                 onTap: () async {
-                                  if (email == null || password == null) {
+                                  if(i!=0)
+                                    _showDialog("Signup Done ", "Please click on verify email");
+
+                                  else if (email == null || password == null) {
                                     _showDialog(
                                         "Fields empty", "Please fill all fields.");
 
@@ -250,46 +256,31 @@ class _SignupPageState extends State<SignupPage> {
                                     _showDialog(
                                         "Fields empty", "Please fill all fields.");
 
-                                  } else {
+                                  }
+
+                                  else {
                                     setState(() {
                                       showSpinner = true;
                                     });
 
                                     try {
-                                      final newUser = await _auth
+                                      newUser = (await _auth
                                           .createUserWithEmailAndPassword(
-                                              email: email, password: password);
-                                      if (newUser != null) {
-                                        await databaseReference
-                                            .collection("UserInfo")
-                                            .document(email)
-                                            .setData({
-                                          'Name': null,
-                                          'Email': email,
-                                          'Phone': null,
-                                          'Constituency': null,
-                                        });
-                                        Provider.of<DropDown>(context,
-                                                listen: false)
-                                            .setEmail(email);
-                                        SharedPreferences prefs =
-                                            await SharedPreferences.getInstance();
-                                        prefs.setString('email', email);
-                                        prefs.setString('name', null);
-                                        prefs.setString('phone', null);
-                                        prefs.setString('constituency', null);
-                                        prefs.setInt('i', 1);
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => PostSignUp(
-                                                    email: email,
-                                                  )),
-                                        );
+                                              email: email, password: password)).user;
+                                      try {
+                                        await newUser.sendEmailVerification();
+                                        i++;
+
+                                      } catch (e) {
+                                        print("An error occured while trying to send email verification");
+                                        print(e.message);
                                       }
+
                                       setState(() {
                                         showSpinner = false;
                                       });
+                                      _showDialog("Verification Link Sent", "Please click on the link sent to your mail and click on verify email.");
+
                                     } on PlatformException catch (e) {
                                       print(e);
                                       setState(() {
@@ -297,8 +288,9 @@ class _SignupPageState extends State<SignupPage> {
                                       });
                                       Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) {
-                                        return SignupPage();
-                                      }));
+                                            return SignupPage();
+                                          }));
+
                                       switch (e.code) {
                                         case "ERROR_EMAIL_ALREADY_IN_USE":
                                           {
@@ -343,7 +335,91 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            SizedBox(
+                              height: SizeConfig.safeBlockVertical * 5,
+                            ),
+                            Container(
+                              height: SizeConfig.safeBlockVertical * 7,
+
+                              child: InkWell(
+                                onTap: () async{
+                                  if(newUser==null)
+                                    _showDialog("Signup Error", "Please Register First.");
+                                  else{
+                                    setState(() {
+                                      showSpinner=true;
+                                    });
+                                    newUser = (await  _auth.signInWithEmailAndPassword(email: email, password:password)).user;
+                                    if(newUser.isEmailVerified){
+                                      if (newUser != null) {
+                                        await databaseReference
+                                            .collection("UserInfo")
+                                            .document(email)
+                                            .setData({
+                                          'Name': null,
+                                          'Email': email,
+                                          'Phone': null,
+                                          'Constituency': null,
+                                        });
+                                        Provider.of<DropDown>(context,
+                                            listen: false)
+                                            .setEmail(email);
+                                        SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                        prefs.setString('email', email);
+                                        prefs.setString('name', null);
+                                        prefs.setString('phone', null);
+                                        prefs.setString('constituency', null);
+                                        prefs.setInt('i', 1);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PostSignUp(
+                                                email: email,
+                                              )),
+                                        );
+                                      }
+                                      setState(() {
+                                        showSpinner=false;
+                                      });
+                                    }
+
+                                    else
+                                    {
+                                      setState(() {
+                                        showSpinner=false;
+                                      });
+
+                                      _showDialog("Email not Verified", "Please click on the verification link sent to your email.");
+                                    }
+
+                                  }
+                                },
+
+                                child: Material(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(30.0),
+                                shadowColor: Colors.indigo,
+                                elevation: 5.0,
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Text(
+                                      'VERIFY EMAIL',
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize:
+                                        SizeConfig.safeBlockHorizontal * 4,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              ),
+
+                            ),
                           ],
                         ),
                       ),

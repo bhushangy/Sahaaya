@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   String password = '';
   bool showSpinner = false;
   DocumentSnapshot doc;
+  FirebaseUser user;
 
   void initState() {
     super.initState();
@@ -376,10 +377,18 @@ class _LoginPageState extends State<LoginPage> {
                                     showSpinner = true;
                                   });
                                   try {
-                                    final user =
-                                        await _auth.signInWithEmailAndPassword(
-                                            email: email, password: password);
-                                    if (user != null) {
+                                     user =
+                                     (await _auth.signInWithEmailAndPassword(
+                                            email: email, password: password)).user;
+                                    if(user.isEmailVerified==false){
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                      _showDialog("Access Denied", "Email Not Verified. Please verify the email or leave a mail at sahaayaapp@gmail.com .");}
+                                    else{
+
+
+                                     if (user != null) {
                                       SharedPreferences prefs =
                                           await SharedPreferences.getInstance();
                                       prefs.setString('email', email);
@@ -420,6 +429,7 @@ class _LoginPageState extends State<LoginPage> {
                                     setState(() {
                                       showSpinner = false;
                                     });
+                                  }
                                   } on PlatformException catch (e) {
                                     print(e);
                                     setState(() {

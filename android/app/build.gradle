@@ -48,7 +48,7 @@ android {
         applicationId "com.miniproject.voter_grievance_redressal"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
+        versionCode 2
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
