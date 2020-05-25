@@ -113,7 +113,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: dontgoback,
+      onWillPop: newP==null?() async => true :dontgoback,
       child: Scaffold(
         appBar: AppBar(
           title: Text(

@@ -119,7 +119,7 @@ class _FeedbackSubmitState extends State<FeedbackSubmit> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: dontgoback,
+      onWillPop: feedback==null?() async => true :dontgoback,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
