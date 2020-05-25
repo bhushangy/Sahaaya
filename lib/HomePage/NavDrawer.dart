@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
 import 'package:voter_grievance_redressal/HomePage/About.dart';
+import 'package:voter_grievance_redressal/HomePage/Settings.dart';
 import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
 import 'package:voter_grievance_redressal/HomePage/Feedback.dart';
 import 'package:voter_grievance_redressal/HomePage/EditProfile.dart';
@@ -88,9 +89,10 @@ class NavDrawer extends StatelessWidget {
                 title: Text('Settings',style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w500,
                     fontSize: SizeConfig.safeBlockHorizontal*3.5),),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Scaffold.of(context).showSnackBar(snackbar);}
+                onTap: ()  {Navigator.push(context,
+            MaterialPageRoute(builder: (context) {
+            return Settings();
+            }));},
             ),
             ListTile(
               leading: Icon(Icons.border_color),
@@ -103,14 +105,14 @@ class NavDrawer extends StatelessWidget {
                   }));},
             ),
 
-            ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Help',style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w500,
-                  fontSize: SizeConfig.safeBlockHorizontal*3.5),),
-              onTap: () {Navigator.of(context).pop();
-              Scaffold.of(context).showSnackBar(snackbar);},
-            ),
+//            ListTile(
+//              leading: Icon(Icons.help),
+//              title: Text('Help',style: GoogleFonts.montserrat(
+//                  fontWeight: FontWeight.w500,
+//                  fontSize: SizeConfig.safeBlockHorizontal*3.5),),
+//              onTap: () {Navigator.of(context).pop();
+//              Scaffold.of(context).showSnackBar(snackbar);},
+//            ),
             ListTile(
               leading: Icon(Icons.people),
               title: Text('About',style: GoogleFonts.montserrat(

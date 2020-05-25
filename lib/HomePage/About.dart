@@ -16,7 +16,13 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
 
   bool showSpinner=false;
-
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +89,7 @@ class _AboutState extends State<About> {
                       ]
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
-                ),
+
                 Row(
                   children: <Widget>[
                     SizedBox(
@@ -112,7 +116,7 @@ class _AboutState extends State<About> {
                     ),
 
                     new Divider(
-                      height: SizeConfig.safeBlockVertical*3,
+                      height: SizeConfig.safeBlockVertical*0.1,
                     ),
                     new ListTile(
                       leading: new Icon(Icons.info),
@@ -121,7 +125,7 @@ class _AboutState extends State<About> {
                     ),
 
                     new Divider(
-                      height: SizeConfig.safeBlockVertical*3,
+                      height: SizeConfig.safeBlockVertical*0.1,
                     ),
                     new ListTile(
                       leading: new Icon(Icons.info),
@@ -129,7 +133,42 @@ class _AboutState extends State<About> {
                       subtitle: new Text("24-05-2020",style: GoogleFonts.montserrat(fontSize:SizeConfig.safeBlockHorizontal*3.4),),
                     ),
                     new Divider(
-                      height: SizeConfig.safeBlockVertical*3,
+                      height: SizeConfig.safeBlockVertical*0.1,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.018,
+                    ),
+
+                    Container(
+                      height: SizeConfig.safeBlockVertical*6,
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 20,
+                          right: SizeConfig.safeBlockHorizontal * 20),
+                      child: InkWell(
+                        onTap: ()async{
+                          _launchURL("https://play.google.com/store/apps/details?id=com.miniproject.voter_grievance_redressal");
+                        },
+                        child: Material(
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.circular(30.0),
+                        shadowColor: Colors.indigo,
+                        elevation: 5.0,
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              'Check For Updates',
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize:
+                                SizeConfig.safeBlockHorizontal * 4,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      ),
                     ),
                   ],
                 ),
