@@ -135,6 +135,10 @@ class _SignupPageState extends State<SignupPage> {
               onPressed: () {
                 newUser.delete();
                 newUser=null;
+                databaseReference
+                    .collection("UserInfo")
+                    .document(email)
+                    .delete();
                 Navigator.pop(context, true);
 
               },
@@ -324,6 +328,15 @@ class _SignupPageState extends State<SignupPage> {
                                         try {
                                           await newUser.sendEmailVerification();
                                           i++;
+                                          await databaseReference
+                                              .collection("UserInfo")
+                                              .document(email)
+                                              .setData({
+                                            'Name': null,
+                                            'Email': email,
+                                            'Phone': null,
+                                            'Constituency': null,
+                                          });
 
                                         } catch (e) {
                                           print("An error occured while trying to send email verification");
