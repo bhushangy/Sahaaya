@@ -1,3 +1,8 @@
+<a href="https://aimeos.org/">
+    <img src="https://github.com/bhushangy/Sahaaya/blob/master/assets/images/logo.png" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
+</a>
+
+
 # Sahaaya
 Sahaaya is a Flutter Application that serves as a platform for people to report the
 problems they face in their neighborhood to the concerned government organization
