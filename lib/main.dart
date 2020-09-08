@@ -1,14 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voter_grievance_redressal/Authentication/LoginPage.dart';
-import 'package:voter_grievance_redressal/HomePage/BottomNavBar.dart';
-import 'package:voter_grievance_redressal/HomePage/HomePage.dart';
-import 'package:voter_grievance_redressal/SplashScreen/SplashScreen1.dart';
-import 'package:voter_grievance_redressal/SplashScreen/SplashScreen2.dart';
-import 'package:voter_grievance_redressal/SplashScreen/SplashScreen3.dart';
-import 'package:voter_grievance_redressal/Provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/provider/ProviderClass.dart';
+import 'package:voter_grievance_redressal/screens/authentication/LoginPage.dart';
+import 'package:voter_grievance_redressal/screens/home/HomePage.dart';
+import 'package:voter_grievance_redressal/screens/splash_screen/SplashScreen1.dart';
+import 'package:voter_grievance_redressal/screens/splash_screen/SplashScreen2.dart';
+import 'package:voter_grievance_redressal/screens/splash_screen/SplashScreen3.dart';
+
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
