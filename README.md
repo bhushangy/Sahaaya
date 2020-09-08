@@ -11,7 +11,7 @@ purpose of inducing more competency in the system.
 ## Download App
 
 <a href="https://play.google.com/store/apps/details?id=com.miniproject.voter_grievance_redressal/">
-    <img src="https://github.com/bhushangy/Sahaaya/blob/master/assets/images/logo.png" alt="Sahaaya" title="Sahaaya" align="right" height="150" />
+    <img src="https://github.com/bhushangy/Sahaaya/blob/master/assets/images/logo.png" alt="Sahaaya" title="Sahaaya" align="canter" height="125" />
 </a>
 
 <a href="https://play.google.com/store/apps/details?id=com.miniproject.voter_grievance_redressal"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"></img></a>
